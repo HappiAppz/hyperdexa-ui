@@ -96,20 +96,23 @@ const Index = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Today's Appointments */}
-          <Card className="bg-blue-900 text-white">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-lg font-semibold">Today's Appointments</CardTitle>
-              <Button variant="outline" size="icon" className="border-white text-white hover:bg-white hover:text-blue-900">
+          <Card className="overflow-hidden" style={{ background: 'linear-gradient(180deg, #022268 0%, #FFFBF5 100%)' }}>
+            <CardHeader className="flex flex-row items-center justify-between pb-4">
+              <CardTitle className="text-lg font-semibold text-white">Today's Appointments</CardTitle>
+              <Button variant="outline" size="icon" className="border-white/30 text-white hover:bg-white hover:text-blue-900 bg-white/10">
                 <Plus className="w-4 h-4" />
               </Button>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-5">
               {appointments.map((appointment, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-white rounded-full mt-2 flex-shrink-0"></div>
+                <div key={index} className="flex items-start space-x-4">
+                  <div 
+                    className="w-3 h-3 rounded-full mt-2 flex-shrink-0" 
+                    style={{ backgroundColor: index === 1 ? '#022268' : '#E6EBF5' }}
+                  ></div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium">Call {appointment.client} regarding {appointment.property}</div>
-                    <div className="text-xs text-blue-100">{appointment.time}</div>
+                    <div className="text-sm font-medium text-white mb-1">Call {appointment.client} regarding {appointment.property}</div>
+                    <div className="text-xs text-white/80">{appointment.time}</div>
                   </div>
                 </div>
               ))}
