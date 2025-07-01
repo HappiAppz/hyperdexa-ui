@@ -58,7 +58,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between w-full">
@@ -117,9 +117,9 @@ const Index = () => {
         </div>
       </header>
 
-      <div className="flex-1 px-6 py-6 overflow-auto">
+      <div className="flex-1 px-6 py-6">
         {/* Date and Welcome */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-6">
             <div className="text-center">
               <div className="text-4xl font-bold text-gray-900">25</div>
@@ -142,7 +142,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Today's Appointments */}
           <Card
             className="overflow-hidden"
