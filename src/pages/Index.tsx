@@ -142,7 +142,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_1fr] gap-6">
           {/* Left Column - Today's Appointments */}
           <Card
             className="overflow-hidden"
@@ -251,38 +251,38 @@ const Index = () => {
           </div>
 
           {/* Right Column - Stats */}
-          <div className="space-y-6">
+          <div className="space-y-6 h-full flex flex-col">
             {/* Total Leads */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-sm font-medium text-gray-600">
+            <Card className="flex-1">
+              <CardContent className="p-8 h-full">
+                <div className="flex items-center justify-between h-full">
+                  <div className="flex flex-col justify-center">
+                    <div className="text-lg font-medium text-gray-600 mb-3">
                       Total Leads
                     </div>
-                    <div className="text-3xl font-bold text-blue-900">125</div>
-                    <div className="text-xs text-gray-500">2 new added</div>
+                    <div className="text-6xl font-bold text-blue-900 mb-2">125</div>
+                    <div className="text-sm text-gray-500">2 new added</div>
                   </div>
-                  <div className="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold">2</span>
+                  <div className="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold text-lg">2</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Total Properties */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-sm font-medium text-gray-600">
+            <Card className="flex-1">
+              <CardContent className="p-8 h-full">
+                <div className="flex items-center justify-between h-full">
+                  <div className="flex flex-col justify-center">
+                    <div className="text-lg font-medium text-gray-600 mb-3">
                       Total Properties
                     </div>
-                    <div className="text-3xl font-bold text-blue-900">40</div>
-                    <div className="text-xs text-gray-500">2 new added</div>
+                    <div className="text-6xl font-bold text-blue-900 mb-2">40</div>
+                    <div className="text-sm text-gray-500">2 new added</div>
                   </div>
-                  <div className="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold">2</span>
+                  <div className="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold text-lg">2</span>
                   </div>
                 </div>
               </CardContent>
