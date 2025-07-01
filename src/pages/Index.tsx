@@ -143,7 +143,7 @@ const Index = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Today's Appointments */}
+          {/* Left Column - Today's Appointments */}
           <Card
             className="overflow-hidden"
             style={{
@@ -184,39 +184,75 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          {/* Follow Ups */}
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-lg font-semibold text-gray-900">
-                Follow Ups
-              </CardTitle>
-              <Button variant="outline" size="icon">
-                <Plus className="w-4 h-4" />
-              </Button>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {followUps.map((followUp, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div>
-                    <div className="text-sm font-medium text-gray-900">
-                      Follow up with {followUp.client}
-                    </div>
-                    <div className="text-xs text-gray-500">{followUp.type}</div>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-blue-900 border-blue-900 hover:bg-blue-50"
-                  >
-                    Message now
-                  </Button>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-
-          {/* Stats */}
+          {/* Middle Column - Follow Ups and Action Cards */}
           <div className="space-y-6">
+            {/* Follow Ups */}
+            <Card className="h-fit">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="text-lg font-semibold text-gray-900">
+                  Follow Ups
+                </CardTitle>
+                <Button variant="outline" size="icon">
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </CardHeader>
+              <CardContent className="max-h-80 overflow-y-auto">
+                <div className="space-y-4">
+                  {followUps.map((followUp, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0"
+                    >
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">
+                          Follow up with {followUp.client}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {followUp.type}
+                        </div>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-blue-900 border-blue-900 hover:bg-blue-50 flex-shrink-0"
+                      >
+                        Message now
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Action Cards Row */}
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <UserPlus className="w-8 h-8 text-blue-900" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Add new lead
+                  </h3>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Home className="w-8 h-8 text-blue-900" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Add new property
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Right Column - Stats */}
+          <div className="space-y-6">
+            {/* Total Leads */}
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -234,6 +270,7 @@ const Index = () => {
               </CardContent>
             </Card>
 
+            {/* Total Properties */}
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -251,31 +288,6 @@ const Index = () => {
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        {/* Action Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <UserPlus className="w-8 h-8 text-blue-900" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Add new lead
-              </h3>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Home className="w-8 h-8 text-blue-900" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Add new property
-              </h3>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
