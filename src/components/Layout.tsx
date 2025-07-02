@@ -20,17 +20,16 @@ const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
 
   const navItems = [
-    { name: "Dashboard", path: "/", icon: "⊞" },
+    { name: "Dashboard", path: "/dashboard", icon: "⊞" },
     { name: "Leads", path: "/leads", icon: "👥" },
     { name: "Properties", path: "/properties", icon: "🏠" },
     { name: "Calendar", path: "/calendar", icon: "📅" },
   ];
 
   const isActive = (path: string) => {
-    if (path === "/") {
-      return location.pathname === "/";
-    }
-    return location.pathname.startsWith(path);
+    return (
+      location.pathname === path || location.pathname.startsWith(path + "/")
+    );
   };
 
   return (

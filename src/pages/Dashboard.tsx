@@ -1,193 +1,162 @@
+import { Plus, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
-import { Plus, MessageSquare, Mic } from "lucide-react";
 
 const Dashboard = () => {
   const appointments = [
     {
-      name: "Call Zack regarding Highland Park property",
+      title: "Call Zack regarding Highland Park property",
       time: "01:00 PM - 02:00 PM",
-      active: false,
     },
     {
-      name: "Meet Tina at Elm Street listing",
+      title: "Meet Tina at Elm Street listing",
       time: "01:00 PM - 02:00 PM",
-      active: true,
     },
     {
-      name: "Meet Tina at Elm Street listing",
+      title: "Meet Tina at Elm Street listing",
       time: "01:00 PM - 02:00 PM",
-      active: false,
     },
     {
-      name: "Meet Tina at Elm Street listing",
+      title: "Meet Tina at Elm Street listing",
       time: "01:00 PM - 02:00 PM",
-      active: false,
     },
     {
-      name: "Meet Tina at Elm Street listing",
+      title: "Meet Tina at Elm Street listing",
       time: "01:00 PM - 02:00 PM",
-      active: false,
     },
     {
-      name: "Meet Tina at Elm Street listing",
+      title: "Meet Tina at Elm Street listing",
       time: "01:00 PM - 02:00 PM",
-      active: false,
     },
   ];
 
   const followUps = [
-    { name: "Follow up with John", time: "Yesterday 6 PM" },
-    { name: "Follow up with John", time: "Yesterday 6 PM" },
-    { name: "Follow up with John", time: "Yesterday 6 PM" },
-    { name: "Follow up with John", time: "Yesterday 6 PM" },
-    { name: "Follow up with John", time: "Yesterday 6 PM" },
+    { client: "John", inactive: "4 days" },
+    { client: "John", inactive: "4 days" },
+    { client: "John", inactive: "4 days" },
+    { client: "John", inactive: "4 days" },
+    { client: "John", inactive: "4 days" },
   ];
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-6">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-gray-900">25</div>
-              <div className="text-sm text-gray-500">Wed, June</div>
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                Welcome back, Maria!
-              </h1>
-            </div>
+      {/* Dashboard Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.2fr_0.8fr] gap-8">
+        {/* Appointments Card */}
+        <div
+          className="rounded-2xl p-7 shadow-xl relative overflow-hidden"
+          style={{
+            background: "linear-gradient(45deg, #022268 20%, #FFFBF5 140%)",
+          }}
+        >
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-lg font-semibold text-white">
+              Today's Appointments
+            </h2>
+            <button className="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center text-2xl hover:bg-white/30 transition-transform rotate-0 hover:rotate-90">
+              <Plus className="w-5 h-5" />
+            </button>
           </div>
-          <div className="flex items-center space-x-4">
-            <button className="bg-blue-900 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2">
-              <span>Show all tasks</span>
-              <span>→</span>
-            </button>
-            <button className="p-2 bg-white rounded-full border border-gray-200">
-              <Mic className="w-5 h-5 text-gray-600" />
-            </button>
+          <div className="space-y-7 relative">
+            {appointments.map((item, idx) => (
+              <div key={idx} className="flex items-center gap-4 relative pl-7">
+                {/* Timeline vertical line */}
+                {idx < appointments.length - 1 && (
+                  <div className="absolute left-2.5 top-5 bottom-[-28px] w-0.5 bg-white/30 z-0" />
+                )}
+                {/* Timeline dot */}
+                <div className="absolute left-0 top-2 w-5 h-5 rounded-full bg-white flex items-center justify-center z-10">
+                  <div className="w-2 h-2 rounded-full bg-[#1e3a8a]" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-sm font-medium text-white mb-1">
+                    {item.title}
+                  </div>
+                  <div className="text-xs text-white/80">{item.time}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Today's Appointments */}
-          <div className="lg:col-span-1">
-            <div className="bg-gradient-to-br from-blue-800 via-blue-900 to-indigo-900 rounded-2xl p-6 text-white shadow-lg">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold">Today's Appointments</h2>
-                <button className="p-2 bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-all">
-                  <Plus className="w-4 h-4" />
-                </button>
-              </div>
-              <div className="space-y-5">
-                {appointments.map((appointment, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div
-                      className={`w-3 h-3 rounded-full mt-2 flex-shrink-0 ${
-                        appointment.active
-                          ? "bg-white shadow-md"
-                          : "bg-white bg-opacity-60"
-                      }`}
-                    ></div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium leading-relaxed mb-1">
-                        {appointment.name}
-                      </div>
-                      <div className="text-xs text-blue-100 opacity-90">
-                        {appointment.time}
-                      </div>
+        {/* Follow Ups Card */}
+        <div className="rounded-2xl bg-white shadow-xl p-7 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-[#1e3a8a]">
+                Follow Ups
+              </h2>
+              <button className="w-9 h-9 rounded-full bg-[#f0f0f0] text-[#666] flex items-center justify-center text-2xl hover:bg-[#e0e0e0] transition-transform rotate-0 hover:rotate-90">
+                <Plus className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="max-h-64 overflow-y-auto pr-2">
+              {followUps.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center justify-between py-4 border-b border-[#f0f0f0] last:border-b-0"
+                >
+                  <div>
+                    <div className="text-sm font-medium text-[#1e3a8a] mb-1">
+                      Follow up with {item.client}
+                    </div>
+                    <div className="text-xs text-gray-400">
+                      Inactive {item.inactive}
                     </div>
                   </div>
-                ))}
+                  <Button className="rounded-full border-2 border-[#1e3a8a] text-[#1e3a8a] bg-white hover:bg-[#1e3a8a] hover:text-white px-5 py-2 font-medium text-sm transition-colors">
+                    Message now
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Action Buttons */}
+          <div className="grid grid-cols-2 gap-4 mt-8">
+            <div className="rounded-xl border-2 border-[#e8eaf6] bg-white text-center py-6 cursor-pointer hover:border-[#1e3a8a] hover:shadow-lg transition-all flex flex-col items-center">
+              <div className="text-3xl mb-2 text-[#1e3a8a]">465+</div>
+              <div className="text-base font-medium text-[#1e3a8a]">
+                Add new lead
+              </div>
+            </div>
+            <div className="rounded-xl border-2 border-[#e8eaf6] bg-white text-center py-6 cursor-pointer hover:border-[#1e3a8a] hover:shadow-lg transition-all flex flex-col items-center">
+              <div className="text-3xl mb-2 text-[#1e3a8a]">3e0+</div>
+              <div className="text-base font-medium text-[#1e3a8a]">
+                Add new property
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Follow Ups and Stats */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Follow Ups */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold text-gray-900">
-                  Follow Ups
-                </h2>
-                <button className="p-1 bg-gray-100 rounded-full">
-                  <Plus className="w-4 h-4 text-gray-600" />
-                </button>
-              </div>
-              <div className="space-y-3">
-                {followUps.map((followUp, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between py-2"
-                  >
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">
-                        {followUp.name}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {followUp.time}
-                      </div>
-                    </div>
-                    <button className="bg-blue-100 text-blue-900 px-3 py-1 rounded-lg text-xs font-medium">
-                      Message now
-                    </button>
-                  </div>
-                ))}
+        {/* Stats Section */}
+        <div className="flex flex-col gap-8">
+          <div className="rounded-2xl bg-white shadow-xl p-7 flex flex-col justify-between h-full">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[#1e3a8a] text-lg font-semibold">
+                Total Leads
+              </span>
+              <div className="w-10 h-10 bg-[#e8eaf6] rounded-full flex items-center justify-center text-xl">
+                <ArrowRight className="w-6 h-6 rotate-45 text-[#1e3a8a]" />
               </div>
             </div>
-
-            {/* Stats and Action Cards */}
-            <div className="grid grid-cols-2 gap-6">
-              {/* Total Leads */}
-              <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium text-gray-600">
-                    Total Leads
-                  </h3>
-                  <div className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">?</span>
-                  </div>
-                </div>
-                <div className="text-4xl font-bold text-gray-900 mb-2">125</div>
-                <div className="text-xs text-gray-500">2 new added</div>
-              </div>
-
-              {/* Total Properties */}
-              <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium text-gray-600">
-                    Total Properties
-                  </h3>
-                  <div className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">?</span>
-                  </div>
-                </div>
-                <div className="text-4xl font-bold text-gray-900 mb-2">40</div>
-                <div className="text-xs text-gray-500">2 new added</div>
-              </div>
-
-              {/* Add New Lead */}
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col items-center justify-center text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                  <Plus className="w-6 h-6 text-blue-900" />
-                </div>
-                <div className="text-sm font-medium text-gray-900">
-                  Add new lead
-                </div>
-              </div>
-
-              {/* Add New Property */}
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 flex flex-col items-center justify-center text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                  <Plus className="w-6 h-6 text-blue-900" />
-                </div>
-                <div className="text-sm font-medium text-gray-900">
-                  Add new property
-                </div>
+            <div className="text-[48px] font-bold text-[#1e3a8a] leading-none mb-2">
+              125
+            </div>
+            <div className="text-xs text-gray-400 font-medium">2 new added</div>
+          </div>
+          <div className="rounded-2xl bg-white shadow-xl p-7 flex flex-col justify-between h-full">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[#1e3a8a] text-lg font-semibold">
+                Total Properties
+              </span>
+              <div className="w-10 h-10 bg-[#e8eaf6] rounded-full flex items-center justify-center text-xl">
+                <ArrowRight className="w-6 h-6 rotate-45 text-[#1e3a8a]" />
               </div>
             </div>
+            <div className="text-[48px] font-bold text-[#1e3a8a] leading-none mb-2">
+              40
+            </div>
+            <div className="text-xs text-gray-400 font-medium">2 new added</div>
           </div>
         </div>
       </div>
