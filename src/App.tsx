@@ -8,6 +8,7 @@ import Leads from "./pages/Leads";
 import LeadProfile from "./pages/LeadProfile";
 import Properties from "./pages/Properties";
 import PropertyDetail from "./pages/PropertyDetail";
+import Calendar from "./pages/Calendar";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/lead/:id" element={<LeadProfile />} />
           <Route path="/properties" element={<Properties />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
+          <Route path="/calendar" element={<Calendar />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
