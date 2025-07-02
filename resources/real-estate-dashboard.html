@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-tab {
+            padding: 12px 24px;
+            border-radius: 25px;
+            background: #e8eaf6;
+            color: #5a67d8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            background: #1e3a8a;
+            color: white;
+        }
+        
+        .nav-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .heart-icon {
+            width: 40px;
+            height: 40px;
+            background: #e8eaf6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* Main Content */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .date-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .date-box {
+            text-align: center;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .date-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e3a8a;
+            line-height: 1;
+        }
+        
+        .date-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .welcome-text {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+        
+        .show-tasks-btn {
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .show-tasks-btn:hover {
+            background: #1e3d8f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        }
+        
+        .voice-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #e8eaf6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .voice-btn:hover {
+            border-color: #1e3a8a;
+            transform: scale(1.1);
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 0.8fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .add-btn {
+            width: 36px;
+            height: 36px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn:hover {
+            background: #e0e0e0;
+            transform: rotate(90deg);
+        }
+        
+        /* Appointments Card */
+        .appointments-card {
+            background: linear-gradient(135deg, #3b5998 0%, #1e3a8a 100%);
+            color: white;
+        }
+        
+        .appointments-card .card-title {
+            color: white;
+        }
+        
+        .appointments-card .add-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .appointment-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .appointment-item::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 25px;
+            bottom: -20px;
+            width: 2px;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .appointment-item:last-child::before {
+            display: none;
+        }
+        
+        .appointment-dot {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .appointment-dot::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #1e3a8a;
+            border-radius: 50%;
+        }
+        
+        .appointment-details {
+            flex: 1;
+        }
+        
+        .appointment-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .appointment-time {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        /* Follow Ups Card */
+        .follow-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .follow-item:last-child {
+            border-bottom: none;
+        }
+        
+        .follow-details {
+            flex: 1;
+        }
+        
+        .follow-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .follow-time {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .message-btn {
+            padding: 8px 20px;
+            background: white;
+            border: 2px solid #1e3a8a;
+            color: #1e3a8a;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .message-btn:hover {
+            background: #1e3a8a;
+            color: white;
+        }
+        
+        /* Stats Cards */
+        .stats-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background: #e8eaf6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1e3a8a;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .stat-subtitle {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            padding: 20px;
+            background: white;
+            border: 2px solid #e8eaf6;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            border-color: #1e3a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .action-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #1e3a8a;
+        }
+        
+        .action-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo"></div>
+            
+            <div class="nav-tabs">
+                <a href="#" class="nav-tab active">
+                    <span>⊞</span> Dashboard
+                </a>
+                <a href="#" class="nav-tab">
+                    <span>👥</span> Leads
+                </a>
+                <a href="#" class="nav-tab">
+                    <span>🏠</span> Properties
+                </a>
+                <a href="#" class="nav-tab">
+                    <span>📅</span> Calendar
+                </a>
+            </div>
+            
+            <div class="user-section">
+                <div class="heart-icon">💜</div>
+                <div class="user-profile">
+                    <div class="user-avatar">M</div>
+                    <div class="user-info">
+                        <div class="user-name">Maria Moss</div>
+                        <div class="user-role">Real estate agent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-header">
+            <div class="date-section">
+                <div class="date-box">
+                    <div class="date-number">25</div>
+                    <div class="date-info">Wed,<br>June</div>
+                </div>
+                <h1 class="welcome-text">Welcome back, Maria!</h1>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <button class="show-tasks-btn">Show all tasks →</button>
+                <button class="voice-btn">🎤</button>
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Appointments Card -->
+            <div class="card appointments-card">
+                <div class="card-header">
+                    <h2 class="card-title">Today's Appointments</h2>
+                    <div class="add-btn">+</div>
+                </div>
+                
+                <div class="appointment-item">
+                    <div class="appointment-dot"></div>
+                    <div class="appointment-details">
+                        <div class="appointment-title">Call Zack regarding Highland Park property</div>
+                        <div class="appointment-time">01:00 PM - 02:00 PM</div>
+                    </div>
+                </div>
+                
+                <div class="appointment-item">
+                    <div class="appointment-dot"></div>
+                    <div class="appointment-details">
+                        <div class="appointment-title">Meet Tina at Elm Street listing</div>
+                        <div class="appointment-time">01:00 PM - 02:00 PM</div>
+                    </div>
+                </div>
+                
+                <div class="appointment-item">
+                    <div class="appointment-dot"></div>
+                    <div class="appointment-details">
+                        <div class="appointment-title">Meet Tina at Elm Street listing</div>
+                        <div class="appointment-time">01:00 PM - 02:00 PM</div>
+                    </div>
+                </div>
+                
+                <div class="appointment-item">
+                    <div class="appointment-dot"></div>
+                    <div class="appointment-details">
+                        <div class="appointment-title">Meet Tina at Elm Street listing</div>
+                        <div class="appointment-time">01:00 PM - 02:00 PM</div>
+                    </div>
+                </div>
+                
+                <div class="appointment-item">
+                    <div class="appointment-dot"></div>
+                    <div class="appointment-details">
+                        <div class="appointment-title">Meet Tina at Elm Street listing</div>
+                        <div class="appointment-time">01:00 PM - 02:00 PM</div>
+                    </div>
+                </div>
+                
+                <div class="appointment-item">
+                    <div class="appointment-dot"></div>
+                    <div class="appointment-details">
+                        <div class="appointment-title">Meet Tina at Elm Street listing</div>
+                        <div class="appointment-time">01:00 PM - 02:00 PM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Follow Ups Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Follow Ups</h2>
+                    <div class="add-btn">+</div>
+                </div>
+                
+                <div class="follow-item">
+                    <div class="follow-details">
+                        <div class="follow-title">Follow up with John</div>
+                        <div class="follow-time">Inactive 4 days</div>
+                    </div>
+                    <button class="message-btn">Message now</button>
+                </div>
+                
+                <div class="follow-item">
+                    <div class="follow-details">
+                        <div class="follow-title">Follow up with John</div>
+                        <div class="follow-time">Inactive 4 days</div>
+                    </div>
+                    <button class="message-btn">Message now</button>
+                </div>
+                
+                <div class="follow-item">
+                    <div class="follow-details">
+                        <div class="follow-title">Follow up with John</div>
+                        <div class="follow-time">Inactive 4 days</div>
+                    </div>
+                    <button class="message-btn">Message now</button>
+                </div>
+                
+                <div class="follow-item">
+                    <div class="follow-details">
+                        <div class="follow-title">Follow up with John</div>
+                        <div class="follow-time">Inactive 4 days</div>
+                    </div>
+                    <button class="message-btn">Message now</button>
+                </div>
+                
+                <div class="follow-item">
+                    <div class="follow-details">
+                        <div class="follow-title">Follow up with John</div>
+                        <div class="follow-time">Inactive 4 days</div>
+                    </div>
+                    <button class="message-btn">Message now</button>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <div class="action-btn">
+                        <div class="action-icon">👥+</div>
+                        <div class="action-text">Add new lead</div>
+                    </div>
+                    <div class="action-btn">
+                        <div class="action-icon">🏠+</div>
+                        <div class="action-text">Add new property</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Total Leads</h3>
+                        <div class="stat-icon">↗️</div>
+                    </div>
+                    <div class="stat-number">125</div>
+                    <div class="stat-subtitle">2 new added</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Total Properties</h3>
+                        <div class="stat-icon">↗️</div>
+                    </div>
+                    <div class="stat-number">40</div>
+                    <div class="stat-subtitle">2 new added</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
