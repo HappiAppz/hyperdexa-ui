@@ -253,40 +253,84 @@ const Index = () => {
           {/* Right Column - Stats */}
           <div className="space-y-6 h-full flex flex-col">
             {/* Total Leads */}
-            <Card className="flex-1">
-              <CardContent className="p-8 h-full">
-                <div className="flex items-center justify-between h-full">
-                  <div className="flex flex-col justify-center">
-                    <div className="text-lg font-medium text-gray-600 mb-3">
-                      Total Leads
-                    </div>
-                    <div className="text-6xl font-bold text-blue-900 mb-2">125</div>
-                    <div className="text-sm text-gray-500">2 new added</div>
-                  </div>
-                  <div className="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold text-lg">2</span>
-                  </div>
+            <div className="flex-1 flex flex-col justify-between bg-[#fffbf5] rounded-[13px] shadow-[0_9px_27px_0_rgba(2,34,104,0.1),0_-9px_27px_0_rgba(2,34,104,0.1)] px-5 py-4">
+              <div className="flex items-center justify-between w-full mb-4">
+                <span
+                  className="text-[#022268] text-[20px] font-normal tracking-[0.01em]"
+                  style={{ WebkitTextStroke: "0.16px #797979" }}
+                >
+                  Total Leads
+                </span>
+                <div className="bg-[#022268] rounded-full p-2 shadow-[0_4px_14px_0_rgba(2,34,104,0.38)] transform -rotate-45 w-[29px] h-[29px] flex items-center justify-center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="rotate-45"
+                  >
+                    <path
+                      d="M5 19L19 5M19 5H7M19 5V17"
+                      stroke="#fff"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="mb-2">
+                <span
+                  className="text-[#3548a2] text-[55px] font-medium tracking-[0.01em] leading-none"
+                  style={{ WebkitTextStroke: "0.42px #060606" }}
+                >
+                  125
+                </span>
+              </div>
+              <span className="text-[#787878] text-[12px] font-medium tracking-[0.01em]">
+                2 new added
+              </span>
+            </div>
 
             {/* Total Properties */}
-            <Card className="flex-1">
-              <CardContent className="p-8 h-full">
-                <div className="flex items-center justify-between h-full">
-                  <div className="flex flex-col justify-center">
-                    <div className="text-lg font-medium text-gray-600 mb-3">
-                      Total Properties
-                    </div>
-                    <div className="text-6xl font-bold text-blue-900 mb-2">40</div>
-                    <div className="text-sm text-gray-500">2 new added</div>
-                  </div>
-                  <div className="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold text-lg">2</span>
-                  </div>
+            <div className="flex-1 flex flex-col justify-between bg-[#fffbf5] rounded-[13px] shadow-[0_9px_27px_0_rgba(2,34,104,0.1),0_-9px_27px_0_rgba(2,34,104,0.1)] px-5 py-4">
+              <div className="flex items-center justify-between w-full mb-4">
+                <span
+                  className="text-[#022268] text-[20px] font-normal tracking-[0.01em]"
+                  style={{ WebkitTextStroke: "0.16px #797979" }}
+                >
+                  Total Properties
+                </span>
+                <div className="bg-[#022268] rounded-full p-2 shadow-[0_4px_14px_0_rgba(2,34,104,0.38)] transform -rotate-45 w-[29px] h-[29px] flex items-center justify-center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="rotate-45"
+                  >
+                    <path
+                      d="M5 19L19 5M19 5H7M19 5V17"
+                      stroke="#fff"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="mb-2">
+                <span
+                  className="text-[#3548a2] text-[55px] font-medium tracking-[0.01em] leading-none"
+                  style={{ WebkitTextStroke: "0.42px #060606" }}
+                >
+                  40
+                </span>
+              </div>
+              <span className="text-[#787878] text-[12px] font-medium tracking-[0.01em]">
+                2 new added
+              </span>
+            </div>
           </div>
         </div>
       </div>
