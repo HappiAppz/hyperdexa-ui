@@ -34,10 +34,9 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="min-h-screen bg-[#f9f7f3] flex flex-col">
-      {/* Main Container for width constraint and centering */}
-      <div className="max-w-screen-2xl w-full mx-auto px-4">
-        {/* Header */}
-        <header className="bg-transparent pt-8 pb-4 flex-shrink-0">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-[#f9f7f3] pt-8 pb-4 flex-shrink-0">
+        <div className="max-w-screen-3xl w-full mx-auto px-4">
           <div className="flex items-center justify-between w-full">
             {/* Three-column flex: Logo | Nav Tabs (centered) | User Section */}
             <div className="flex w-full items-center justify-between">
@@ -86,8 +85,11 @@ const Layout = ({ children }: LayoutProps) => {
               </div>
             </div>
           </div>
-        </header>
+        </div>
+      </header>
 
+      {/* Main Container for width constraint and centering */}
+      <div className="max-w-screen-3xl w-full mx-auto px-4">
         {/* Main Content Header */}
         <div className="flex items-center justify-between mb-8 mt-2">
           <div className="flex items-center gap-6">
