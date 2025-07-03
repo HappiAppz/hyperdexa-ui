@@ -11,12 +11,12 @@ const Calendar = () => {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const daysInMonth = lastDay.getDate();
-    const startingDayOfWeek = firstDay.getDay();
-
+    let startingDayOfWeek = firstDay.getDay();
+    startingDayOfWeek = startingDayOfWeek === 0 ? 6 : startingDayOfWeek - 1;
     const days = [];
 
     // Add empty cells for days before month starts
-    for (let i = 0; i < startingDayOfWeek - 1; i++) {
+    for (let i = 0; i < startingDayOfWeek; i++) {
       days.push(null);
     }
 
@@ -89,6 +89,20 @@ const Calendar = () => {
     { day: "Jun, Sun", date: 30 },
   ];
 
+  // Month navigation handlers
+  const handlePrevMonth = () => {
+    setSelectedDate((prev) => {
+      const prevMonth = new Date(prev.getFullYear(), prev.getMonth() - 1, 1);
+      return prevMonth;
+    });
+  };
+  const handleNextMonth = () => {
+    setSelectedDate((prev) => {
+      const nextMonth = new Date(prev.getFullYear(), prev.getMonth() + 1, 1);
+      return nextMonth;
+    });
+  };
+
   return (
     <Layout>
       <div className="flex gap-6">
@@ -104,10 +118,16 @@ const Calendar = () => {
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-blue-900">{monthYear}</h3>
               <div className="flex space-x-1">
-                <button className="p-1 hover:bg-gray-100 rounded">
+                <button
+                  className="p-1 hover:bg-gray-100 rounded"
+                  onClick={handlePrevMonth}
+                >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <button className="p-1 hover:bg-gray-100 rounded">
+                <button
+                  className="p-1 hover:bg-gray-100 rounded"
+                  onClick={handleNextMonth}
+                >
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
@@ -133,10 +153,24 @@ const Calendar = () => {
                   {day && (
                     <button
                       className={`w-8 h-8 rounded-full text-sm hover:bg-gray-100 ${
-                        day === 27
-                          ? "bg-blue-900 text-white hover:bg-blue-800"
-                          : ""
+                        day === selectedDate.getDate() &&
+                        selectedDate.getMonth() ===
+                          new Date(
+                            selectedDate.getFullYear(),
+                            selectedDate.getMonth(),
+                            day
+                          ).getMonth() &&
+                        "bg-blue-900 text-white hover:bg-blue-800"
                       }`}
+                      onClick={() => {
+                        setSelectedDate(
+                          new Date(
+                            selectedDate.getFullYear(),
+                            selectedDate.getMonth(),
+                            day
+                          )
+                        );
+                      }}
                     >
                       {day}
                     </button>
