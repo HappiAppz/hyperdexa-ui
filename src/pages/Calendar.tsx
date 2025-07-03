@@ -103,6 +103,84 @@ const Calendar = () => {
     });
   };
 
+  // Helper to get the start (Monday) and days of the week for a given date
+  const getWeekDays = (date) => {
+    const curr = new Date(date);
+    // JS: 0=Sun, 1=Mon, ..., 6=Sat. We want week to start on Monday
+    const day = curr.getDay();
+    const diffToMonday = day === 0 ? -6 : 1 - day;
+    const monday = new Date(curr);
+    monday.setDate(curr.getDate() + diffToMonday);
+    // Build week array (Mon-Sun)
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(monday);
+      d.setDate(monday.getDate() + i);
+      return d;
+    });
+  };
+
+  // Move week by n weeks (n can be negative)
+  const moveWeek = (n) => {
+    setSelectedDate((prev) => {
+      const newDate = new Date(prev);
+      newDate.setDate(prev.getDate() + n * 7);
+      return newDate;
+    });
+  };
+
+  // Go to today
+  const goToToday = () => {
+    setSelectedDate(new Date());
+  };
+
+  // Events keyed by YYYY-MM-DD for demo
+  const eventsByDate = {
+    "2025-06-24": [
+      {
+        title: "Holiday",
+        allDay: true,
+        color: "bg-purple-100 text-purple-700",
+        type: "holiday",
+      },
+    ],
+    "2025-06-25": [
+      {
+        title: "Call Tina at Starbucks regarding Reem Hills Property",
+        time: "12:00 PM - 1:00PM",
+        color: "bg-orange-100 text-orange-700",
+        hasLocation: true,
+        type: "event",
+      },
+      {
+        title: "Send Reem Hills Property to Kevin",
+        time: "2:00 PM - 4:00PM",
+        color: "bg-purple-100 text-purple-700",
+        type: "event",
+      },
+    ],
+    "2025-06-28": [
+      {
+        title: "Call Tina at Starbucks regarding Reem Hills Property",
+        time: "12:00 PM - 1:00PM",
+        color: "bg-orange-100 text-orange-700",
+        type: "event",
+      },
+    ],
+  };
+
+  // Helper to format date as YYYY-MM-DD
+  const formatDate = (date) => {
+    return date.toISOString().split("T")[0];
+  };
+
+  const weekDaysArr = getWeekDays(selectedDate);
+  const weekRangeLabel = `${weekDaysArr[0].getDate()} ${weekDaysArr[0].toLocaleString(
+    "en-US",
+    { month: "short" }
+  )}-${weekDaysArr[6].getDate()} ${weekDaysArr[6].toLocaleString("en-US", {
+    month: "short",
+  })}`;
+
   return (
     <Layout>
       <div className="flex gap-6">
@@ -227,16 +305,25 @@ const Calendar = () => {
         <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="p-6">
             <div className="flex items-center justify-between mb-6">
-              <button className="px-4 py-2 bg-gray-100 rounded-lg text-sm font-medium hover:bg-gray-200">
+              <button
+                className="px-4 py-2 bg-gray-100 rounded-lg text-sm font-medium hover:bg-gray-200"
+                onClick={goToToday}
+              >
                 Today
               </button>
               <div className="flex items-center space-x-4">
-                <h2 className="text-xl font-semibold">23 June-30 June</h2>
+                <h2 className="text-xl font-semibold">{weekRangeLabel}</h2>
                 <div className="flex space-x-1">
-                  <button className="p-2 hover:bg-gray-100 rounded">
+                  <button
+                    className="p-2 hover:bg-gray-100 rounded"
+                    onClick={() => moveWeek(-1)}
+                  >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
-                  <button className="p-2 hover:bg-gray-100 rounded">
+                  <button
+                    className="p-2 hover:bg-gray-100 rounded"
+                    onClick={() => moveWeek(1)}
+                  >
                     <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
@@ -245,87 +332,74 @@ const Calendar = () => {
 
             {/* Week View */}
             <div className="space-y-1">
-              {weekEvents.map((day, index) => (
-                <div key={index} className="flex border-b border-gray-100 pb-1">
-                  <div className="w-24 py-3 text-sm text-gray-600">
-                    <div className="font-semibold text-lg">{day.date}</div>
-                    <div className="text-xs">{day.day}</div>
-                  </div>
-                  <div className="flex-1 py-3">
-                    {day.isHoliday && (
-                      <div className="bg-purple-100 rounded-lg p-3 flex items-center justify-between">
-                        <div className="flex items-center space-x-2">
-                          <div className="w-4 h-4 bg-purple-400 rounded"></div>
-                          <span className="text-sm">All day</span>
-                        </div>
-                        <span className="font-medium">Holiday</span>
-                        <ChevronRight className="w-4 h-4" />
-                      </div>
-                    )}
-                    {day.events &&
-                      day.events.map((event, eventIndex) => (
-                        <div key={eventIndex} className="space-y-2">
-                          <div className="bg-orange-50 rounded-lg p-3">
-                            <div className="flex items-start justify-between">
-                              <div>
-                                <div className="flex items-center space-x-2 mb-2">
-                                  <div className="w-4 h-4 bg-orange-400 rounded"></div>
-                                  <span className="font-medium text-sm">
-                                    {event.title}
-                                  </span>
-                                </div>
+              {weekDaysArr.map((day, index) => {
+                const dayLabel = `${day.toLocaleString("en-US", {
+                  month: "short",
+                })}, ${day.toLocaleString("en-US", { weekday: "short" })}`;
+                const dateNum = day.getDate();
+                const dateKey = formatDate(day);
+                const events = eventsByDate[dateKey] || [];
+                return (
+                  <div
+                    key={index}
+                    className="flex border-b border-gray-100 pb-1"
+                  >
+                    <div className="w-24 py-3 text-sm text-gray-600">
+                      <div className="font-semibold text-lg">{dateNum}</div>
+                      <div className="text-xs">{dayLabel}</div>
+                    </div>
+                    <div className="flex-1 py-3">
+                      {events.map((event, eventIndex) => (
+                        <div
+                          key={eventIndex}
+                          className={
+                            event.type === "holiday"
+                              ? "bg-purple-100 rounded-lg p-3 flex items-center justify-between mb-2"
+                              : "bg-orange-50 rounded-lg p-3 mb-2"
+                          }
+                        >
+                          <div className="flex items-start justify-between w-full">
+                            <div>
+                              <div className="flex items-center space-x-2 mb-2">
+                                <div
+                                  className={
+                                    event.color.split(" ")[0] +
+                                    " w-4 h-4 rounded"
+                                  }
+                                ></div>
+                                <span className="font-medium text-sm">
+                                  {event.title}
+                                </span>
+                              </div>
+                              {event.time && (
                                 <div className="text-xs text-gray-600 mb-2">
                                   {event.time}
                                 </div>
-                                {index === 2 && (
-                                  <button className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs flex items-center space-x-1 hover:bg-gray-50">
-                                    <MapPin className="w-3 h-3" />
-                                    <span>Location</span>
-                                  </button>
-                                )}
-                              </div>
-                              {index === 2 && (
-                                <div className="flex space-x-2">
-                                  <button className="p-1 hover:bg-orange-100 rounded">
-                                    <Edit3 className="w-4 h-4" />
-                                  </button>
-                                  <button className="p-1 hover:bg-orange-100 rounded">
-                                    <Trash2 className="w-4 h-4" />
-                                  </button>
-                                </div>
+                              )}
+                              {event.hasLocation && (
+                                <button className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs flex items-center space-x-1 hover:bg-gray-50">
+                                  <MapPin className="w-3 h-3" />
+                                  <span>Location</span>
+                                </button>
                               )}
                             </div>
+                            {event.type === "event" && (
+                              <div className="flex space-x-2">
+                                <button className="p-1 hover:bg-orange-100 rounded">
+                                  <Edit3 className="w-4 h-4" />
+                                </button>
+                                <button className="p-1 hover:bg-orange-100 rounded">
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                            )}
                           </div>
-                          {index === 2 && (
-                            <>
-                              <div className="bg-orange-50 rounded-lg p-3 flex items-center space-x-2">
-                                <div className="w-4 h-4 bg-orange-400 rounded"></div>
-                                <span className="text-sm">
-                                  12:00 PM - 1:00PM
-                                </span>
-                                <span className="text-sm font-medium">
-                                  Call Tina at Starbucks regarding Reem Hills
-                                  Property
-                                </span>
-                                <ChevronRight className="w-4 h-4 ml-auto" />
-                              </div>
-                              <div className="bg-purple-100 rounded-lg p-3 flex items-center space-x-2">
-                                <div className="w-4 h-4 bg-purple-400 rounded"></div>
-                                <span className="text-sm">
-                                  2:00 PM - 4:00PM
-                                </span>
-                                <span className="text-sm font-medium">
-                                  Send Reem Hills Property to Kevin
-                                </span>
-                                <ChevronRight className="w-4 h-4 ml-auto" />
-                              </div>
-                            </>
-                          )}
                         </div>
                       ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
