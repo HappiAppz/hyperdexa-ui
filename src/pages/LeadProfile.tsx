@@ -1,10 +1,22 @@
-
-import { Calendar, MessageSquare, Heart, UserPlus, Home, Search, Download, ArrowRight, Bed, Bath, Square } from "lucide-react";
+import {
+  Calendar,
+  MessageSquare,
+  Heart,
+  UserPlus,
+  Home,
+  Search,
+  Download,
+  ArrowRight,
+  Bed,
+  Bath,
+  Square,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import Layout from "@/components/Layout";
 
 const LeadProfile = () => {
   const matchedProperties = [
@@ -13,227 +25,245 @@ const LeadProfile = () => {
       name: "The Bridges",
       developer: "Aldar Properties",
       location: "Al Reem Island, Abu Dhabi",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image:
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     },
     {
-      id: 2, 
+      id: 2,
       name: "The Bridges",
       developer: "Aldar Properties",
       location: "Al Reem Island, Abu Dhabi",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+      image:
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     },
     {
       id: 3,
-      name: "The Bridges", 
+      name: "The Bridges",
       developer: "Aldar Properties",
       location: "Al Reem Island, Abu Dhabi",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-    }
+      image:
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    },
   ];
 
   const activityLog = [
     { time: "10:15", action: "You saved reem hills listing", date: "Today" },
     { time: "10:15", action: "You saved reem hills listing", date: "Today" },
     { time: "10:15", action: "You saved reem hills listing", date: "Today" },
-    { time: "10:15", action: "You saved reem hills listing", date: "Yesterday" },
-    { time: "10:15", action: "You saved reem hills listing", date: "Yesterday" },
-    { time: "10:15", action: "You saved reem hills listing", date: "Yesterday" },
-    { time: "10:15", action: "You saved reem hills listing", date: "2R June, Thursday" },
-    { time: "10:15", action: "You saved reem hills listing", date: "2R June, Thursday" },
-    { time: "10:15", action: "You saved reem hills listing", date: "2R June, Thursday" },
+    {
+      time: "10:15",
+      action: "You saved reem hills listing",
+      date: "Yesterday",
+    },
+    {
+      time: "10:15",
+      action: "You saved reem hills listing",
+      date: "Yesterday",
+    },
+    {
+      time: "10:15",
+      action: "You saved reem hills listing",
+      date: "Yesterday",
+    },
+    {
+      time: "10:15",
+      action: "You saved reem hills listing",
+      date: "2R June, Thursday",
+    },
+    {
+      time: "10:15",
+      action: "You saved reem hills listing",
+      date: "2R June, Thursday",
+    },
+    {
+      time: "10:15",
+      action: "You saved reem hills listing",
+      date: "2R June, Thursday",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center space-x-8">
-            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-              <div className="w-6 h-6 bg-white rounded-full"></div>
-            </div>
-            <nav className="flex space-x-1">
-              <Link to="/">
-                <Button variant="ghost" className="text-gray-600 hover:text-gray-900 px-6 py-2 rounded-full">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Dashboard
-                </Button>
-              </Link>
-              <Button variant="default" className="bg-blue-900 hover:bg-blue-800 text-white px-6 py-2 rounded-full">
-                <UserPlus className="w-4 h-4 mr-2" />
-                Leads
-              </Button>
-              <Link to="/properties">
-                <Button variant="ghost" className="text-gray-600 hover:text-gray-900 px-6 py-2 rounded-full">
-                  <Home className="w-4 h-4 mr-2" />
-                  Properties
-                </Button>
-              </Link>
-              <Button variant="ghost" className="text-gray-600 hover:text-gray-900 px-6 py-2 rounded-full">
-                <Calendar className="w-4 h-4 mr-2" />
-                Calendar
-              </Button>
-            </nav>
-          </div>
-          <div className="flex items-center space-x-4">
-            <Heart className="w-6 h-6 text-gray-400" />
-            <Avatar className="w-8 h-8">
-              <AvatarImage src="/placeholder.svg" />
-              <AvatarFallback className="bg-gray-300 text-gray-700">MM</AvatarFallback>
-            </Avatar>
-            <div className="text-sm">
-              <div className="font-medium text-gray-900">Maria Moss</div>
-              <div className="text-gray-500">Real estate agent</div>
-            </div>
-          </div>
+    <Layout>
+      {/* Breadcrumb */}
+      <div className="flex items-center space-x-6 mb-8">
+        <div className="text-center">
+          <div className="text-4xl font-bold text-gray-900">25</div>
+          <div className="text-sm text-gray-500">Wed, June</div>
         </div>
-      </header>
-
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        {/* Breadcrumb */}
-        <div className="flex items-center space-x-6 mb-8">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-gray-900">25</div>
-            <div className="text-sm text-gray-500">Wed, June</div>
-          </div>
-          <div className="flex items-center space-x-2 text-sm text-gray-500">
-            <Link to="/leads" className="hover:text-gray-700">Your Leads</Link>
-            <ArrowRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Josephine Gordon</span>
-          </div>
-          <div className="ml-auto">
-            <Button variant="outline" size="icon">
-              <Download className="w-4 h-4" />
-            </Button>
-          </div>
+        <div className="flex items-center space-x-2 text-sm text-gray-500">
+          <Link to="/leads" className="hover:text-gray-700">
+            Your Leads
+          </Link>
+          <ArrowRight className="w-4 h-4" />
+          <span className="text-gray-900 font-medium">Josephine Gordon</span>
         </div>
+        <div className="ml-auto">
+          <Button variant="outline" size="icon">
+            <Download className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Lead Profile */}
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-gray-900">Josephine Gordon</h2>
-                  <Button variant="outline" className="text-blue-900 border-blue-900 bg-blue-50">
-                    <MessageSquare className="w-4 h-4 mr-2" />
-                    Message
-                  </Button>
-                </div>
-                <div className="mb-4">
-                  <h3 className="font-semibold text-gray-900 mb-2">Profile:</h3>
-                  <p className="text-gray-600 text-sm">
-                    2-bedroom apartment in Reem Hills with a sea view. Preferably something with a modern layout,
-                    good amenities, and ready to move in within the next 2—3 months. Budget is around AED 1.4M.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Lead Profile */}
+        <div className="lg:col-span-2 space-y-6">
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-gray-900">
+                  Josephine Gordon
+                </h2>
+                <Button
+                  variant="outline"
+                  className="text-blue-900 border-blue-900 bg-blue-50"
+                >
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Message
+                </Button>
+              </div>
+              <div className="mb-4">
+                <h3 className="font-semibold text-gray-900 mb-2">Profile:</h3>
+                <p className="text-gray-600 text-sm">
+                  2-bedroom apartment in Reem Hills with a sea view. Preferably
+                  something with a modern layout, good amenities, and ready to
+                  move in within the next 2—3 months. Budget is around AED 1.4M.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
 
-            {/* Matched Properties */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg font-bold text-blue-900">Matched Properties</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {matchedProperties.map((property) => (
-                    <Link key={property.id} to={`/property/${property.id}`}>
-                      <Card className="hover:shadow-lg transition-shadow cursor-pointer overflow-hidden">
-                        <div className="relative h-32">
-                          <img 
-                            src={property.image} 
-                            alt={property.name}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute top-2 right-2">
-                            <Heart className="w-5 h-5 text-white" />
-                          </div>
-                          <div className="absolute bottom-2 right-2">
-                            <div className="bg-white rounded-full p-1">
-                              <ArrowRight className="w-4 h-4 text-gray-900" />
-                            </div>
-                          </div>
-                        </div>
-                        <CardContent className="p-3">
-                          <h4 className="font-semibold text-gray-900 mb-1">{property.name}</h4>
-                          <p className="text-xs text-gray-600 mb-2">{property.developer}</p>
-                          <div className="flex items-center text-xs text-gray-500">
-                            <Home className="w-3 h-3 mr-1" />
-                            {property.location}
-                          </div>
-                          <Button className="w-full mt-3 bg-gray-100 text-gray-900 hover:bg-gray-200" size="sm">
-                            View Property
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Activity Log */}
+          {/* Matched Properties */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg font-bold text-gray-900">Activity Log</CardTitle>
+              <CardTitle className="text-lg font-bold text-blue-900">
+                Matched Properties
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                {/* Today */}
-                <div>
-                  <div className="bg-blue-900 text-white px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
-                    Today
-                  </div>
-                  <div className="space-y-3">
-                    {activityLog.filter(item => item.date === "Today").map((item, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="text-xs text-gray-500 w-8">{item.time}</div>
-                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
-                        <div className="text-sm text-gray-700 flex-1">{item.action}</div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {matchedProperties.map((property) => (
+                  <Link key={property.id} to={`/property/${property.id}`}>
+                    <Card className="hover:shadow-lg transition-shadow cursor-pointer overflow-hidden">
+                      <div className="relative h-32">
+                        <img
+                          src={property.image}
+                          alt={property.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-2 right-2">
+                          <Heart className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="absolute bottom-2 right-2">
+                          <div className="bg-white rounded-full p-1">
+                            <ArrowRight className="w-4 h-4 text-gray-900" />
+                          </div>
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Yesterday */}
-                <div>
-                  <div className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
-                    Yesterday
-                  </div>
-                  <div className="space-y-3">
-                    {activityLog.filter(item => item.date === "Yesterday").map((item, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="text-xs text-gray-500 w-8">{item.time}</div>
-                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
-                        <div className="text-sm text-gray-700 flex-1">{item.action}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Older */}
-                <div>
-                  <div className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
-                    2R June, Thursday
-                  </div>
-                  <div className="space-y-3">
-                    {activityLog.filter(item => item.date === "2R June, Thursday").map((item, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="text-xs text-gray-500 w-8">{item.time}</div>
-                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
-                        <div className="text-sm text-gray-700 flex-1">{item.action}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                      <CardContent className="p-3">
+                        <h4 className="font-semibold text-gray-900 mb-1">
+                          {property.name}
+                        </h4>
+                        <p className="text-xs text-gray-600 mb-2">
+                          {property.developer}
+                        </p>
+                        <div className="flex items-center text-xs text-gray-500">
+                          <Home className="w-3 h-3 mr-1" />
+                          {property.location}
+                        </div>
+                        <Button
+                          className="w-full mt-3 bg-gray-100 text-gray-900 hover:bg-gray-200"
+                          size="sm"
+                        >
+                          View Property
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
               </div>
             </CardContent>
           </Card>
         </div>
+
+        {/* Activity Log */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg font-bold text-gray-900">
+              Activity Log
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              {/* Today */}
+              <div>
+                <div className="bg-blue-900 text-white px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
+                  Today
+                </div>
+                <div className="space-y-3">
+                  {activityLog
+                    .filter((item) => item.date === "Today")
+                    .map((item, index) => (
+                      <div key={index} className="flex items-start space-x-3">
+                        <div className="text-xs text-gray-500 w-8">
+                          {item.time}
+                        </div>
+                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
+                        <div className="text-sm text-gray-700 flex-1">
+                          {item.action}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+              {/* Yesterday */}
+              <div>
+                <div className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
+                  Yesterday
+                </div>
+                <div className="space-y-3">
+                  {activityLog
+                    .filter((item) => item.date === "Yesterday")
+                    .map((item, index) => (
+                      <div key={index} className="flex items-start space-x-3">
+                        <div className="text-xs text-gray-500 w-8">
+                          {item.time}
+                        </div>
+                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
+                        <div className="text-sm text-gray-700 flex-1">
+                          {item.action}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+              {/* Older */}
+              <div>
+                <div className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
+                  2R June, Thursday
+                </div>
+                <div className="space-y-3">
+                  {activityLog
+                    .filter((item) => item.date === "2R June, Thursday")
+                    .map((item, index) => (
+                      <div key={index} className="flex items-start space-x-3">
+                        <div className="text-xs text-gray-500 w-8">
+                          {item.time}
+                        </div>
+                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
+                        <div className="text-sm text-gray-700 flex-1">
+                          {item.action}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
-    </div>
+    </Layout>
   );
 };
 
