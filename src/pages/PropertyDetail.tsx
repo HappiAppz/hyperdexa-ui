@@ -37,42 +37,7 @@ const PropertyDetail = () => {
 
   return (
     <Layout>
-      {/* Breadcrumb */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center space-x-6">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-gray-900">25</div>
-            <div className="text-sm text-gray-500">Wed, June</div>
-          </div>
-          <div className="flex items-center space-x-2 text-sm text-gray-500">
-            <Link to="/properties" className="hover:text-gray-700">
-              Your Properties
-            </Link>
-            <ArrowRight className="w-4 h-4" />
-            <span className="text-gray-900 font-medium">Reem Hills</span>
-          </div>
-        </div>
-        <div className="flex items-center space-x-3">
-          <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input
-              placeholder="Search for anything..."
-              className="pl-10 w-64"
-            />
-          </div>
-          <Button
-            variant="outline"
-            size="icon"
-            className="bg-blue-900 text-white border-blue-900 hover:bg-blue-800"
-          >
-            <Search className="w-4 h-4" />
-          </Button>
-          <Button variant="outline" size="icon">
-            <Plus className="w-4 h-4" />
-          </Button>
-        </div>
-      </div>
-
+      {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
@@ -82,7 +47,7 @@ const PropertyDetail = () => {
               <img
                 src={propertyImages[0]}
                 alt="Reem Hills"
-                className="w-full h-80 object-cover rounded-lg"
+                className="w-full h-80 object-cover rounded-xl border border-gray-200 shadow-sm"
               />
             </div>
             <div className="space-y-4">
@@ -91,38 +56,38 @@ const PropertyDetail = () => {
                   key={index}
                   src={image}
                   alt={`Reem Hills ${index + 2}`}
-                  className="w-full h-36 object-cover rounded-lg"
+                  className="w-full h-36 object-cover rounded-xl border border-gray-200 shadow-sm"
                 />
               ))}
             </div>
           </div>
 
           {/* Property Info */}
-          <Card>
-            <CardContent className="p-6">
+          <Card className="rounded-2xl shadow-md border border-gray-200">
+            <CardContent className="p-8">
               <div className="flex items-center justify-between mb-4">
-                <h1 className="text-2xl font-bold text-gray-900">Reem Hills</h1>
+                <h1 className="text-3xl font-bold text-gray-900">Reem Hills</h1>
                 <Button
                   variant="outline"
-                  className="text-blue-900 border-blue-900 bg-blue-50"
+                  className="text-blue-900 border-blue-900 bg-blue-50 hover:bg-blue-100 rounded-lg px-4 py-2 font-semibold flex items-center"
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />Q Properties
                 </Button>
               </div>
 
-              <div className="flex items-center text-gray-600 mb-4">
+              <div className="flex items-center text-gray-600 mb-4 text-base">
                 <Home className="w-4 h-4 mr-2" />
                 <span>Amara, Reem Hills, Al Reem Island, Abu Dhabi</span>
               </div>
 
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-2">
+                <h3 className="font-semibold text-gray-900 mb-2 text-lg">
                   Description
                 </h3>
                 <p className="text-gray-600 text-sm">
                   Amara Reem Hills is an upcoming residential development by Q
                   Properties, situated in the scenic Reem Hills community on Al
-                  Reem Island, Abu Dhabi. The project is designed to offer a
+                  Reem Island, Abu Dhabi. This project is designed to offer a
                   harmonious blend of modern living amidst natural beauty, with
                   a focus on minimalist architecture and community-oriented
                   amenities.
@@ -148,7 +113,7 @@ const PropertyDetail = () => {
                 </div>
               </div>
 
-              <Button className="w-full bg-blue-900 hover:bg-blue-800 text-white py-3">
+              <Button className="w-full bg-blue-900 hover:bg-blue-800 text-white py-3 rounded-lg text-lg font-semibold shadow">
                 Make PPT
               </Button>
             </CardContent>
@@ -158,26 +123,26 @@ const PropertyDetail = () => {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Property Information */}
-          <Card>
-            <CardHeader>
+          <Card className="rounded-2xl border border-gray-200 shadow-md">
+            <CardHeader className="pb-2">
               <CardTitle className="text-lg font-bold text-gray-900">
                 Property Information
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex justify-between">
+            <CardContent className="space-y-4 pt-0">
+              <div className="flex justify-between text-base">
                 <span className="text-gray-600">Type</span>
                 <span className="font-medium text-gray-900">Apartment</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-base">
                 <span className="text-gray-600">Purpose</span>
                 <span className="font-medium text-gray-900">For Sale</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-base">
                 <span className="text-gray-600">Completion</span>
                 <span className="font-medium text-gray-900">Off-Plan</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-base">
                 <span className="text-gray-600">Furnishing</span>
                 <span className="font-medium text-gray-900">Unfurnished</span>
               </div>
@@ -186,21 +151,21 @@ const PropertyDetail = () => {
 
           {/* Property Stats */}
           <div className="grid grid-cols-3 gap-4">
-            <Card>
+            <Card className="rounded-2xl border border-gray-200 shadow-md">
               <CardContent className="p-4 text-center">
                 <Bed className="w-8 h-8 text-blue-900 mx-auto mb-2" />
                 <div className="text-lg font-bold text-gray-900">1</div>
                 <div className="text-sm text-gray-500">bed</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="rounded-2xl border border-gray-200 shadow-md">
               <CardContent className="p-4 text-center">
                 <Bath className="w-8 h-8 text-blue-900 mx-auto mb-2" />
                 <div className="text-lg font-bold text-gray-900">2</div>
                 <div className="text-sm text-gray-500">bath</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="rounded-2xl border border-gray-200 shadow-md">
               <CardContent className="p-4 text-center">
                 <Square className="w-8 h-8 text-blue-900 mx-auto mb-2" />
                 <div className="text-lg font-bold text-gray-900">1,038</div>
@@ -210,8 +175,8 @@ const PropertyDetail = () => {
           </div>
 
           {/* Amenities */}
-          <Card>
-            <CardHeader>
+          <Card className="rounded-2xl border border-gray-200 shadow-md">
+            <CardHeader className="pb-2">
               <CardTitle className="text-lg font-bold text-gray-900">
                 Amenities and Features
               </CardTitle>
@@ -229,12 +194,51 @@ const PropertyDetail = () => {
               </div>
               <Button
                 variant="outline"
-                className="w-full text-blue-900 border-blue-900 hover:bg-blue-50"
+                className="w-full text-blue-900 border-blue-900 hover:bg-blue-50 rounded-lg font-semibold"
               >
                 +11 more amenities
               </Button>
             </CardContent>
           </Card>
+        </div>
+      </div>
+
+      {/* Matched For Section */}
+      <div className="mt-12">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">Matched for</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map((_, idx) => (
+            <Card
+              key={idx}
+              className="rounded-2xl border border-gray-200 shadow-md p-4 flex flex-col gap-3"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src="/placeholder.svg" />
+                  <AvatarFallback>JG</AvatarFallback>
+                </Avatar>
+                <div className="font-semibold text-gray-900 text-base">
+                  Josephine Gordon
+                </div>
+              </div>
+              <div className="text-sm text-gray-700 mb-2">
+                2 Bedroom apartment with a balcony and attached bathrooms
+              </div>
+              <div className="flex flex-wrap gap-2 text-xs text-gray-500">
+                <div>
+                  <span className="font-medium text-gray-900">Location</span>{" "}
+                  Reem Island
+                </div>
+                <div>
+                  <span className="font-medium text-gray-900">Requirement</span>{" "}
+                  2 bedroom
+                </div>
+                <div>
+                  <span className="font-medium text-gray-900">Price</span> 1M-2M
+                </div>
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
     </Layout>

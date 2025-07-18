@@ -84,26 +84,6 @@ const LeadProfile = () => {
 
   return (
     <Layout>
-      {/* Breadcrumb */}
-      <div className="flex items-center space-x-6 mb-8">
-        <div className="text-center">
-          <div className="text-4xl font-bold text-gray-900">25</div>
-          <div className="text-sm text-gray-500">Wed, June</div>
-        </div>
-        <div className="flex items-center space-x-2 text-sm text-gray-500">
-          <Link to="/leads" className="hover:text-gray-700">
-            Your Leads
-          </Link>
-          <ArrowRight className="w-4 h-4" />
-          <span className="text-gray-900 font-medium">Josephine Gordon</span>
-        </div>
-        <div className="ml-auto">
-          <Button variant="outline" size="icon">
-            <Download className="w-4 h-4" />
-          </Button>
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Lead Profile */}
         <div className="lg:col-span-2 space-y-6">
