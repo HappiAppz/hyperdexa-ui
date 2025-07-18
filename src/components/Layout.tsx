@@ -24,6 +24,7 @@ const Layout = ({ children }: LayoutProps) => {
     { name: "Leads", path: "/leads", icon: "👥" },
     { name: "Properties", path: "/properties", icon: "🏠" },
     { name: "Calendar", path: "/calendar", icon: "📅" },
+    { name: "Agent Requests", path: "/agentrequests", icon: "📝" },
   ];
 
   const isActive = (path: string) => {
@@ -68,8 +69,11 @@ const Layout = ({ children }: LayoutProps) => {
                 <div className="w-10 h-10 bg-[#e8eaf6] rounded-full flex items-center justify-center text-xl cursor-pointer">
                   💜
                 </div>
-                <div className="flex items-center gap-3">
-                  <Avatar className="w-11 h-11 bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white font-bold">
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <Avatar className="w-11 h-11 bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white font-bold cursor-pointer">
                     <AvatarImage src="/placeholder.svg" />
                     <AvatarFallback>M</AvatarFallback>
                   </Avatar>
@@ -81,7 +85,7 @@ const Layout = ({ children }: LayoutProps) => {
                       Real estate agent
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
