@@ -28,6 +28,22 @@ const Layout = ({ children }: LayoutProps) => {
   ];
 
   const isActive = (path: string) => {
+    if (path === "/properties") {
+      // Active for /properties, /properties/... and /property/...
+      return (
+        location.pathname === "/properties" ||
+        location.pathname.startsWith("/properties") ||
+        location.pathname.startsWith("/property/")
+      );
+    }
+    if (path === "/leads") {
+      // Active for /leads, /leads/... and /lead/...
+      return (
+        location.pathname === "/leads" ||
+        location.pathname.startsWith("/leads") ||
+        location.pathname.startsWith("/lead/")
+      );
+    }
     return (
       location.pathname === path || location.pathname.startsWith(path + "/")
     );
