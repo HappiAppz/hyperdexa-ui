@@ -293,13 +293,13 @@ const Layout = ({ children }: LayoutProps) => {
       </header>
 
       {/* Main Container for width constraint and centering */}
-      <div className="max-w-screen-3xl w-full mx-auto px-4">
+      <main className="max-w-screen-3xl w-full mx-auto px-4">
         {/* Main Content Header */}
         {renderMainContentHeader()}
 
         {/* Main Content */}
         <div className="flex-1 pb-10">{children}</div>
-      </div>
+      </main>
     </div>
   );
 };

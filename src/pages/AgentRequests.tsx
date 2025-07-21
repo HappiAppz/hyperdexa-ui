@@ -122,71 +122,69 @@ const AgentRequests = () => {
 
   return (
     <Layout>
-      <div className="py-8 px-4 w-full h-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-y-auto max-h-[calc(100vh-120px)]">
-          {requests.map((request) => (
-            <div
-              key={request.id}
-              className="bg-[#fffcf4] rounded-2xl border border-slate-300 hover:shadow-lg transition-shadow flex flex-col justify-between p-6 h-[320px]"
-            >
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-3">
-                  <img
-                    className="w-10 h-10 rounded-full object-cover"
-                    src={request.avatar}
-                  />
-                  <div className="flex flex-col">
-                    <div className="text-blue-950 text-xl font-semibold tracking-tight">
-                      {request.name}
-                    </div>
-                    <div className="text-neutral-500 text-xs font-normal">
-                      Request sent {request.sent}
-                    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {requests.map((request) => (
+          <div
+            key={request.id}
+            className="bg-[#fffcf4] rounded-2xl border border-slate-300 hover:shadow-lg transition-shadow flex flex-col justify-between p-6 h-[320px]"
+          >
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <img
+                  className="w-10 h-10 rounded-full object-cover"
+                  src={request.avatar}
+                />
+                <div className="flex flex-col">
+                  <div className="text-blue-950 text-xl font-semibold tracking-tight">
+                    {request.name}
                   </div>
-                </div>
-                <div className="w-full text-blue-950 text-sm font-medium leading-relaxed">
-                  {request.description}
-                </div>
-              </div>
-
-              <div className="w-full flex flex-row justify-between items-center">
-                <div className="flex flex-col items-center gap-1.5">
                   <div className="text-neutral-500 text-xs font-normal">
-                    Location
-                  </div>
-                  <div className="text-blue-950 text-sm font-bold">
-                    {request.location}
-                  </div>
-                </div>
-                <div className="flex flex-col items-center gap-1.5">
-                  <div className="text-neutral-500 text-xs font-normal">
-                    Requirement
-                  </div>
-                  <div className="text-blue-950 text-sm font-bold">
-                    {request.requirement}
-                  </div>
-                </div>
-                <div className="flex flex-col items-center gap-1.5">
-                  <div className="text-neutral-500 text-xs font-normal">
-                    Price
-                  </div>
-                  <div className="text-blue-950 text-sm font-bold">
-                    {request.price}
+                    Request sent {request.sent}
                   </div>
                 </div>
               </div>
+              <div className="w-full text-blue-950 text-sm font-medium leading-relaxed">
+                {request.description}
+              </div>
+            </div>
 
-              <div
-                data-property-1="Component 32"
-                className="w-full h-10 px-4 py-2 bg-blue-950/20 rounded-md backdrop-blur-sm flex justify-center items-center gap-2.5"
-              >
-                <div className="text-center text-blue-950 text-lg font-medium leading-snug tracking-tight">
-                  Attach Listing
+            <div className="w-full flex flex-row justify-between items-center">
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="text-neutral-500 text-xs font-normal">
+                  Location
+                </div>
+                <div className="text-blue-950 text-sm font-bold">
+                  {request.location}
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="text-neutral-500 text-xs font-normal">
+                  Requirement
+                </div>
+                <div className="text-blue-950 text-sm font-bold">
+                  {request.requirement}
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="text-neutral-500 text-xs font-normal">
+                  Price
+                </div>
+                <div className="text-blue-950 text-sm font-bold">
+                  {request.price}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+
+            <div
+              data-property-1="Component 32"
+              className="w-full h-10 px-4 py-2 bg-blue-950/20 rounded-md backdrop-blur-sm flex justify-center items-center gap-2.5"
+            >
+              <div className="text-center text-blue-950 text-lg font-medium leading-snug tracking-tight">
+                Attach Listing
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </Layout>
   );
