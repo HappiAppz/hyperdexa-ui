@@ -111,7 +111,7 @@ const Layout = ({ children }: LayoutProps) => {
       {/* Main Container for width constraint and centering */}
       <div className="max-w-screen-3xl w-full mx-auto px-4">
         {/* Main Content Header */}
-        <div className="flex items-center justify-between mb-8 mt-2">
+        <div className="sticky top-[6rem] z-40 bg-[#fffcf4] py-4 flex items-center justify-between mb-8">
           <div className="flex items-center gap-6">
             <div className="bg-white rounded-xl shadow-sm px-6 py-2 text-center">
               <div className="text-4xl font-bold text-[#1e3a8a] leading-none">
