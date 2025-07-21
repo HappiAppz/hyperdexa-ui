@@ -50,9 +50,9 @@ const Layout = ({ children }: LayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f7f3] flex flex-col">
+    <div className="min-h-screen bg-[#fffcf4] flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-[#f9f7f3] pt-8 pb-4 flex-shrink-0">
+      <header className="sticky top-0 z-50 bg-[#fffcf4] pt-8 pb-4 flex-shrink-0">
         <div className="max-w-screen-3xl w-full mx-auto px-4">
           <div className="flex items-center justify-between w-full">
             {/* Three-column flex: Logo | Nav Tabs (centered) | User Section */}
