@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Calendar,
@@ -23,6 +23,7 @@ interface LayoutProps {
 
 const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
   const location = useLocation();
+  const isDashboard = location.pathname === "/dashboard";
 
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: "⊞" },
@@ -53,6 +54,39 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
       location.pathname === path || location.pathname.startsWith(path + "/")
     );
   };
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isDashboard) return;
+
+    const handleScroll = () => {
+      if (scrollContainerRef.current && thumbRef.current) {
+        const scrollContainer = scrollContainerRef.current;
+        const thumb = thumbRef.current;
+        const scrollRatio =
+          scrollContainer.scrollTop /
+          (scrollContainer.scrollHeight - scrollContainer.clientHeight);
+        const maxThumbTop = scrollContainer.clientHeight - thumb.clientHeight;
+        thumb.style.top = `${scrollRatio * maxThumbTop}px`;
+      }
+    };
+
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener("scroll", handleScroll);
+    }
+
+    // Initial call to set thumb position
+    handleScroll();
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [children, isDashboard]);
 
   const renderMainContentHeader = () => {
     const { pathname } = location;
@@ -300,12 +334,32 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
       </header>
 
       {/* Main Container for width constraint and centering */}
-      <main className={containerClass}>
+      <main className={`${containerClass} flex-1 flex flex-col`}>
         {/* Main Content Header */}
         {renderMainContentHeader()}
 
-        {/* Main Content */}
-        <div className="flex-1 pb-10">{children}</div>
+        {/* Main Content with Custom Scrollbar (conditionally rendered) */}
+        {isDashboard ? (
+          <div className="flex-1 pb-10">{children}</div>
+        ) : (
+          <div className="flex-1 relative overflow-hidden">
+            <div
+              ref={scrollContainerRef}
+              className="h-full overflow-y-scroll scrollbar-hide"
+              style={{ width: "calc(100% + 20px)" }}
+            >
+              <div className="pr-[20px] pb-10">{children}</div>
+            </div>
+            {/* Custom Scrollbar Overlay */}
+            <div className="pointer-events-none absolute top-0 right-0 h-full w-2.5">
+              <div className="w-full h-full bg-slate-300 rounded-[60px]" />
+              <div
+                ref={thumbRef}
+                className="w-full h-11 bg-blue-950 rounded-[60px] absolute top-0"
+              />
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
