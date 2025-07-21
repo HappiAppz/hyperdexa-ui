@@ -18,9 +18,10 @@ import { Slider } from "@/components/ui/slider";
 
 interface LayoutProps {
   children: ReactNode;
+  onAddLeadClick?: () => void;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
   const location = useLocation();
 
   const navItems = [
@@ -116,7 +117,11 @@ const Layout = ({ children }: LayoutProps) => {
               className="pl-11 pr-4 py-3 rounded-full bg-white border-2 border-[#e8eaf6] w-full focus:border-[#1e3a8a]"
             />
           </div>
-          <button className="w-12 h-12 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a] transition-transform hover:scale-110">
+          <button
+            className="w-12 h-12 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a] transition-transform hover:scale-110"
+            onClick={onAddLeadClick}
+            type="button"
+          >
             <Plus className="w-6 h-6 text-[#1e3a8a]" />
           </button>
         </div>
