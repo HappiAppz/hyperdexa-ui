@@ -172,7 +172,7 @@ const Leads = () => {
 
       {/* Add Lead Modal */}
       {showFormModal && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
           <form
             className="w-[695px] p-6 bg-stone-50/90 rounded-xl backdrop-blur-lg flex flex-col justify-center items-end gap-3.5 relative animate-fade-in"
             onSubmit={handleSubmit}
