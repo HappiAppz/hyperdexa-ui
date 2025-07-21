@@ -84,164 +84,167 @@ const LeadProfile = () => {
 
   return (
     <Layout>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Lead Profile */}
-        <div className="lg:col-span-2 space-y-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-gray-900">
-                  Josephine Gordon
-                </h2>
-                <Button
-                  variant="outline"
-                  className="text-blue-900 border-blue-900 bg-blue-50"
-                >
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Message
-                </Button>
-              </div>
-              <div className="mb-4">
-                <h3 className="font-semibold text-gray-900 mb-2">Profile:</h3>
-                <p className="text-gray-600 text-sm">
-                  2-bedroom apartment in Reem Hills with a sea view. Preferably
-                  something with a modern layout, good amenities, and ready to
-                  move in within the next 2—3 months. Budget is around AED 1.4M.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+      <div className="py-8 px-4 w-full h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Lead Profile */}
+          <div className="lg:col-span-2 space-y-6">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-gray-900">
+                    Josephine Gordon
+                  </h2>
+                  <Button
+                    variant="outline"
+                    className="text-blue-900 border-blue-900 bg-blue-50"
+                  >
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Message
+                  </Button>
+                </div>
+                <div className="mb-4">
+                  <h3 className="font-semibold text-gray-900 mb-2">Profile:</h3>
+                  <p className="text-gray-600 text-sm">
+                    2-bedroom apartment in Reem Hills with a sea view.
+                    Preferably something with a modern layout, good amenities,
+                    and ready to move in within the next 2—3 months. Budget is
+                    around AED 1.4M.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
 
-          {/* Matched Properties */}
+            {/* Matched Properties */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg font-bold text-blue-900">
+                  Matched Properties
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {matchedProperties.map((property) => (
+                    <Link key={property.id} to={`/property/${property.id}`}>
+                      <Card className="hover:shadow-lg transition-shadow cursor-pointer overflow-hidden">
+                        <div className="relative h-32">
+                          <img
+                            src={property.image}
+                            alt={property.name}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute top-2 right-2">
+                            <Heart className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="absolute bottom-2 right-2">
+                            <div className="bg-white rounded-full p-1">
+                              <ArrowRight className="w-4 h-4 text-gray-900" />
+                            </div>
+                          </div>
+                        </div>
+                        <CardContent className="p-3">
+                          <h4 className="font-semibold text-gray-900 mb-1">
+                            {property.name}
+                          </h4>
+                          <p className="text-xs text-gray-600 mb-2">
+                            {property.developer}
+                          </p>
+                          <div className="flex items-center text-xs text-gray-500">
+                            <Home className="w-3 h-3 mr-1" />
+                            {property.location}
+                          </div>
+                          <Button
+                            className="w-full mt-3 bg-gray-100 text-gray-900 hover:bg-gray-200"
+                            size="sm"
+                          >
+                            View Property
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Activity Log */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg font-bold text-blue-900">
-                Matched Properties
+              <CardTitle className="text-lg font-bold text-gray-900">
+                Activity Log
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {matchedProperties.map((property) => (
-                  <Link key={property.id} to={`/property/${property.id}`}>
-                    <Card className="hover:shadow-lg transition-shadow cursor-pointer overflow-hidden">
-                      <div className="relative h-32">
-                        <img
-                          src={property.image}
-                          alt={property.name}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 right-2">
-                          <Heart className="w-5 h-5 text-white" />
-                        </div>
-                        <div className="absolute bottom-2 right-2">
-                          <div className="bg-white rounded-full p-1">
-                            <ArrowRight className="w-4 h-4 text-gray-900" />
+              <div className="space-y-6">
+                {/* Today */}
+                <div>
+                  <div className="bg-blue-900 text-white px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
+                    Today
+                  </div>
+                  <div className="space-y-3">
+                    {activityLog
+                      .filter((item) => item.date === "Today")
+                      .map((item, index) => (
+                        <div key={index} className="flex items-start space-x-3">
+                          <div className="text-xs text-gray-500 w-8">
+                            {item.time}
+                          </div>
+                          <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
+                          <div className="text-sm text-gray-700 flex-1">
+                            {item.action}
                           </div>
                         </div>
-                      </div>
-                      <CardContent className="p-3">
-                        <h4 className="font-semibold text-gray-900 mb-1">
-                          {property.name}
-                        </h4>
-                        <p className="text-xs text-gray-600 mb-2">
-                          {property.developer}
-                        </p>
-                        <div className="flex items-center text-xs text-gray-500">
-                          <Home className="w-3 h-3 mr-1" />
-                          {property.location}
+                      ))}
+                  </div>
+                </div>
+
+                {/* Yesterday */}
+                <div>
+                  <div className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
+                    Yesterday
+                  </div>
+                  <div className="space-y-3">
+                    {activityLog
+                      .filter((item) => item.date === "Yesterday")
+                      .map((item, index) => (
+                        <div key={index} className="flex items-start space-x-3">
+                          <div className="text-xs text-gray-500 w-8">
+                            {item.time}
+                          </div>
+                          <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
+                          <div className="text-sm text-gray-700 flex-1">
+                            {item.action}
+                          </div>
                         </div>
-                        <Button
-                          className="w-full mt-3 bg-gray-100 text-gray-900 hover:bg-gray-200"
-                          size="sm"
-                        >
-                          View Property
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
+                      ))}
+                  </div>
+                </div>
+
+                {/* Older */}
+                <div>
+                  <div className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
+                    2R June, Thursday
+                  </div>
+                  <div className="space-y-3">
+                    {activityLog
+                      .filter((item) => item.date === "2R June, Thursday")
+                      .map((item, index) => (
+                        <div key={index} className="flex items-start space-x-3">
+                          <div className="text-xs text-gray-500 w-8">
+                            {item.time}
+                          </div>
+                          <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
+                          <div className="text-sm text-gray-700 flex-1">
+                            {item.action}
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
         </div>
-
-        {/* Activity Log */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-bold text-gray-900">
-              Activity Log
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              {/* Today */}
-              <div>
-                <div className="bg-blue-900 text-white px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
-                  Today
-                </div>
-                <div className="space-y-3">
-                  {activityLog
-                    .filter((item) => item.date === "Today")
-                    .map((item, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="text-xs text-gray-500 w-8">
-                          {item.time}
-                        </div>
-                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
-                        <div className="text-sm text-gray-700 flex-1">
-                          {item.action}
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-
-              {/* Yesterday */}
-              <div>
-                <div className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
-                  Yesterday
-                </div>
-                <div className="space-y-3">
-                  {activityLog
-                    .filter((item) => item.date === "Yesterday")
-                    .map((item, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="text-xs text-gray-500 w-8">
-                          {item.time}
-                        </div>
-                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
-                        <div className="text-sm text-gray-700 flex-1">
-                          {item.action}
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-
-              {/* Older */}
-              <div>
-                <div className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium inline-block mb-3">
-                  2R June, Thursday
-                </div>
-                <div className="space-y-3">
-                  {activityLog
-                    .filter((item) => item.date === "2R June, Thursday")
-                    .map((item, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="text-xs text-gray-500 w-8">
-                          {item.time}
-                        </div>
-                        <div className="w-2 h-2 bg-gray-300 rounded-full mt-1.5 flex-shrink-0"></div>
-                        <div className="text-sm text-gray-700 flex-1">
-                          {item.action}
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </Layout>
   );
