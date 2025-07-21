@@ -233,11 +233,14 @@ const Layout = ({ children }: LayoutProps) => {
     );
   };
 
+  const containerClass = "w-full mx-auto px-4";
+  const containerStyle = { maxWidth: "1800px" };
+
   return (
     <div className="min-h-screen bg-[#fffcf4] flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#fffcf4] pt-8 pb-4 flex-shrink-0">
-        <div className="max-w-screen-3xl w-full mx-auto px-4">
+        <div className={containerClass} style={containerStyle}>
           <div className="flex items-center justify-between w-full">
             {/* Three-column flex: Logo | Nav Tabs (centered) | User Section */}
             <div className="flex w-full items-center justify-between">
@@ -293,7 +296,7 @@ const Layout = ({ children }: LayoutProps) => {
       </header>
 
       {/* Main Container for width constraint and centering */}
-      <main className="max-w-screen-3xl w-full mx-auto px-4">
+      <main className={containerClass} style={containerStyle}>
         {/* Main Content Header */}
         {renderMainContentHeader()}
 
