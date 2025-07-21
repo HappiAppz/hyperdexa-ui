@@ -127,58 +127,60 @@ const AgentRequests = () => {
           {requests.map((request) => (
             <div
               key={request.id}
-              className="bg-white rounded-2xl outline outline-1 outline-slate-300 hover:shadow-lg transition-shadow flex flex-col justify-start items-start overflow-hidden p-6 gap-6"
+              className="bg-white rounded-2xl outline outline-1 outline-slate-300 hover:shadow-lg transition-shadow flex flex-col justify-between p-6 h-[320px]"
             >
-              <div className="w-full flex flex-col justify-start items-start gap-2.5">
-                <div className="py-1 flex flex-col justify-start items-start gap-1.5">
-                  <div className="w-56 flex flex-row justify-between items-center">
-                    <img
-                      className="w-10 h-10 rounded-full object-cover"
-                      src={request.avatar}
-                    />
-                    <div className="w-44 h-7 text-center flex items-center justify-center text-blue-950 text-xl font-semibold leading-3 tracking-tight font-sans">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <img
+                    className="w-10 h-10 rounded-full object-cover"
+                    src={request.avatar}
+                  />
+                  <div className="flex flex-col">
+                    <div className="text-blue-950 text-xl font-semibold tracking-tight">
                       {request.name}
                     </div>
-                  </div>
-                  <div className="text-center text-neutral-500 text-xs font-normal leading-3 font-sans">
-                    Request sent {request.sent}
+                    <div className="text-neutral-500 text-xs font-normal">
+                      Request sent {request.sent}
+                    </div>
                   </div>
                 </div>
-                <div className="w-full text-blue-950 text-sm font-medium leading-relaxed font-sans">
+                <div className="w-full text-blue-950 text-sm font-medium leading-relaxed">
                   {request.description}
                 </div>
               </div>
+
               <div className="w-full flex flex-row justify-between items-center">
                 <div className="flex flex-col items-center gap-1.5">
-                  <div className="w-12 text-center text-neutral-500 text-xs font-normal leading-3 font-sans">
+                  <div className="text-neutral-500 text-xs font-normal">
                     Location
                   </div>
-                  <div className="w-20 text-center text-blue-950 text-sm font-bold leading-3 font-sans">
+                  <div className="text-blue-950 text-sm font-bold">
                     {request.location}
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-1.5">
-                  <div className="w-16 text-center text-neutral-500 text-xs font-normal leading-3 font-sans">
+                  <div className="text-neutral-500 text-xs font-normal">
                     Requirement
                   </div>
-                  <div className="text-center text-blue-950 text-sm font-bold leading-3 font-sans">
+                  <div className="text-blue-950 text-sm font-bold">
                     {request.requirement}
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-1.5">
-                  <div className="w-7 text-center text-neutral-500 text-xs font-normal leading-3 font-sans">
+                  <div className="text-neutral-500 text-xs font-normal">
                     Price
                   </div>
-                  <div className="text-center text-blue-950 text-sm font-bold leading-3 font-sans">
+                  <div className="text-blue-950 text-sm font-bold">
                     {request.price}
                   </div>
                 </div>
               </div>
+
               <div
                 data-property-1="Component 32"
                 className="w-full h-10 px-4 py-2 bg-blue-950/20 rounded-md backdrop-blur-sm flex justify-center items-center gap-2.5"
               >
-                <div className="text-center text-blue-950 text-lg font-medium leading-snug tracking-tight font-sans">
+                <div className="text-center text-blue-950 text-lg font-medium leading-snug tracking-tight">
                   Attach Listing
                 </div>
               </div>
