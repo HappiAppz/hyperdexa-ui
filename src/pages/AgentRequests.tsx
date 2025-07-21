@@ -127,7 +127,7 @@ const AgentRequests = () => {
           {requests.map((request) => (
             <div
               key={request.id}
-              className="bg-white rounded-2xl outline outline-1 outline-slate-300 hover:shadow-lg transition-shadow flex flex-col justify-between p-6 h-[320px]"
+              className="bg-[#fffcf4] rounded-2xl border border-slate-300 hover:shadow-lg transition-shadow flex flex-col justify-between p-6 h-[320px]"
             >
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
