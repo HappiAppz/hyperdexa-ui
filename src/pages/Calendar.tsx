@@ -192,21 +192,21 @@ const Calendar = () => {
           </button>
 
           {/* Mini Calendar */}
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+          <div className="bg-slate-200 rounded-xl p-4 shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-blue-900">{monthYear}</h3>
+              <h3 className="font-semibold text-blue-950">{monthYear}</h3>
               <div className="flex space-x-1">
                 <button
-                  className="p-1 hover:bg-gray-100 rounded"
+                  className="w-7 p-2.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center gap-1"
                   onClick={handlePrevMonth}
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-4 h-4 text-stone-50" />
                 </button>
                 <button
-                  className="p-1 hover:bg-gray-100 rounded"
+                  className="w-7 p-2.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center gap-1"
                   onClick={handleNextMonth}
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-stone-50" />
                 </button>
               </div>
             </div>
@@ -215,7 +215,7 @@ const Calendar = () => {
               {weekDays.map((day) => (
                 <div
                   key={day}
-                  className="text-xs text-center text-gray-500 py-1"
+                  className="text-xs text-center text-black font-medium py-1"
                 >
                   {day}
                 </div>
@@ -230,15 +230,16 @@ const Calendar = () => {
                 >
                   {day && (
                     <button
-                      className={`w-8 h-8 rounded-full text-sm hover:bg-gray-100 ${
+                      className={`w-10 h-10 rounded-[37.74px] text-xs font-bold ${
                         day === selectedDate.getDate() &&
                         selectedDate.getMonth() ===
                           new Date(
                             selectedDate.getFullYear(),
                             selectedDate.getMonth(),
                             day
-                          ).getMonth() &&
-                        "bg-blue-900 text-white hover:bg-blue-800"
+                          ).getMonth()
+                          ? "bg-blue-950 text-stone-50"
+                          : "bg-slate-200 text-neutral-700 hover:bg-slate-300"
                       }`}
                       onClick={() => {
                         setSelectedDate(
