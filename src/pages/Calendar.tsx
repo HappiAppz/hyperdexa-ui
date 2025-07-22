@@ -303,106 +303,197 @@ const Calendar = () => {
         </div>
 
         {/* Main Calendar View */}
-        <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
+        <div className="flex-1 py-5 rounded-[20px] inline-flex flex-col justify-start items-start gap-3 overflow-hidden">
+          <div className="self-stretch pb-3 inline-flex justify-between items-start">
+            <div className="flex justify-start items-center gap-5">
               <button
-                className="px-4 py-2 bg-gray-100 rounded-lg text-sm font-medium hover:bg-gray-200"
+                className="px-5 py-2 rounded-[80px] outline outline-1 outline-offset-[-1px] outline-blue-950/40 flex justify-center items-center gap-2 overflow-hidden hover:bg-gray-50"
                 onClick={goToToday}
               >
-                Today
-              </button>
-              <div className="flex items-center space-x-4">
-                <h2 className="text-xl font-semibold">{weekRangeLabel}</h2>
-                <div className="flex space-x-1">
-                  <button
-                    className="p-2 hover:bg-gray-100 rounded"
-                    onClick={() => moveWeek(-1)}
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <button
-                    className="p-2 hover:bg-gray-100 rounded"
-                    onClick={() => moveWeek(1)}
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
+                <div className="justify-start text-blue-950 text-lg font-normal font-['Satoshi']">
+                  Today
                 </div>
+              </button>
+              <div className="justify-start text-blue-950 text-3xl font-medium font-['Satoshi']">
+                {weekRangeLabel}
+              </div>
+              <div className="py-2 rounded-[80px] flex justify-start items-center gap-5 overflow-hidden">
+                <button
+                  className="w-6 h-6 bg-blue-950 hover:opacity-80"
+                  onClick={() => moveWeek(-1)}
+                >
+                  <ChevronLeft className="w-4 h-4 text-white m-auto" />
+                </button>
+                <div className="w-2.5 h-5 bg-blue-950" />
+                <button
+                  className="w-6 h-6 bg-blue-950 hover:opacity-80"
+                  onClick={() => moveWeek(1)}
+                >
+                  <ChevronRight className="w-4 h-4 text-white m-auto" />
+                </button>
+                <div className="w-2.5 h-5 bg-blue-950" />
               </div>
             </div>
+          </div>
 
-            {/* Week View */}
-            <div className="space-y-1">
-              {weekDaysArr.map((day, index) => {
-                const dayLabel = `${day.toLocaleString("en-US", {
-                  month: "short",
-                })}, ${day.toLocaleString("en-US", { weekday: "short" })}`;
-                const dateNum = day.getDate();
-                const dateKey = formatDate(day);
-                const events = eventsByDate[dateKey] || [];
-                return (
-                  <div
-                    key={index}
-                    className="flex border-b border-gray-100 pb-1"
-                  >
-                    <div className="w-24 py-3 text-sm text-gray-600">
-                      <div className="font-semibold text-lg">{dateNum}</div>
-                      <div className="text-xs">{dayLabel}</div>
+          {/* Week Days */}
+          {weekDaysArr.map((day, index) => {
+            const dayLabel = `${day.toLocaleString("en-US", {
+              month: "short",
+            })}, ${day.toLocaleString("en-US", { weekday: "short" })}`;
+            const dateNum = day.getDate();
+            const dateKey = formatDate(day);
+            const events = eventsByDate[dateKey] || [];
+
+            if (events.length === 0) {
+              // Empty day
+              return (
+                <div
+                  key={index}
+                  className="self-stretch p-3 bg-slate-200/50 rounded-[20px] outline outline-2 outline-offset-[-2px] outline-slate-300 inline-flex justify-start items-start gap-3"
+                >
+                  <div className="w-36 flex justify-start items-center gap-2">
+                    <div className="w-12 h-10 rounded-[80px] inline-flex flex-col justify-center items-center">
+                      <div className="justify-start text-blue-950 text-2xl font-normal font-['Satoshi']">
+                        {dateNum}
+                      </div>
                     </div>
-                    <div className="flex-1 py-3">
-                      {events.map((event, eventIndex) => (
-                        <div
-                          key={eventIndex}
-                          className={
-                            event.type === "holiday"
-                              ? "bg-purple-100 rounded-lg p-3 flex items-center justify-between mb-2"
-                              : "bg-orange-50 rounded-lg p-3 mb-2"
-                          }
-                        >
-                          <div className="flex items-start justify-between w-full">
-                            <div>
-                              <div className="flex items-center space-x-2 mb-2">
-                                <div
-                                  className={
-                                    event.color.split(" ")[0] +
-                                    " w-4 h-4 rounded"
-                                  }
-                                ></div>
-                                <span className="font-medium text-sm">
-                                  {event.title}
-                                </span>
-                              </div>
-                              {event.time && (
-                                <div className="text-xs text-gray-600 mb-2">
-                                  {event.time}
-                                </div>
-                              )}
-                              {event.hasLocation && (
-                                <button className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs flex items-center space-x-1 hover:bg-gray-50">
-                                  <MapPin className="w-3 h-3" />
-                                  <span>Location</span>
-                                </button>
-                              )}
-                            </div>
-                            {event.type === "event" && (
-                              <div className="flex space-x-2">
-                                <button className="p-1 hover:bg-orange-100 rounded">
-                                  <Edit3 className="w-4 h-4" />
-                                </button>
-                                <button className="p-1 hover:bg-orange-100 rounded">
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
+                    <div className="justify-start text-blue-950 text-base font-medium font-['Satoshi']">
+                      {dayLabel}
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                </div>
+              );
+            }
+
+            // Day with events
+            return (
+              <div
+                key={index}
+                className="self-stretch p-3 bg-slate-200/50 rounded-[20px] inline-flex justify-start items-start gap-3"
+              >
+                <div className="w-36 flex justify-start items-center gap-2">
+                  <div className="w-12 h-10 rounded-[80px] inline-flex flex-col justify-center items-center">
+                    <div className="justify-start text-blue-950 text-2xl font-normal font-['Satoshi']">
+                      {dateNum}
+                    </div>
+                  </div>
+                  <div className="justify-start text-blue-950 text-base font-medium font-['Satoshi']">
+                    {dayLabel}
+                  </div>
+                </div>
+
+                {/* Events for this day */}
+                <div className="flex-1 inline-flex flex-col justify-start items-start gap-3">
+                  {events.map((event, eventIndex) => {
+                    // Holiday event
+                    if (event.type === "holiday") {
+                      return (
+                        <div
+                          key={eventIndex}
+                          className="self-stretch p-4 bg-violet-400/20 rounded-xl inline-flex justify-start items-center gap-4 overflow-hidden"
+                        >
+                          <div className="w-5 h-5 bg-violet-400 rounded-md" />
+                          <div className="w-36 justify-start text-neutral-700 text-lg font-normal font-['Satoshi']">
+                            All day
+                          </div>
+                          <div className="flex-1 justify-start text-blue-950 text-lg font-medium font-['Satoshi']">
+                            {event.title}
+                          </div>
+                          <div className="w-6 h-6 bg-zinc-300" />
+                          <div className="w-3 h-1.5 bg-blue-950" />
+                        </div>
+                      );
+                    }
+
+                    // Regular events - special handling for June 25th first event (expanded view)
+                    const isExpandedEvent =
+                      dateNum === 25 && eventIndex === 0 && event.hasLocation;
+                    const bgColor = event.title.includes("Send Reem Hills")
+                      ? "bg-fuchsia-400/20"
+                      : "bg-orange-300/20";
+                    const dotColor = event.title.includes("Send Reem Hills")
+                      ? "bg-fuchsia-400"
+                      : "bg-orange-300";
+
+                    if (isExpandedEvent) {
+                      // Expanded event view for first event on June 25th
+                      return (
+                        <div
+                          key={eventIndex}
+                          className="self-stretch h-40 flex flex-col justify-start items-start gap-3"
+                        >
+                          <div className="self-stretch p-4 bg-orange-300/20 rounded-xl flex flex-col justify-start items-start gap-10 overflow-hidden">
+                            <div className="self-stretch inline-flex justify-start items-start gap-4">
+                              <div className="w-5 h-5 bg-orange-300 rounded-md" />
+                              <div className="flex-1 inline-flex flex-col justify-start items-start">
+                                <div className="justify-start text-blue-950 text-lg font-medium font-['Satoshi']">
+                                  {event.title}
+                                </div>
+                                <div className="justify-start text-neutral-700 text-lg font-normal font-['Satoshi']">
+                                  12:00 PM - 1:00PM, 25 June, Wednesday
+                                </div>
+                              </div>
+                              <div className="w-6 h-6 bg-zinc-300" />
+                              <div className="w-3 h-1.5 bg-zinc-900" />
+                            </div>
+                            <div className="self-stretch inline-flex justify-end items-start gap-2">
+                              <div className="px-12 py-2.5 rounded-[51px] shadow-[0px_0px_41.70000076293945px_0px_rgba(2,34,104,0.10)] outline outline-1 outline-offset-[-1px] outline-blue-950/40 flex justify-center items-center gap-2">
+                                <div className="w-6 h-6 relative overflow-hidden">
+                                  <div className="w-2.5 h-2.5 left-[7.25px] top-[5.25px] absolute bg-blue-950" />
+                                  <div className="w-4 h-5 left-[3.49px] top-[1.25px] absolute bg-blue-950" />
+                                </div>
+                                <div className="text-center justify-center text-blue-950 text-lg font-medium font-['Neue_Haas_Grotesk_Display_Pro'] leading-snug tracking-tight">
+                                  Location
+                                </div>
+                              </div>
+                              <div className="flex-1 justify-start text-black text-lg font-normal font-['Inter']">
+                                {" "}
+                              </div>
+                              <div className="w-11 h-11 p-4 rounded-[31.92px] flex justify-center items-center gap-1.5">
+                                <div className="w-6 h-6 relative overflow-hidden">
+                                  <div className="w-3.5 h-3.5 left-[7.06px] top-[2.25px] absolute bg-blue-950" />
+                                  <div className="w-5 h-5 left-[2.56px] top-[2.54px] absolute bg-blue-950" />
+                                </div>
+                              </div>
+                              <div className="p-2 rounded-[80px] outline outline-1 outline-offset-[-1px] flex justify-start items-center gap-2 overflow-hidden">
+                                <div className="w-6 h-6 bg-zinc-300" />
+                                <div className="w-4 h-4 bg-blue-950" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      // Regular event view
+                      return (
+                        <div
+                          key={eventIndex}
+                          className={`self-stretch p-4 ${bgColor} rounded-xl inline-flex justify-start items-center gap-4 overflow-hidden`}
+                        >
+                          <div className={`w-5 h-5 ${dotColor} rounded-md`} />
+                          <div className="w-40 justify-start text-neutral-700 text-lg font-normal font-['Satoshi']">
+                            {event.time}
+                          </div>
+                          <div
+                            className={`flex-1 justify-start text-lg font-medium font-['Satoshi'] ${
+                              event.title.includes("Send Reem Hills")
+                                ? "text-black font-normal font-['Inter']"
+                                : "text-blue-950"
+                            }`}
+                          >
+                            {event.title}
+                          </div>
+                          <div className="w-6 h-6 bg-zinc-300" />
+                          <div className="w-3 h-1.5 bg-blue-950" />
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </Layout>
