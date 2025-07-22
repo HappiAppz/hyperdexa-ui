@@ -204,7 +204,7 @@ const Calendar = () => {
           <div className="bg-slate-200 rounded-xl p-4 shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-blue-950">{monthYear}</h3>
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center space-x-3">
                 <button
                   className="w-7 h-7 p-1.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center"
                   onClick={handlePrevMonth}
@@ -326,19 +326,17 @@ const Calendar = () => {
               </div>
               <div className="flex items-center gap-3">
                 <button
-                  className="w-6 h-6 bg-blue-950 flex items-center justify-center hover:opacity-80"
+                  className="hover:opacity-70"
                   onClick={() => moveWeek(-1)}
                 >
-                  <ChevronLeft className="w-4 h-4 text-white" />
+                  <ChevronLeft className="w-7 h-7 text-blue-950" />
                 </button>
-                <div className="w-2.5 h-5 bg-blue-950" />
                 <button
-                  className="w-6 h-6 bg-blue-950 flex items-center justify-center hover:opacity-80"
+                  className="hover:opacity-70"
                   onClick={() => moveWeek(1)}
                 >
-                  <ChevronRight className="w-4 h-4 text-white" />
+                  <ChevronRight className="w-7 h-7 text-blue-950" />
                 </button>
-                <div className="w-2.5 h-5 bg-blue-950" />
               </div>
             </div>
           </div>
