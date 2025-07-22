@@ -16,6 +16,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 
+// SVG icon paths
+import dashboardActiveUrl from "@/assets/icons/dashboard_active.svg?url";
+import dashboardInactiveUrl from "@/assets/icons/dashboard_inactive.svg?url";
+import leadsActiveUrl from "@/assets/icons/leads_active.svg?url";
+import leadsInactiveUrl from "@/assets/icons/leads_inactive.svg?url";
+import propertiesActiveUrl from "@/assets/icons/properties_active.svg?url";
+import propertiesInactiveUrl from "@/assets/icons/properties_inactive.svg?url";
+import calendarActiveUrl from "@/assets/icons/calendar_active.svg?url";
+import calendarInactiveUrl from "@/assets/icons/calendar_inactive.svg?url";
+import agentRequestActiveUrl from "@/assets/icons/agentrequest_active.svg?url";
+import agentRequestInactiveUrl from "@/assets/icons/agentrequest_inactive.svg?url";
+import savedInactiveUrl from "@/assets/icons/saved_inactive.svg?url";
+
 interface LayoutProps {
   children: ReactNode;
   onAddLeadClick?: () => void;
@@ -25,12 +38,30 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
   const location = useLocation();
   const isDashboard = location.pathname === "/dashboard";
 
+  // Helper function to get the correct icon based on navigation item and active state
+  const getIcon = (name: string, isActive: boolean) => {
+    const iconMap = {
+      Dashboard: isActive ? dashboardActiveUrl : dashboardInactiveUrl,
+      Leads: isActive ? leadsActiveUrl : leadsInactiveUrl,
+      Properties: isActive ? propertiesActiveUrl : propertiesInactiveUrl,
+      Calendar: isActive ? calendarActiveUrl : calendarInactiveUrl,
+      "Agent Requests": isActive
+        ? agentRequestActiveUrl
+        : agentRequestInactiveUrl,
+    };
+
+    const iconUrl = iconMap[name as keyof typeof iconMap];
+    return iconUrl ? (
+      <img src={iconUrl} alt={name} className="w-5 h-5" />
+    ) : null;
+  };
+
   const navItems = [
-    { name: "Dashboard", path: "/dashboard", icon: "⊞" },
-    { name: "Leads", path: "/leads", icon: "👥" },
-    { name: "Properties", path: "/properties", icon: "🏠" },
-    { name: "Calendar", path: "/calendar", icon: "📅" },
-    { name: "Agent Requests", path: "/agentrequests", icon: "📝" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Leads", path: "/leads" },
+    { name: "Properties", path: "/properties" },
+    { name: "Calendar", path: "/calendar" },
+    { name: "Agent Requests", path: "/agentrequests" },
   ];
 
   const isActive = (path: string) => {
@@ -302,7 +333,10 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
                       }`}
                       variant={isActive(item.path) ? "default" : "ghost"}
                     >
-                      <span className="mr-2">{item.icon}</span> {item.name}
+                      <span className="mr-2">
+                        {getIcon(item.name, isActive(item.path))}
+                      </span>{" "}
+                      {item.name}
                     </Button>
                   </Link>
                 ))}
@@ -310,7 +344,7 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
               {/* User Section */}
               <div className="flex items-center gap-6 flex-shrink-0">
                 <div className="w-10 h-10 bg-[#e8eaf6] rounded-full flex items-center justify-center text-xl cursor-pointer">
-                  💜
+                  <img src={savedInactiveUrl} alt="Saved" className="w-8 h-8" />
                 </div>
                 <Link
                   to="/profile"
