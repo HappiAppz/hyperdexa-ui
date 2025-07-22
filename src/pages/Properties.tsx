@@ -91,7 +91,7 @@ const Properties = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {properties.map((property) => (
           <Link key={property.id} to={`/property/${property.id}`}>
-            <Card className="hover:shadow-lg transition-shadow cursor-pointer overflow-hidden">
+            <div className="bg-[#fffcf4] rounded-2xl border border-slate-300 hover:shadow-lg transition-shadow cursor-pointer overflow-hidden h-[320px]">
               <div className="relative h-48">
                 <img
                   src={property.image}
@@ -110,7 +110,7 @@ const Properties = () => {
                   <span className="text-sm font-medium">{property.name}</span>
                 </div>
               </div>
-              <CardContent className="p-4">
+              <div className="p-4">
                 <h3 className="font-semibold text-gray-900 mb-1">
                   {property.name}
                 </h3>
@@ -121,8 +121,8 @@ const Properties = () => {
                   <Home className="w-4 h-4 mr-1" />
                   {property.location}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </Link>
         ))}
       </div>
