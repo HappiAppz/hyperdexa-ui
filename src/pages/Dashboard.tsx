@@ -53,7 +53,7 @@ const Dashboard = () => {
             <h2 className="text-lg font-semibold text-white">
               Today's Appointments
             </h2>
-            <button className="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center text-2xl hover:bg-white/30 transition-transform rotate-0 hover:rotate-90">
+            <button className="w-9 h-9 rounded-full bg-white text-[#012267]] flex items-center justify-center text-2xl hover:bg-white/30 transition-transform rotate-0 hover:rotate-90">
               <Plus className="w-5 h-5" />
             </button>
           </div>
