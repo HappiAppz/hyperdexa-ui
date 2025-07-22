@@ -186,7 +186,7 @@ const Calendar = () => {
       <div className="flex gap-6">
         {/* Left Sidebar */}
         <div className="w-80">
-          <button className="w-full mb-6 bg-white border-2 border-gray-300 rounded-lg px-4 py-3 text-left flex items-center space-x-2 hover:bg-gray-50">
+          <button className="w-full mb-6 bg-white border-2 border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-start space-x-2 hover:bg-gray-50">
             <span className="text-gray-600">📅</span>
             <span className="font-medium">Add new task</span>
           </button>
@@ -195,15 +195,15 @@ const Calendar = () => {
           <div className="bg-slate-200 rounded-xl p-4 shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-blue-950">{monthYear}</h3>
-              <div className="flex space-x-1">
+              <div className="flex items-center space-x-1">
                 <button
-                  className="w-7 p-2.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center gap-1"
+                  className="w-7 h-7 p-1.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center"
                   onClick={handlePrevMonth}
                 >
                   <ChevronLeft className="w-4 h-4 text-stone-50" />
                 </button>
                 <button
-                  className="w-7 p-2.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center gap-1"
+                  className="w-7 h-7 p-1.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center"
                   onClick={handleNextMonth}
                 >
                   <ChevronRight className="w-4 h-4 text-stone-50" />
@@ -230,7 +230,7 @@ const Calendar = () => {
                 >
                   {day && (
                     <button
-                      className={`w-10 h-10 rounded-[37.74px] text-xs font-bold ${
+                      className={`w-10 h-10 rounded-[37.74px] text-xs font-bold flex items-center justify-center ${
                         day === selectedDate.getDate() &&
                         selectedDate.getMonth() ===
                           new Date(
@@ -304,7 +304,7 @@ const Calendar = () => {
 
         {/* Main Calendar View */}
         <div className="flex-1 py-5">
-          <div className="pb-3 flex justify-between items-start">
+          <div className="pb-3 flex justify-between items-center">
             <div className="flex items-center gap-5">
               <button
                 className="px-5 py-2 rounded-full border border-blue-950/40 text-blue-950 text-lg hover:bg-gray-50"
@@ -315,7 +315,7 @@ const Calendar = () => {
               <div className="text-blue-950 text-3xl font-medium">
                 {weekRangeLabel}
               </div>
-              <div className="py-2 flex items-center gap-5">
+              <div className="flex items-center gap-3">
                 <button
                   className="w-6 h-6 bg-blue-950 flex items-center justify-center hover:opacity-80"
                   onClick={() => moveWeek(-1)}
@@ -347,7 +347,7 @@ const Calendar = () => {
               return (
                 <div
                   key={index}
-                  className="p-3 bg-slate-200/50 rounded-3xl border-2 border-slate-300 flex items-start gap-3"
+                  className="p-3 bg-slate-200/50 rounded-3xl border-2 border-slate-300 flex items-center gap-3 min-h-[4rem]"
                 >
                   <div className="w-36 flex items-center gap-2">
                     <div className="w-12 h-10 rounded-full flex items-center justify-center">
@@ -370,15 +370,15 @@ const Calendar = () => {
                               key={eventIndex}
                               className="p-4 bg-violet-400/20 rounded-xl flex items-center gap-4"
                             >
-                              <div className="w-5 h-5 bg-violet-400 rounded" />
+                              <div className="w-5 h-5 bg-violet-400 rounded flex-shrink-0" />
                               <div className="w-36 text-neutral-700 text-lg">
                                 All day
                               </div>
                               <div className="flex-1 text-blue-950 text-lg font-medium">
                                 {event.title}
                               </div>
-                              <div className="w-6 h-6 bg-zinc-300 rounded" />
-                              <div className="w-3 h-1.5 bg-blue-950" />
+                              <div className="w-6 h-6 bg-zinc-300 rounded flex-shrink-0" />
+                              <div className="w-3 h-1.5 bg-blue-950 flex-shrink-0" />
                             </div>
                           );
                         }
@@ -404,7 +404,7 @@ const Calendar = () => {
                             >
                               <div className="p-4 bg-orange-300/20 rounded-xl flex flex-col gap-10">
                                 <div className="flex items-start gap-4">
-                                  <div className="w-5 h-5 bg-orange-300 rounded" />
+                                  <div className="w-5 h-5 bg-orange-300 rounded flex-shrink-0" />
                                   <div className="flex-1 flex flex-col">
                                     <div className="text-blue-950 text-lg font-medium">
                                       {event.title}
@@ -413,23 +413,24 @@ const Calendar = () => {
                                       12:00 PM - 1:00PM, 25 June, Wednesday
                                     </div>
                                   </div>
-                                  <div className="w-6 h-6 bg-zinc-300 rounded" />
-                                  <div className="w-3 h-1.5 bg-zinc-900" />
+                                  <div className="w-6 h-6 bg-zinc-300 rounded flex-shrink-0" />
+                                  <div className="w-3 h-1.5 bg-zinc-900 flex-shrink-0" />
                                 </div>
-                                <div className="flex justify-end items-start gap-2">
-                                  <button className="px-12 py-2.5 rounded-full border border-blue-950/40 flex items-center gap-2 hover:bg-gray-50">
+                                <div className="flex justify-between items-center gap-2">
+                                  <button className="px-6 py-2.5 rounded-full border border-blue-950/40 flex items-center gap-2 hover:bg-gray-50">
                                     <MapPin className="w-4 h-4 text-blue-950" />
                                     <span className="text-blue-950 text-lg font-medium">
                                       Location
                                     </span>
                                   </button>
-                                  <div className="flex-1" />
-                                  <button className="w-11 h-11 p-4 rounded-full flex items-center justify-center hover:bg-gray-100">
-                                    <Edit3 className="w-4 h-4 text-blue-950" />
-                                  </button>
-                                  <button className="p-2 rounded-full border border-gray-300 flex items-center gap-2 hover:bg-gray-100">
-                                    <Trash2 className="w-4 h-4 text-blue-950" />
-                                  </button>
+                                  <div className="flex items-center gap-2">
+                                    <button className="w-11 h-11 p-2 rounded-full flex items-center justify-center hover:bg-gray-100">
+                                      <Edit3 className="w-4 h-4 text-blue-950" />
+                                    </button>
+                                    <button className="w-11 h-11 p-2 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+                                      <Trash2 className="w-4 h-4 text-blue-950" />
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -441,7 +442,9 @@ const Calendar = () => {
                               key={eventIndex}
                               className={`p-4 ${bgColor} rounded-xl flex items-center gap-4`}
                             >
-                              <div className={`w-5 h-5 ${dotColor} rounded`} />
+                              <div
+                                className={`w-5 h-5 ${dotColor} rounded flex-shrink-0`}
+                              />
                               <div className="w-40 text-neutral-700 text-lg">
                                 {event.time}
                               </div>
@@ -454,8 +457,8 @@ const Calendar = () => {
                               >
                                 {event.title}
                               </div>
-                              <div className="w-6 h-6 bg-zinc-300 rounded" />
-                              <div className="w-3 h-1.5 bg-blue-950" />
+                              <div className="w-6 h-6 bg-zinc-300 rounded flex-shrink-0" />
+                              <div className="w-3 h-1.5 bg-blue-950 flex-shrink-0" />
                             </div>
                           );
                         }
