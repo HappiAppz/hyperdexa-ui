@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, MapPin, Edit3, Trash2 } from "lucide-react";
 import Layout from "@/components/Layout";
+import CalendarInactiveIcon from "@/assets/icons/calendar_inactive.svg";
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date(2025, 5, 25)); // June 25, 2025
@@ -186,9 +187,17 @@ const Calendar = () => {
       <div className="flex gap-6">
         {/* Left Sidebar */}
         <div className="w-80">
-          <button className="w-full mb-6 bg-white border-2 border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-start space-x-2 hover:bg-gray-50">
-            <span className="text-gray-600">📅</span>
-            <span className="font-medium">Add new task</span>
+          <button className="w-full px-6 py-3 mt-3 mb-6 rounded-[51px] outline outline-1 outline-offset-[-1px] outline-blue-950 inline-flex justify-center items-center gap-5 hover:bg-gray-50">
+            <div className="w-9 h-9 flex items-center justify-center">
+              <img
+                src={CalendarInactiveIcon}
+                alt="Calendar"
+                className="w-6 h-6"
+              />
+            </div>
+            <div className="text-center justify-center text-blue-950 text-xl font-medium leading-snug tracking-tight">
+              Add new task
+            </div>
           </button>
 
           {/* Mini Calendar */}
@@ -304,7 +313,7 @@ const Calendar = () => {
 
         {/* Main Calendar View */}
         <div className="flex-1 py-5">
-          <div className="pb-3 flex justify-between items-center">
+          <div className="pb-3 flex justify-center items-center">
             <div className="flex items-center gap-5">
               <button
                 className="px-5 py-2 rounded-full border border-blue-950/40 text-blue-950 text-lg hover:bg-gray-50"
