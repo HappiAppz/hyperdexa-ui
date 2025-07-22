@@ -284,9 +284,11 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
             <div className="flex w-full items-center justify-between">
               {/* Logo */}
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2] flex items-center justify-center relative overflow-hidden">
-                  <div className="w-9 h-9 bg-white rounded-full opacity-30 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-                </div>
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="w-12 h-12 rounded-full object-cover shadow"
+                />
               </div>
               {/* Nav Tabs Centered */}
               <nav className="flex gap-3 mx-auto">
