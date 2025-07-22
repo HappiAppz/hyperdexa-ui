@@ -124,35 +124,7 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
 
     // Calendar page has a unique header layout
     if (pathname === "/calendar") {
-      return (
-        <div className="sticky top-[6rem] z-40 bg-[#fffcf4] py-4 flex items-center justify-between mb-8">
-          <Button
-            variant="outline"
-            className="rounded-full bg-white border-2 border-[#e8eaf6] px-7 py-3 font-medium text-base text-[#1e3a8a] shadow-sm hover:border-[#1e3a8a] flex items-center gap-2"
-          >
-            <Calendar className="w-5 h-5" /> Add new task
-          </Button>
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              className="rounded-full bg-white border-2 border-[#e8eaf6] px-5 py-2 font-medium text-sm text-[#1e3a8a] shadow-sm hover:border-[#1e3a8a]"
-            >
-              Today
-            </Button>
-            <div className="flex items-center gap-3">
-              <button className="w-8 h-8 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a]">
-                <ChevronLeft className="w-5 h-5 text-[#1e3a8a]" />
-              </button>
-              <span className="font-semibold text-lg text-[#1e3a8a]">
-                23 June-30 June
-              </span>
-              <button className="w-8 h-8 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a]">
-                <ChevronRight className="w-5 h-5 text-[#1e3a8a]" />
-              </button>
-            </div>
-          </div>
-        </div>
-      );
+      return null;
     }
 
     let title: React.ReactNode = "Welcome back, Maria!";
