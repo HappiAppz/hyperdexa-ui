@@ -70,13 +70,6 @@ const Profile = () => {
 
   return (
     <Layout>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold text-[#1e3a8a]">Your Profile</h1>
-        <button className="w-12 h-12 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a] transition-transform hover:scale-110">
-          <Mic className="w-6 h-6 text-[#1e3a8a]" />
-        </button>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Profile Card */}
         <div className="lg:col-span-1 space-y-6">
