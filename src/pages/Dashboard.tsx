@@ -90,37 +90,66 @@ const Dashboard = () => {
                 <Plus className="w-5 h-5" />
               </button>
             </div>
-            <div className="max-h-64 overflow-y-auto pr-2">
-              {followUps.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center justify-between py-4 border-b border-[#f0f0f0] last:border-b-0"
-                >
-                  <div>
-                    <div className="text-sm font-medium text-[#1e3a8a] mb-1">
-                      Follow up with {item.client}
+            <div className="relative h-64 overflow-hidden">
+              <div
+                className="h-full overflow-y-scroll scrollbar-hide"
+                style={{ width: "calc(100% + 20px)" }}
+                onScroll={(e) => {
+                  const el = e.currentTarget;
+                  const thumb = document.getElementById(
+                    "custom-followups-thumb"
+                  );
+                  if (thumb) {
+                    const scrollRatio =
+                      el.scrollTop / (el.scrollHeight - el.clientHeight);
+                    const maxThumbTop = el.clientHeight - 44; // 44px = h-11
+                    thumb.style.top = `${scrollRatio * maxThumbTop}px`;
+                  }
+                }}
+                id="followups-scrollable"
+              >
+                <div style={{ paddingRight: "20px" }}>
+                  {followUps.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between py-4 border-b border-[#f0f0f0] last:border-b-0"
+                    >
+                      <div>
+                        <div className="text-sm font-medium text-[#1e3a8a] mb-1">
+                          Follow up with {item.client}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          Inactive {item.inactive}
+                        </div>
+                      </div>
+                      <Button className="rounded-full border-2 border-[#1e3a8a] text-[#1e3a8a] bg-white hover:bg-[#1e3a8a] hover:text-white px-5 py-2 font-medium text-sm transition-colors">
+                        Message now
+                      </Button>
                     </div>
-                    <div className="text-xs text-gray-400">
-                      Inactive {item.inactive}
-                    </div>
-                  </div>
-                  <Button className="rounded-full border-2 border-[#1e3a8a] text-[#1e3a8a] bg-white hover:bg-[#1e3a8a] hover:text-white px-5 py-2 font-medium text-sm transition-colors">
-                    Message now
-                  </Button>
+                  ))}
                 </div>
-              ))}
+              </div>
+              {/* Custom scrollbar overlay */}
+              <div className="pointer-events-none absolute top-0 right-0 h-full w-2.5 flex flex-col items-end">
+                <div className="w-2.5 h-full bg-slate-300 rounded-[60px] absolute left-0 top-0" />
+                <div
+                  id="custom-followups-thumb"
+                  className="w-2.5 h-11 bg-blue-950 rounded-[60px] absolute left-0"
+                  style={{ top: 0 }}
+                />
+              </div>
             </div>
           </div>
           {/* Action Buttons */}
           <div className="grid grid-cols-2 gap-4 mt-8">
             <div className="rounded-xl border-2 border-[#e8eaf6] bg-white text-center py-6 cursor-pointer hover:border-[#1e3a8a] hover:shadow-lg transition-all flex flex-col items-center">
-              <div className="text-3xl mb-2 text-[#1e3a8a]">465+</div>
+              <div className="text-3xl mb-2 text-[#1e3a8a]"> 465+</div>
               <div className="text-base font-medium text-[#1e3a8a]">
                 Add new lead
               </div>
             </div>
             <div className="rounded-xl border-2 border-[#e8eaf6] bg-white text-center py-6 cursor-pointer hover:border-[#1e3a8a] hover:shadow-lg transition-all flex flex-col items-center">
-              <div className="text-3xl mb-2 text-[#1e3a8a]">3e0+</div>
+              <div className="text-3xl mb-2 text-[#1e3a8a]"> 3e0+</div>
               <div className="text-base font-medium text-[#1e3a8a]">
                 Add new property
               </div>

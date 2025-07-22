@@ -204,9 +204,9 @@ const PropertyDetail = () => {
       </div>
 
       {/* Matched For Section */}
-      <div className="mt-12">
+      <div className="mt-12 lg:col-span-3">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Matched for</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:col-spans-4 gap-4">
           {[1, 2, 3, 4].map((_, idx) => (
             <Card
               key={idx}
