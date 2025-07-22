@@ -303,33 +303,31 @@ const Calendar = () => {
         </div>
 
         {/* Main Calendar View */}
-        <div className="flex-1 py-5 rounded-[20px] inline-flex flex-col justify-start items-start gap-3 overflow-hidden">
-          <div className="self-stretch pb-3 inline-flex justify-between items-start">
-            <div className="flex justify-start items-center gap-5">
+        <div className="flex-1 py-5">
+          <div className="pb-3 flex justify-between items-start">
+            <div className="flex items-center gap-5">
               <button
-                className="px-5 py-2 rounded-[80px] outline outline-1 outline-offset-[-1px] outline-blue-950/40 flex justify-center items-center gap-2 overflow-hidden hover:bg-gray-50"
+                className="px-5 py-2 rounded-full border border-blue-950/40 text-blue-950 text-lg hover:bg-gray-50"
                 onClick={goToToday}
               >
-                <div className="justify-start text-blue-950 text-lg font-normal font-['Satoshi']">
-                  Today
-                </div>
+                Today
               </button>
-              <div className="justify-start text-blue-950 text-3xl font-medium font-['Satoshi']">
+              <div className="text-blue-950 text-3xl font-medium">
                 {weekRangeLabel}
               </div>
-              <div className="py-2 rounded-[80px] flex justify-start items-center gap-5 overflow-hidden">
+              <div className="py-2 flex items-center gap-5">
                 <button
-                  className="w-6 h-6 bg-blue-950 hover:opacity-80"
+                  className="w-6 h-6 bg-blue-950 flex items-center justify-center hover:opacity-80"
                   onClick={() => moveWeek(-1)}
                 >
-                  <ChevronLeft className="w-4 h-4 text-white m-auto" />
+                  <ChevronLeft className="w-4 h-4 text-white" />
                 </button>
                 <div className="w-2.5 h-5 bg-blue-950" />
                 <button
-                  className="w-6 h-6 bg-blue-950 hover:opacity-80"
+                  className="w-6 h-6 bg-blue-950 flex items-center justify-center hover:opacity-80"
                   onClick={() => moveWeek(1)}
                 >
-                  <ChevronRight className="w-4 h-4 text-white m-auto" />
+                  <ChevronRight className="w-4 h-4 text-white" />
                 </button>
                 <div className="w-2.5 h-5 bg-blue-950" />
               </div>
@@ -337,163 +335,137 @@ const Calendar = () => {
           </div>
 
           {/* Week Days */}
-          {weekDaysArr.map((day, index) => {
-            const dayLabel = `${day.toLocaleString("en-US", {
-              month: "short",
-            })}, ${day.toLocaleString("en-US", { weekday: "short" })}`;
-            const dateNum = day.getDate();
-            const dateKey = formatDate(day);
-            const events = eventsByDate[dateKey] || [];
+          <div className="space-y-3">
+            {weekDaysArr.map((day, index) => {
+              const dayLabel = `${day.toLocaleString("en-US", {
+                month: "short",
+              })}, ${day.toLocaleString("en-US", { weekday: "short" })}`;
+              const dateNum = day.getDate();
+              const dateKey = formatDate(day);
+              const events = eventsByDate[dateKey] || [];
 
-            if (events.length === 0) {
-              // Empty day
               return (
                 <div
                   key={index}
-                  className="self-stretch p-3 bg-slate-200/50 rounded-[20px] outline outline-2 outline-offset-[-2px] outline-slate-300 inline-flex justify-start items-start gap-3"
+                  className="p-3 bg-slate-200/50 rounded-3xl border-2 border-slate-300 flex items-start gap-3"
                 >
-                  <div className="w-36 flex justify-start items-center gap-2">
-                    <div className="w-12 h-10 rounded-[80px] inline-flex flex-col justify-center items-center">
-                      <div className="justify-start text-blue-950 text-2xl font-normal font-['Satoshi']">
+                  <div className="w-36 flex items-center gap-2">
+                    <div className="w-12 h-10 rounded-full flex items-center justify-center">
+                      <div className="text-blue-950 text-2xl font-normal">
                         {dateNum}
                       </div>
                     </div>
-                    <div className="justify-start text-blue-950 text-base font-medium font-['Satoshi']">
+                    <div className="text-blue-950 text-base font-medium">
                       {dayLabel}
                     </div>
                   </div>
+
+                  {events.length > 0 && (
+                    <div className="flex-1 flex flex-col gap-3">
+                      {events.map((event, eventIndex) => {
+                        // Holiday event
+                        if (event.type === "holiday") {
+                          return (
+                            <div
+                              key={eventIndex}
+                              className="p-4 bg-violet-400/20 rounded-xl flex items-center gap-4"
+                            >
+                              <div className="w-5 h-5 bg-violet-400 rounded" />
+                              <div className="w-36 text-neutral-700 text-lg">
+                                All day
+                              </div>
+                              <div className="flex-1 text-blue-950 text-lg font-medium">
+                                {event.title}
+                              </div>
+                              <div className="w-6 h-6 bg-zinc-300 rounded" />
+                              <div className="w-3 h-1.5 bg-blue-950" />
+                            </div>
+                          );
+                        }
+
+                        // Regular events
+                        const isExpandedEvent =
+                          dateNum === 25 &&
+                          eventIndex === 0 &&
+                          event.hasLocation;
+                        const bgColor = event.title.includes("Send Reem Hills")
+                          ? "bg-fuchsia-400/20"
+                          : "bg-orange-300/20";
+                        const dotColor = event.title.includes("Send Reem Hills")
+                          ? "bg-fuchsia-400"
+                          : "bg-orange-300";
+
+                        if (isExpandedEvent) {
+                          // Expanded event view for first event on June 25th
+                          return (
+                            <div
+                              key={eventIndex}
+                              className="h-40 flex flex-col gap-3"
+                            >
+                              <div className="p-4 bg-orange-300/20 rounded-xl flex flex-col gap-10">
+                                <div className="flex items-start gap-4">
+                                  <div className="w-5 h-5 bg-orange-300 rounded" />
+                                  <div className="flex-1 flex flex-col">
+                                    <div className="text-blue-950 text-lg font-medium">
+                                      {event.title}
+                                    </div>
+                                    <div className="text-neutral-700 text-lg">
+                                      12:00 PM - 1:00PM, 25 June, Wednesday
+                                    </div>
+                                  </div>
+                                  <div className="w-6 h-6 bg-zinc-300 rounded" />
+                                  <div className="w-3 h-1.5 bg-zinc-900" />
+                                </div>
+                                <div className="flex justify-end items-start gap-2">
+                                  <button className="px-12 py-2.5 rounded-full border border-blue-950/40 flex items-center gap-2 hover:bg-gray-50">
+                                    <MapPin className="w-4 h-4 text-blue-950" />
+                                    <span className="text-blue-950 text-lg font-medium">
+                                      Location
+                                    </span>
+                                  </button>
+                                  <div className="flex-1" />
+                                  <button className="w-11 h-11 p-4 rounded-full flex items-center justify-center hover:bg-gray-100">
+                                    <Edit3 className="w-4 h-4 text-blue-950" />
+                                  </button>
+                                  <button className="p-2 rounded-full border border-gray-300 flex items-center gap-2 hover:bg-gray-100">
+                                    <Trash2 className="w-4 h-4 text-blue-950" />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        } else {
+                          // Regular event view
+                          return (
+                            <div
+                              key={eventIndex}
+                              className={`p-4 ${bgColor} rounded-xl flex items-center gap-4`}
+                            >
+                              <div className={`w-5 h-5 ${dotColor} rounded`} />
+                              <div className="w-40 text-neutral-700 text-lg">
+                                {event.time}
+                              </div>
+                              <div
+                                className={`flex-1 text-lg font-medium ${
+                                  event.title.includes("Send Reem Hills")
+                                    ? "text-black"
+                                    : "text-blue-950"
+                                }`}
+                              >
+                                {event.title}
+                              </div>
+                              <div className="w-6 h-6 bg-zinc-300 rounded" />
+                              <div className="w-3 h-1.5 bg-blue-950" />
+                            </div>
+                          );
+                        }
+                      })}
+                    </div>
+                  )}
                 </div>
               );
-            }
-
-            // Day with events
-            return (
-              <div
-                key={index}
-                className="self-stretch p-3 bg-slate-200/50 rounded-[20px] inline-flex justify-start items-start gap-3"
-              >
-                <div className="w-36 flex justify-start items-center gap-2">
-                  <div className="w-12 h-10 rounded-[80px] inline-flex flex-col justify-center items-center">
-                    <div className="justify-start text-blue-950 text-2xl font-normal font-['Satoshi']">
-                      {dateNum}
-                    </div>
-                  </div>
-                  <div className="justify-start text-blue-950 text-base font-medium font-['Satoshi']">
-                    {dayLabel}
-                  </div>
-                </div>
-
-                {/* Events for this day */}
-                <div className="flex-1 inline-flex flex-col justify-start items-start gap-3">
-                  {events.map((event, eventIndex) => {
-                    // Holiday event
-                    if (event.type === "holiday") {
-                      return (
-                        <div
-                          key={eventIndex}
-                          className="self-stretch p-4 bg-violet-400/20 rounded-xl inline-flex justify-start items-center gap-4 overflow-hidden"
-                        >
-                          <div className="w-5 h-5 bg-violet-400 rounded-md" />
-                          <div className="w-36 justify-start text-neutral-700 text-lg font-normal font-['Satoshi']">
-                            All day
-                          </div>
-                          <div className="flex-1 justify-start text-blue-950 text-lg font-medium font-['Satoshi']">
-                            {event.title}
-                          </div>
-                          <div className="w-6 h-6 bg-zinc-300" />
-                          <div className="w-3 h-1.5 bg-blue-950" />
-                        </div>
-                      );
-                    }
-
-                    // Regular events - special handling for June 25th first event (expanded view)
-                    const isExpandedEvent =
-                      dateNum === 25 && eventIndex === 0 && event.hasLocation;
-                    const bgColor = event.title.includes("Send Reem Hills")
-                      ? "bg-fuchsia-400/20"
-                      : "bg-orange-300/20";
-                    const dotColor = event.title.includes("Send Reem Hills")
-                      ? "bg-fuchsia-400"
-                      : "bg-orange-300";
-
-                    if (isExpandedEvent) {
-                      // Expanded event view for first event on June 25th
-                      return (
-                        <div
-                          key={eventIndex}
-                          className="self-stretch h-40 flex flex-col justify-start items-start gap-3"
-                        >
-                          <div className="self-stretch p-4 bg-orange-300/20 rounded-xl flex flex-col justify-start items-start gap-10 overflow-hidden">
-                            <div className="self-stretch inline-flex justify-start items-start gap-4">
-                              <div className="w-5 h-5 bg-orange-300 rounded-md" />
-                              <div className="flex-1 inline-flex flex-col justify-start items-start">
-                                <div className="justify-start text-blue-950 text-lg font-medium font-['Satoshi']">
-                                  {event.title}
-                                </div>
-                                <div className="justify-start text-neutral-700 text-lg font-normal font-['Satoshi']">
-                                  12:00 PM - 1:00PM, 25 June, Wednesday
-                                </div>
-                              </div>
-                              <div className="w-6 h-6 bg-zinc-300" />
-                              <div className="w-3 h-1.5 bg-zinc-900" />
-                            </div>
-                            <div className="self-stretch inline-flex justify-end items-start gap-2">
-                              <div className="px-12 py-2.5 rounded-[51px] shadow-[0px_0px_41.70000076293945px_0px_rgba(2,34,104,0.10)] outline outline-1 outline-offset-[-1px] outline-blue-950/40 flex justify-center items-center gap-2">
-                                <div className="w-6 h-6 relative overflow-hidden">
-                                  <div className="w-2.5 h-2.5 left-[7.25px] top-[5.25px] absolute bg-blue-950" />
-                                  <div className="w-4 h-5 left-[3.49px] top-[1.25px] absolute bg-blue-950" />
-                                </div>
-                                <div className="text-center justify-center text-blue-950 text-lg font-medium font-['Neue_Haas_Grotesk_Display_Pro'] leading-snug tracking-tight">
-                                  Location
-                                </div>
-                              </div>
-                              <div className="flex-1 justify-start text-black text-lg font-normal font-['Inter']">
-                                {" "}
-                              </div>
-                              <div className="w-11 h-11 p-4 rounded-[31.92px] flex justify-center items-center gap-1.5">
-                                <div className="w-6 h-6 relative overflow-hidden">
-                                  <div className="w-3.5 h-3.5 left-[7.06px] top-[2.25px] absolute bg-blue-950" />
-                                  <div className="w-5 h-5 left-[2.56px] top-[2.54px] absolute bg-blue-950" />
-                                </div>
-                              </div>
-                              <div className="p-2 rounded-[80px] outline outline-1 outline-offset-[-1px] flex justify-start items-center gap-2 overflow-hidden">
-                                <div className="w-6 h-6 bg-zinc-300" />
-                                <div className="w-4 h-4 bg-blue-950" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    } else {
-                      // Regular event view
-                      return (
-                        <div
-                          key={eventIndex}
-                          className={`self-stretch p-4 ${bgColor} rounded-xl inline-flex justify-start items-center gap-4 overflow-hidden`}
-                        >
-                          <div className={`w-5 h-5 ${dotColor} rounded-md`} />
-                          <div className="w-40 justify-start text-neutral-700 text-lg font-normal font-['Satoshi']">
-                            {event.time}
-                          </div>
-                          <div
-                            className={`flex-1 justify-start text-lg font-medium font-['Satoshi'] ${
-                              event.title.includes("Send Reem Hills")
-                                ? "text-black font-normal font-['Inter']"
-                                : "text-blue-950"
-                            }`}
-                          >
-                            {event.title}
-                          </div>
-                          <div className="w-6 h-6 bg-zinc-300" />
-                          <div className="w-3 h-1.5 bg-blue-950" />
-                        </div>
-                      );
-                    }
-                  })}
-                </div>
-              </div>
-            );
-          })}
+            })}
+          </div>
         </div>
       </div>
     </Layout>
