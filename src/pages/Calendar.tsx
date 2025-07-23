@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, MapPin, Edit3, Trash2 } from "lucide-react";
 import Layout from "@/components/Layout";
+import CalendarInactiveIcon from "@/assets/icons/calendar_inactive.svg";
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date(2025, 5, 25)); // June 25, 2025
@@ -186,27 +187,35 @@ const Calendar = () => {
       <div className="flex gap-6">
         {/* Left Sidebar */}
         <div className="w-80">
-          <button className="w-full mb-6 bg-white border-2 border-gray-300 rounded-lg px-4 py-3 text-left flex items-center space-x-2 hover:bg-gray-50">
-            <span className="text-gray-600">📅</span>
-            <span className="font-medium">Add new task</span>
+          <button className="w-full px-6 py-3 mt-3 mb-6 rounded-[51px] outline outline-1 outline-offset-[-1px] outline-blue-950 inline-flex justify-center items-center gap-5 hover:bg-gray-50">
+            <div className="w-9 h-9 flex items-center justify-center">
+              <img
+                src={CalendarInactiveIcon}
+                alt="Calendar"
+                className="w-6 h-6"
+              />
+            </div>
+            <div className="text-center justify-center text-blue-950 text-xl font-medium leading-snug tracking-tight">
+              Add new task
+            </div>
           </button>
 
           {/* Mini Calendar */}
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+          <div className="bg-slate-200 rounded-xl p-4 shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-blue-900">{monthYear}</h3>
-              <div className="flex space-x-1">
+              <h3 className="font-semibold text-blue-950">{monthYear}</h3>
+              <div className="flex items-center space-x-3">
                 <button
-                  className="p-1 hover:bg-gray-100 rounded"
+                  className="w-7 h-7 p-1.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center"
                   onClick={handlePrevMonth}
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-4 h-4 text-stone-50" />
                 </button>
                 <button
-                  className="p-1 hover:bg-gray-100 rounded"
+                  className="w-7 h-7 p-1.5 bg-blue-950 rounded-3xl shadow-[0px_6.666666507720947px_14.666666030883789px_0px_rgba(0,0,0,0.22)] flex justify-center items-center"
                   onClick={handleNextMonth}
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 text-stone-50" />
                 </button>
               </div>
             </div>
@@ -215,7 +224,7 @@ const Calendar = () => {
               {weekDays.map((day) => (
                 <div
                   key={day}
-                  className="text-xs text-center text-gray-500 py-1"
+                  className="text-xs text-center text-black font-medium py-1"
                 >
                   {day}
                 </div>
@@ -230,15 +239,16 @@ const Calendar = () => {
                 >
                   {day && (
                     <button
-                      className={`w-8 h-8 rounded-full text-sm hover:bg-gray-100 ${
+                      className={`w-10 h-10 rounded-[37.74px] text-xs font-bold flex items-center justify-center ${
                         day === selectedDate.getDate() &&
                         selectedDate.getMonth() ===
                           new Date(
                             selectedDate.getFullYear(),
                             selectedDate.getMonth(),
                             day
-                          ).getMonth() &&
-                        "bg-blue-900 text-white hover:bg-blue-800"
+                          ).getMonth()
+                          ? "bg-blue-950 text-stone-50"
+                          : "bg-slate-200 text-neutral-700 hover:bg-slate-300"
                       }`}
                       onClick={() => {
                         setSelectedDate(
@@ -302,105 +312,169 @@ const Calendar = () => {
         </div>
 
         {/* Main Calendar View */}
-        <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
+        <div className="flex-1 py-5">
+          <div className="pb-3 flex justify-center items-center">
+            <div className="flex items-center gap-5">
               <button
-                className="px-4 py-2 bg-gray-100 rounded-lg text-sm font-medium hover:bg-gray-200"
+                className="px-5 py-2 rounded-full border border-blue-950/40 text-blue-950 text-lg hover:bg-gray-50"
                 onClick={goToToday}
               >
                 Today
               </button>
-              <div className="flex items-center space-x-4">
-                <h2 className="text-xl font-semibold">{weekRangeLabel}</h2>
-                <div className="flex space-x-1">
-                  <button
-                    className="p-2 hover:bg-gray-100 rounded"
-                    onClick={() => moveWeek(-1)}
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <button
-                    className="p-2 hover:bg-gray-100 rounded"
-                    onClick={() => moveWeek(1)}
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </div>
+              <div className="text-blue-950 text-3xl font-medium">
+                {weekRangeLabel}
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  className="hover:opacity-70"
+                  onClick={() => moveWeek(-1)}
+                >
+                  <ChevronLeft className="w-7 h-7 text-blue-950" />
+                </button>
+                <button
+                  className="hover:opacity-70"
+                  onClick={() => moveWeek(1)}
+                >
+                  <ChevronRight className="w-7 h-7 text-blue-950" />
+                </button>
               </div>
             </div>
+          </div>
 
-            {/* Week View */}
-            <div className="space-y-1">
-              {weekDaysArr.map((day, index) => {
-                const dayLabel = `${day.toLocaleString("en-US", {
-                  month: "short",
-                })}, ${day.toLocaleString("en-US", { weekday: "short" })}`;
-                const dateNum = day.getDate();
-                const dateKey = formatDate(day);
-                const events = eventsByDate[dateKey] || [];
-                return (
-                  <div
-                    key={index}
-                    className="flex border-b border-gray-100 pb-1"
-                  >
-                    <div className="w-24 py-3 text-sm text-gray-600">
-                      <div className="font-semibold text-lg">{dateNum}</div>
-                      <div className="text-xs">{dayLabel}</div>
+          {/* Week Days */}
+          <div className="space-y-3">
+            {weekDaysArr.map((day, index) => {
+              const dayLabel = `${day.toLocaleString("en-US", {
+                month: "short",
+              })}, ${day.toLocaleString("en-US", { weekday: "short" })}`;
+              const dateNum = day.getDate();
+              const dateKey = formatDate(day);
+              const events = eventsByDate[dateKey] || [];
+
+              return (
+                <div
+                  key={index}
+                  className="p-3 bg-slate-200/50 rounded-3xl border-2 border-slate-300 flex items-center gap-3 min-h-[4rem]"
+                >
+                  <div className="w-36 flex items-center gap-2">
+                    <div className="w-12 h-10 rounded-full flex items-center justify-center">
+                      <div className="text-blue-950 text-2xl font-normal">
+                        {dateNum}
+                      </div>
                     </div>
-                    <div className="flex-1 py-3">
-                      {events.map((event, eventIndex) => (
-                        <div
-                          key={eventIndex}
-                          className={
-                            event.type === "holiday"
-                              ? "bg-purple-100 rounded-lg p-3 flex items-center justify-between mb-2"
-                              : "bg-orange-50 rounded-lg p-3 mb-2"
-                          }
-                        >
-                          <div className="flex items-start justify-between w-full">
-                            <div>
-                              <div className="flex items-center space-x-2 mb-2">
-                                <div
-                                  className={
-                                    event.color.split(" ")[0] +
-                                    " w-4 h-4 rounded"
-                                  }
-                                ></div>
-                                <span className="font-medium text-sm">
-                                  {event.title}
-                                </span>
-                              </div>
-                              {event.time && (
-                                <div className="text-xs text-gray-600 mb-2">
-                                  {event.time}
-                                </div>
-                              )}
-                              {event.hasLocation && (
-                                <button className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs flex items-center space-x-1 hover:bg-gray-50">
-                                  <MapPin className="w-3 h-3" />
-                                  <span>Location</span>
-                                </button>
-                              )}
-                            </div>
-                            {event.type === "event" && (
-                              <div className="flex space-x-2">
-                                <button className="p-1 hover:bg-orange-100 rounded">
-                                  <Edit3 className="w-4 h-4" />
-                                </button>
-                                <button className="p-1 hover:bg-orange-100 rounded">
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
+                    <div className="text-blue-950 text-base font-medium">
+                      {dayLabel}
                     </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  {events.length > 0 && (
+                    <div className="flex-1 flex flex-col gap-3">
+                      {events.map((event, eventIndex) => {
+                        // Holiday event
+                        if (event.type === "holiday") {
+                          return (
+                            <div
+                              key={eventIndex}
+                              className="p-4 bg-violet-400/20 rounded-xl flex items-center gap-4"
+                            >
+                              <div className="w-5 h-5 bg-violet-400 rounded flex-shrink-0" />
+                              <div className="w-36 text-neutral-700 text-lg">
+                                All day
+                              </div>
+                              <div className="flex-1 text-blue-950 text-lg font-medium">
+                                {event.title}
+                              </div>
+                              <div className="w-6 h-6 bg-zinc-300 rounded flex-shrink-0" />
+                              <div className="w-3 h-1.5 bg-blue-950 flex-shrink-0" />
+                            </div>
+                          );
+                        }
+
+                        // Regular events
+                        const isExpandedEvent =
+                          dateNum === 25 &&
+                          eventIndex === 0 &&
+                          event.hasLocation;
+                        const bgColor = event.title.includes("Send Reem Hills")
+                          ? "bg-fuchsia-400/20"
+                          : "bg-orange-300/20";
+                        const dotColor = event.title.includes("Send Reem Hills")
+                          ? "bg-fuchsia-400"
+                          : "bg-orange-300";
+
+                        if (isExpandedEvent) {
+                          // Expanded event view for first event on June 25th
+                          return (
+                            <div
+                              key={eventIndex}
+                              className="h-40 flex flex-col gap-3"
+                            >
+                              <div className="p-4 bg-orange-300/20 rounded-xl flex flex-col gap-10">
+                                <div className="flex items-start gap-4">
+                                  <div className="w-5 h-5 bg-orange-300 rounded flex-shrink-0" />
+                                  <div className="flex-1 flex flex-col">
+                                    <div className="text-blue-950 text-lg font-medium">
+                                      {event.title}
+                                    </div>
+                                    <div className="text-neutral-700 text-lg">
+                                      12:00 PM - 1:00PM, 25 June, Wednesday
+                                    </div>
+                                  </div>
+                                  <div className="w-6 h-6 bg-zinc-300 rounded flex-shrink-0" />
+                                  <div className="w-3 h-1.5 bg-zinc-900 flex-shrink-0" />
+                                </div>
+                                <div className="flex justify-between items-center gap-2">
+                                  <button className="px-6 py-2.5 rounded-full border border-blue-950/40 flex items-center gap-2 hover:bg-gray-50">
+                                    <MapPin className="w-4 h-4 text-blue-950" />
+                                    <span className="text-blue-950 text-lg font-medium">
+                                      Location
+                                    </span>
+                                  </button>
+                                  <div className="flex items-center gap-2">
+                                    <button className="w-11 h-11 p-2 rounded-full flex items-center justify-center hover:bg-gray-100">
+                                      <Edit3 className="w-4 h-4 text-blue-950" />
+                                    </button>
+                                    <button className="w-11 h-11 p-2 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+                                      <Trash2 className="w-4 h-4 text-blue-950" />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        } else {
+                          // Regular event view
+                          return (
+                            <div
+                              key={eventIndex}
+                              className={`p-4 ${bgColor} rounded-xl flex items-center gap-4`}
+                            >
+                              <div
+                                className={`w-5 h-5 ${dotColor} rounded flex-shrink-0`}
+                              />
+                              <div className="w-40 text-neutral-700 text-lg">
+                                {event.time}
+                              </div>
+                              <div
+                                className={`flex-1 text-lg font-medium ${
+                                  event.title.includes("Send Reem Hills")
+                                    ? "text-black"
+                                    : "text-blue-950"
+                                }`}
+                              >
+                                {event.title}
+                              </div>
+                              <div className="w-6 h-6 bg-zinc-300 rounded flex-shrink-0" />
+                              <div className="w-3 h-1.5 bg-blue-950 flex-shrink-0" />
+                            </div>
+                          );
+                        }
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

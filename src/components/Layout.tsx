@@ -16,6 +16,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 
+// SVG icon paths
+import dashboardActiveUrl from "@/assets/icons/dashboard_active.svg?url";
+import dashboardInactiveUrl from "@/assets/icons/dashboard_inactive.svg?url";
+import leadsActiveUrl from "@/assets/icons/leads_active.svg?url";
+import leadsInactiveUrl from "@/assets/icons/leads_inactive.svg?url";
+import propertiesActiveUrl from "@/assets/icons/properties_active.svg?url";
+import propertiesInactiveUrl from "@/assets/icons/properties_inactive.svg?url";
+import calendarActiveUrl from "@/assets/icons/calendar_active.svg?url";
+import calendarInactiveUrl from "@/assets/icons/calendar_inactive.svg?url";
+import agentRequestActiveUrl from "@/assets/icons/agentrequest_active.svg?url";
+import agentRequestInactiveUrl from "@/assets/icons/agentrequest_inactive.svg?url";
+import savedInactiveUrl from "@/assets/icons/saved_inactive.svg?url";
+
 interface LayoutProps {
   children: ReactNode;
   onAddLeadClick?: () => void;
@@ -25,12 +38,30 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
   const location = useLocation();
   const isDashboard = location.pathname === "/dashboard";
 
+  // Helper function to get the correct icon based on navigation item and active state
+  const getIcon = (name: string, isActive: boolean) => {
+    const iconMap = {
+      Dashboard: isActive ? dashboardActiveUrl : dashboardInactiveUrl,
+      Leads: isActive ? leadsActiveUrl : leadsInactiveUrl,
+      Properties: isActive ? propertiesActiveUrl : propertiesInactiveUrl,
+      Calendar: isActive ? calendarActiveUrl : calendarInactiveUrl,
+      "Agent Requests": isActive
+        ? agentRequestActiveUrl
+        : agentRequestInactiveUrl,
+    };
+
+    const iconUrl = iconMap[name as keyof typeof iconMap];
+    return iconUrl ? (
+      <img src={iconUrl} alt={name} className="w-5 h-5" />
+    ) : null;
+  };
+
   const navItems = [
-    { name: "Dashboard", path: "/dashboard", icon: "⊞" },
-    { name: "Leads", path: "/leads", icon: "👥" },
-    { name: "Properties", path: "/properties", icon: "🏠" },
-    { name: "Calendar", path: "/calendar", icon: "📅" },
-    { name: "Agent Requests", path: "/agentrequests", icon: "📝" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Leads", path: "/leads" },
+    { name: "Properties", path: "/properties" },
+    { name: "Calendar", path: "/calendar" },
+    { name: "Agent Requests", path: "/agentrequests" },
   ];
 
   const isActive = (path: string) => {
@@ -93,35 +124,7 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
 
     // Calendar page has a unique header layout
     if (pathname === "/calendar") {
-      return (
-        <div className="sticky top-[6rem] z-40 bg-[#fffcf4] py-4 flex items-center justify-between mb-8">
-          <Button
-            variant="outline"
-            className="rounded-full bg-white border-2 border-[#e8eaf6] px-7 py-3 font-medium text-base text-[#1e3a8a] shadow-sm hover:border-[#1e3a8a] flex items-center gap-2"
-          >
-            <Calendar className="w-5 h-5" /> Add new task
-          </Button>
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline"
-              className="rounded-full bg-white border-2 border-[#e8eaf6] px-5 py-2 font-medium text-sm text-[#1e3a8a] shadow-sm hover:border-[#1e3a8a]"
-            >
-              Today
-            </Button>
-            <div className="flex items-center gap-3">
-              <button className="w-8 h-8 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a]">
-                <ChevronLeft className="w-5 h-5 text-[#1e3a8a]" />
-              </button>
-              <span className="font-semibold text-lg text-[#1e3a8a]">
-                23 June-30 June
-              </span>
-              <button className="w-8 h-8 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a]">
-                <ChevronRight className="w-5 h-5 text-[#1e3a8a]" />
-              </button>
-            </div>
-          </div>
-        </div>
-      );
+      return null;
     }
 
     let title: React.ReactNode = "Welcome back, Maria!";
@@ -284,9 +287,11 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
             <div className="flex w-full items-center justify-between">
               {/* Logo */}
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2] flex items-center justify-center relative overflow-hidden">
-                  <div className="w-9 h-9 bg-white rounded-full opacity-30 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-                </div>
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="w-12 h-12 rounded-full object-cover shadow"
+                />
               </div>
               {/* Nav Tabs Centered */}
               <nav className="flex gap-3 mx-auto">
@@ -300,7 +305,10 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
                       }`}
                       variant={isActive(item.path) ? "default" : "ghost"}
                     >
-                      <span className="mr-2">{item.icon}</span> {item.name}
+                      <span className="mr-2">
+                        {getIcon(item.name, isActive(item.path))}
+                      </span>{" "}
+                      {item.name}
                     </Button>
                   </Link>
                 ))}
@@ -308,7 +316,7 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
               {/* User Section */}
               <div className="flex items-center gap-6 flex-shrink-0">
                 <div className="w-10 h-10 bg-[#e8eaf6] rounded-full flex items-center justify-center text-xl cursor-pointer">
-                  💜
+                  <img src={savedInactiveUrl} alt="Saved" className="w-8 h-8" />
                 </div>
                 <Link
                   to="/profile"
