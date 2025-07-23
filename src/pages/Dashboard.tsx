@@ -1,16 +1,40 @@
-import { CheckIcon } from '@heroicons/react/20/solid';
-import { Plus,ArrowUpRight} from "lucide-react";
+import { CheckIcon } from "@heroicons/react/20/solid";
+import { Plus, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 
 const Dashboard = () => {
   const appointments = [
-    { title: 'Call Zack regarding Highland Park property', time: '01:00 PM - 02:00 PM', completed: true }, // Add a 'completed' property
-    { title: 'Meet Tina at Elm Street listing', time: '01:00 PM - 02:00 PM', completed: false },
-    { title: 'Meet Tina at Elm Street listing', time: '01:00 PM - 02:00 PM', completed: false },
-    { title: 'Meet Tina at Elm Street listing', time: '01:00 PM - 02:00 PM', completed: false },
-    { title: 'Meet Tina at Elm Street listing', time: '01:00 PM - 02:00 PM', completed: false },
-    { title: 'Meet Tina at Elm Street listing', time: '01:00 PM - 02:00 PM', completed: false },
+    {
+      title: "Call Zack regarding Highland Park property",
+      time: "01:00 PM - 02:00 PM",
+      completed: true,
+    }, // Add a 'completed' property
+    {
+      title: "Meet Tina at Elm Street listing",
+      time: "01:00 PM - 02:00 PM",
+      completed: false,
+    },
+    {
+      title: "Meet Tina at Elm Street listing",
+      time: "01:00 PM - 02:00 PM",
+      completed: false,
+    },
+    {
+      title: "Meet Tina at Elm Street listing",
+      time: "01:00 PM - 02:00 PM",
+      completed: false,
+    },
+    {
+      title: "Meet Tina at Elm Street listing",
+      time: "01:00 PM - 02:00 PM",
+      completed: false,
+    },
+    {
+      title: "Meet Tina at Elm Street listing",
+      time: "01:00 PM - 02:00 PM",
+      completed: false,
+    },
   ];
 
   const followUps = [
@@ -41,40 +65,38 @@ const Dashboard = () => {
             </button>
           </div>
           <div className="space-y-7 relative">
-              {appointments.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-4 relative">
-                  {/* Timeline vertical line */}
-                  {idx < appointments.length - 1 && (
-                    <div className="absolute left-[10px] top-[12px] bottom-[-38px] w-0.5 bg-white/30 z-0" />
+            {appointments.map((item, idx) => (
+              <div key={idx} className="flex items-center gap-4 relative">
+                {/* Timeline vertical line */}
+                {idx < appointments.length - 1 && (
+                  <div className="absolute left-[10px] top-[12px] bottom-[-38px] w-0.5 bg-white/30 z-0" />
+                )}
+                {/* Timeline dot/icon */}
+                <div className="absolute left-0 top-2 w-5 h-5 rounded-full bg-white flex items-center justify-center z-10">
+                  {item.completed ? ( // Conditional rendering for the tick icon
+                    <CheckIcon className="h-4 w-4 text-[#012267]" /> // Tailwind classes for size and color
+                  ) : (
+                    <div className="w-2 h-2 rounded-full bg-[#012267]" /> // Original inner dot
                   )}
-                  {/* Timeline dot/icon */}
-                  <div className="absolute left-0 top-2 w-5 h-5 rounded-full bg-white flex items-center justify-center z-10">
-                    {item.completed ? ( // Conditional rendering for the tick icon
-                      <CheckIcon className="h-4 w-4 text-[#012267]" /> // Tailwind classes for size and color
-                    ) : (
-                      <div className="w-2 h-2 rounded-full bg-[#012267]" /> // Original inner dot
-                    )}
-                  </div>
-
-                  {/* Text content div - added ml-7 here to create the spacing */}
-                  <div className="flex-1 ml-7">
-                    <div className="text-sm font-medium text-white mb-1">
-                      {item.title}
-                    </div>
-                    <div className="text-xs text-white/80">{item.time}</div>
-                  </div>
                 </div>
-              ))}
-            </div>
+
+                {/* Text content div - added ml-7 here to create the spacing */}
+                <div className="flex-1 ml-7">
+                  <div className="text-sm font-medium text-white mb-1">
+                    {item.title}
+                  </div>
+                  <div className="text-xs text-white/80">{item.time}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Follow Ups Card */}
         <div className=" flex flex-col justify-between">
-          <div className='rounded-2xl p-5 border-2 border-[#e8eaf6]'>
+          <div className="rounded-2xl p-5 border-2 border-[#e8eaf6]">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-bold text-[#012267]">
-                Follow Ups
-              </h2>
+              <h2 className="text-lg font-bold text-[#012267]">Follow Ups</h2>
               <button className="w-9 h-9 rounded-full bg-[#fffcf4] text-[#012267] border-[1px] border-[#012267] flex items-center justify-center text-2xl hover:bg-[#e0e0e0] transition-transform rotate-0 hover:rotate-90">
                 <Plus className="w-5 h-5" />
               </button>
@@ -103,7 +125,7 @@ const Dashboard = () => {
                       key={idx}
                       className="flex items-center justify-between py-4 border-b border-[#f0f0f0] last:border-b-0"
                     >
-                      <div className='border-l-2 border-[#012267] pl-3'>
+                      <div className="border-l-2 border-[#012267] pl-3">
                         <div className="text-sm font-medium text-[#012267] mb-1">
                           Follow up with {item.client}
                         </div>
