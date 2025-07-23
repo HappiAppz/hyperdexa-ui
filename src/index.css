@@ -2,6 +2,207 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Figma Design System Variables */
+:root {
+  --figma-blue: #022268;
+  --figma-cream: #fffbf5;
+  --figma-light-blue: #b6ceff;
+  --figma-light-text: #e6ebf5;
+
+  /* Dimensions */
+  --figma-card-width: 466px;
+  --figma-card-height: 520px;
+  --figma-card-padding: 24px;
+  --figma-border-radius: 13.289px;
+  --figma-button-size: 30px;
+  --figma-button-border-radius: 32.4px;
+
+  /* Timeline */
+  --figma-timeline-width: 26.58px;
+  --figma-timeline-gap: 14.12px;
+  --figma-timeline-dot-size: 26.58px;
+  --figma-timeline-line-width: 0.830564px;
+  --figma-timeline-line-height: 52.19px;
+  --figma-timeline-inner-circle: 9.14px;
+  --figma-checkmark-width: 11.65px;
+  --figma-checkmark-height: 8.45px;
+
+  /* Spacing */
+  --figma-header-gap: 22px;
+  --figma-header-height: 30px;
+  --figma-content-gap: 21.59px;
+  --figma-item-gap: 30.73px;
+  --figma-text-gap: 6px;
+
+  /* Typography */
+  --figma-title-size: 19.9335px;
+  --figma-title-line-height: 28px;
+  --figma-content-size: 16px;
+  --figma-content-line-height: 19px;
+  --figma-time-size: 12px;
+  --figma-time-line-height: 17px;
+  --figma-icon-size: 14.4px;
+
+  /* Shadows */
+  --figma-card-shadow: 0px 0px 36.2px rgba(0, 0, 0, 0.25);
+  --figma-button-shadow: 0px 0px 9.6px rgba(2, 34, 104, 0.3);
+  --figma-timeline-shadow: -1.66113px 0.830564px 6.39534px
+    rgba(2, 34, 104, 0.36);
+}
+
+/* Component Classes */
+@layer components {
+  .appointments-card {
+    @apply relative overflow-hidden flex flex-col;
+    width: var(--figma-card-width);
+    height: var(--figma-card-height);
+    padding: var(--figma-card-padding);
+    border-radius: var(--figma-border-radius);
+    background: linear-gradient(
+      60.76deg,
+      var(--figma-blue) 13.58%,
+      var(--figma-light-blue) 116.49%
+    );
+    box-shadow: var(--figma-card-shadow);
+    gap: var(--figma-content-gap);
+  }
+
+  .appointments-header {
+    @apply flex justify-between items-center;
+    gap: var(--figma-header-gap);
+    height: var(--figma-header-height);
+  }
+
+  .appointments-title {
+    font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+    font-weight: 600;
+    font-size: var(--figma-title-size);
+    line-height: var(--figma-title-line-height);
+    letter-spacing: 0.02em;
+    color: var(--figma-cream);
+  }
+
+  .appointments-add-btn {
+    @apply flex items-center justify-center transition-transform hover:rotate-90;
+    width: var(--figma-button-size);
+    height: var(--figma-button-size);
+    background: var(--figma-cream);
+    border: 0.6px solid var(--figma-cream);
+    border-radius: var(--figma-button-border-radius);
+    box-shadow: var(--figma-button-shadow);
+    color: var(--figma-blue);
+  }
+
+  .appointments-add-icon {
+    width: var(--figma-icon-size);
+    height: var(--figma-icon-size);
+    color: var(--figma-blue);
+  }
+
+  .appointments-content {
+    @apply flex flex-1;
+    gap: var(--figma-timeline-gap);
+  }
+
+  .timeline-column {
+    @apply flex flex-col items-center justify-between;
+    width: var(--figma-timeline-width);
+  }
+
+  .timeline-item {
+    @apply flex flex-col items-center;
+  }
+
+  .timeline-dot {
+    @apply flex items-center justify-center;
+    width: var(--figma-timeline-dot-size);
+    height: var(--figma-timeline-dot-size);
+    border-radius: var(--figma-border-radius);
+    box-shadow: var(--figma-timeline-shadow);
+    padding: 9.1362px;
+  }
+
+  .timeline-dot--completed {
+    background: var(--figma-cream);
+  }
+
+  .timeline-dot--pending {
+    background: transparent;
+    border: var(--figma-timeline-line-width) solid var(--figma-cream);
+  }
+
+  .timeline-checkmark {
+    @apply relative;
+    width: var(--figma-checkmark-width);
+    height: var(--figma-checkmark-height);
+    border: var(--figma-timeline-line-width) solid var(--figma-blue);
+    border-radius: var(--figma-timeline-line-width);
+  }
+
+  .timeline-checkmark::before,
+  .timeline-checkmark::after {
+    content: "";
+    position: absolute;
+    background: var(--figma-blue);
+    height: 2px;
+  }
+
+  .timeline-checkmark::before {
+    width: 4px;
+    transform: rotate(45deg);
+    left: 2px;
+    top: 4px;
+  }
+
+  .timeline-checkmark::after {
+    width: 8px;
+    transform: rotate(-45deg);
+    left: 4px;
+    top: 6px;
+  }
+
+  .timeline-circle {
+    width: var(--figma-timeline-inner-circle);
+    height: var(--figma-timeline-inner-circle);
+    background: var(--figma-cream);
+    border-radius: 50%;
+  }
+
+  .timeline-line {
+    width: var(--figma-timeline-line-width);
+    height: var(--figma-timeline-line-height);
+    background: var(--figma-cream);
+    margin: 8px 0;
+  }
+
+  .content-column {
+    @apply flex flex-col justify-between flex-1;
+    gap: var(--figma-item-gap);
+  }
+
+  .appointment-item {
+    @apply flex flex-col;
+    gap: var(--figma-text-gap);
+  }
+
+  .appointment-title {
+    font-family: "Satoshi", sans-serif;
+    font-weight: 500;
+    font-size: var(--figma-content-size);
+    line-height: var(--figma-content-line-height);
+    color: var(--figma-cream);
+  }
+
+  .appointment-time {
+    font-family: "Satoshi", sans-serif;
+    font-weight: 500;
+    font-size: var(--figma-time-size);
+    line-height: var(--figma-time-line-height);
+    letter-spacing: -0.02em;
+    color: var(--figma-light-text);
+  }
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */

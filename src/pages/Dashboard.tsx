@@ -50,48 +50,53 @@ const Dashboard = () => {
       {/* Dashboard Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.2fr_0.8fr] gap-4 sm:gap-6 lg:gap-8">
         {/* Appointments Card */}
-        <div
-          className="rounded-2xl p-5 sm:p-7 shadow-xl relative overflow-hidden"
-          style={{
-            background: "linear-gradient(45deg, #022268 20%, #FFFBF5 140%)",
-          }}
-        >
-          <div className="flex items-center justify-between mb-4 sm:mb-6">
-            <h2 className="text-base sm:text-lg font-semibold text-white">
-              Today's Appointments
-            </h2>
-            <button className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#012267] flex items-center justify-center text-2xl hover:bg-white/30 transition-transform rotate-0 hover:rotate-90">
-              <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+        <div className="appointments-card">
+          {/* Header */}
+          <div className="appointments-header">
+            <h2 className="appointments-title">Today's Appointments</h2>
+            <button className="appointments-add-btn">
+              <Plus className="appointments-add-icon" />
             </button>
           </div>
-          <div className="space-y-5 sm:space-y-7 relative">
-            {appointments.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex items-center gap-3 sm:gap-4 relative"
-              >
-                {/* Timeline vertical line */}
-                {idx < appointments.length - 1 && (
-                  <div className="absolute left-[8px] sm:left-[10px] top-[12px] bottom-[-28px] sm:bottom-[-38px] w-0.5 bg-white/30 z-0" />
-                )}
-                {/* Timeline dot/icon */}
-                <div className="absolute left-0 top-2 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white flex items-center justify-center z-10">
-                  {item.completed ? (
-                    <CheckIcon className="h-3 w-3 sm:h-4 sm:w-4 text-[#012267]" />
-                  ) : (
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#012267]" />
+
+          {/* Timeline Content */}
+          <div className="appointments-content">
+            {/* Timeline Column */}
+            <div className="timeline-column">
+              {appointments.map((item, idx) => (
+                <div key={`timeline-${idx}`} className="timeline-item">
+                  {/* Timeline Dot */}
+                  <div
+                    className={`timeline-dot ${
+                      item.completed
+                        ? "timeline-dot--completed"
+                        : "timeline-dot--pending"
+                    }`}
+                  >
+                    {item.completed ? (
+                      <div className="timeline-checkmark" />
+                    ) : (
+                      <div className="timeline-circle" />
+                    )}
+                  </div>
+
+                  {/* Connecting Line */}
+                  {idx < appointments.length - 1 && (
+                    <div className="timeline-line" />
                   )}
                 </div>
+              ))}
+            </div>
 
-                {/* Text content div */}
-                <div className="flex-1 ml-6 sm:ml-7">
-                  <div className="text-xs sm:text-sm font-medium text-white mb-1">
-                    {item.title}
-                  </div>
-                  <div className="text-xs text-white/80">{item.time}</div>
+            {/* Content Column */}
+            <div className="content-column">
+              {appointments.map((item, idx) => (
+                <div key={`content-${idx}`} className="appointment-item">
+                  <div className="appointment-title">{item.title}</div>
+                  <div className="appointment-time">{item.time}</div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
