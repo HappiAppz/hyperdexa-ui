@@ -102,7 +102,7 @@ const Dashboard = () => {
 
         {/* Follow Ups Card */}
         <div className="flex flex-col justify-between">
-          <div className="rounded-2xl p-4 sm:p-5 border-2 border-[#e8eaf6]">
+          <div className="followups-width rounded-2xl p-4 sm:p-5 border-2 border-[#e8eaf6]">
             <div className="flex items-center justify-between mb-4 sm:mb-5">
               <h2 className="text-base sm:text-lg font-bold text-[#012267]">
                 Follow Ups

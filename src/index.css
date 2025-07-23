@@ -56,6 +56,9 @@
     0px 9.1362px 27.0764px rgba(2, 34, 104, 0.1);
   --figma-stats-card-radius: 13.289px;
 
+  /* Follow Ups Width - Frame 1171276052 */
+  --figma-followups-width: 555px;
+
   /* Dimensions */
   --figma-card-width: 466px;
   --figma-card-height: 520px;
@@ -107,6 +110,11 @@
   .layout-content {
     max-width: var(--figma-container-width);
     @apply w-full mx-auto px-4;
+  }
+
+  /* Follow Ups Width Component */
+  .followups-width {
+    width: var(--figma-followups-width);
   }
 
   /* Stats Cards Components - Frame 1171275990 */
@@ -276,6 +284,10 @@
       width: 100%;
       height: auto;
       min-height: var(--figma-stats-card-height);
+    }
+
+    .followups-width {
+      width: 100%;
     }
   }
 
