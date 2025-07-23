@@ -46,6 +46,16 @@
   --figma-date-number-size: 28.9036px;
   --figma-date-text-size: 14px;
 
+  /* Stats Cards Dimensions - Frame 1171275990 */
+  --figma-stats-card-width: 265px;
+  --figma-stats-card-height: 248px;
+  --figma-stats-card-padding: 14.9501px 19.9335px;
+  --figma-stats-card-gap: 19.93px;
+  --figma-stats-card-bg: #fffbf5;
+  --figma-stats-card-shadow: 0px -9.1362px 27.2425px rgba(2, 34, 104, 0.1),
+    0px 9.1362px 27.0764px rgba(2, 34, 104, 0.1);
+  --figma-stats-card-radius: 13.289px;
+
   /* Dimensions */
   --figma-card-width: 466px;
   --figma-card-height: 520px;
@@ -97,6 +107,18 @@
   .layout-content {
     max-width: var(--figma-container-width);
     @apply w-full mx-auto px-4;
+  }
+
+  /* Stats Cards Components - Frame 1171275990 */
+  .stats-card {
+    @apply flex flex-col justify-between items-start flex-grow;
+    width: var(--figma-stats-card-width);
+    height: var(--figma-stats-card-height);
+    padding: var(--figma-stats-card-padding);
+    gap: var(--figma-stats-card-gap);
+    background: var(--figma-stats-card-bg);
+    box-shadow: var(--figma-stats-card-shadow);
+    border-radius: var(--figma-stats-card-radius);
   }
 
   /* Date Header Components - Frame 1171276106 */
@@ -248,6 +270,12 @@
     .date-header-inner {
       width: auto;
       height: auto;
+    }
+
+    .stats-card {
+      width: 100%;
+      height: auto;
+      min-height: var(--figma-stats-card-height);
     }
   }
 

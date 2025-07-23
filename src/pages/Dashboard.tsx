@@ -184,7 +184,7 @@ const Dashboard = () => {
 
         {/* Stats Section */}
         <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-          <div className="rounded-2xl bg-white shadow-xl p-5 sm:p-7 flex flex-col justify-between h-full">
+          <div className="stats-card">
             <div className="flex items-center justify-between mb-3 sm:mb-4">
               <span className="text-[#012267] text-base sm:text-lg font-semibold">
                 Total Leads
@@ -198,7 +198,7 @@ const Dashboard = () => {
             </div>
             <div className="text-xs text-gray-400 font-medium">2 new added</div>
           </div>
-          <div className="rounded-2xl bg-white shadow-xl p-5 sm:p-7 flex flex-col justify-between h-full">
+          <div className="stats-card">
             <div className="flex items-center justify-between mb-3 sm:mb-4">
               <span className="text-[#012267] text-base sm:text-lg font-semibold">
                 Total Properties
