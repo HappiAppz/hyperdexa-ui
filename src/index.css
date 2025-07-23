@@ -9,6 +9,43 @@
   --figma-light-blue: #b6ceff;
   --figma-light-text: #e6ebf5;
 
+  /* Layout Dimensions */
+  --figma-container-width: 1340px;
+
+  /* Navigation Dimensions */
+  --figma-nav-width: 827px;
+  --figma-nav-height: 54px;
+  --figma-nav-gap: 8.31px;
+  --figma-nav-border-radius: 41px;
+  --figma-nav-shadow: 0px 0px 16.4px rgba(2, 34, 104, 0.35);
+
+  /* Navigation Colors */
+  --figma-nav-active-bg: #022268;
+  --figma-nav-inactive-bg: #e6ebf5;
+  --figma-nav-active-text: #fffbf5;
+  --figma-nav-inactive-text: #022268;
+
+  /* Date Header Dimensions */
+  --figma-date-container-width: 149.5px;
+  --figma-date-container-height: 70.6px;
+  --figma-date-container-gap: 9.97px;
+  --figma-date-inner-width: 120.49px;
+  --figma-date-inner-height: 69px;
+  --figma-date-inner-gap: 14.95px;
+  --figma-date-card-size: 69px;
+  --figma-date-card-padding: 20.2325px 17.3422px;
+  --figma-date-card-gap: 9.63px;
+  --figma-date-card-radius: 34.6843px;
+  --figma-date-text-width: 36.54px;
+  --figma-date-text-height: 46.85px;
+  --figma-date-text-gap: 2px;
+  --figma-date-line-width: 70.6px;
+  --figma-date-line-border: 0.830564px;
+
+  /* Date Typography */
+  --figma-date-number-size: 28.9036px;
+  --figma-date-text-size: 14px;
+
   /* Dimensions */
   --figma-card-width: 466px;
   --figma-card-height: 520px;
@@ -52,6 +89,168 @@
 
 /* Component Classes */
 @layer components {
+  /* Layout Components */
+  .layout-container {
+    @apply min-h-screen bg-[#fffcf4] flex flex-col;
+  }
+
+  .layout-content {
+    max-width: var(--figma-container-width);
+    @apply w-full mx-auto px-4;
+  }
+
+  /* Date Header Components - Frame 1171276106 */
+  .date-header-container {
+    @apply flex flex-row justify-between items-center;
+    padding: 0px;
+    gap: var(--figma-date-container-gap);
+    width: var(--figma-date-container-width);
+    height: var(--figma-date-container-height);
+  }
+
+  /* Frame 1171276104 */
+  .date-header-inner {
+    @apply flex flex-row items-center mx-auto;
+    padding: 0px;
+    gap: var(--figma-date-inner-gap);
+    width: var(--figma-date-inner-width);
+    height: var(--figma-date-inner-height);
+  }
+
+  /* Frame 1171276105 */
+  .date-card {
+    @apply flex flex-col justify-center items-center;
+    padding: var(--figma-date-card-padding);
+    gap: var(--figma-date-card-gap);
+    width: var(--figma-date-card-size);
+    height: var(--figma-date-card-size);
+    background: #e6ebf5;
+    border-radius: var(--figma-date-card-radius);
+  }
+
+  /* Date Number - "25" */
+  .date-number {
+    width: 34px;
+    height: 29px;
+    font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+    font-weight: 600;
+    font-size: var(--figma-date-number-size);
+    line-height: 100%;
+    @apply flex items-center text-center;
+    letter-spacing: 0.02em;
+    color: var(--figma-blue);
+  }
+
+  /* Frame 1171276103 */
+  .date-text-container {
+    @apply flex flex-col items-start;
+    padding: 0px;
+    gap: var(--figma-date-text-gap);
+    width: var(--figma-date-text-width);
+    height: var(--figma-date-text-height);
+  }
+
+  /* Date Text - "Wed," and "June" */
+  .date-text {
+    width: var(--figma-date-text-width);
+    height: 22.43px;
+    font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+    font-weight: 600;
+    font-size: var(--figma-date-text-size);
+    line-height: 100%;
+    @apply flex items-center self-stretch;
+    letter-spacing: 0.02em;
+    color: var(--figma-blue);
+  }
+
+  /* Line 16 - Separator */
+  .date-separator {
+    @apply mx-auto;
+    width: var(--figma-date-line-width);
+    height: 0px;
+    border: var(--figma-date-line-border) solid var(--figma-blue);
+    transform: rotate(90deg);
+  }
+
+  /* Navigation Components */
+  .nav-container {
+    @apply hidden md:flex justify-between items-center mx-auto;
+    width: var(--figma-nav-width);
+    height: var(--figma-nav-height);
+    gap: var(--figma-nav-gap);
+  }
+
+  .nav-item {
+    @apply flex flex-row justify-center items-center transition-all duration-200;
+    padding: 16px 24px;
+    gap: 9px;
+    height: var(--figma-nav-height);
+    border-radius: var(--figma-nav-border-radius);
+    font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-item--active {
+    background: var(--figma-nav-active-bg);
+    color: var(--figma-nav-active-text);
+    box-shadow: var(--figma-nav-shadow);
+  }
+
+  .nav-item--active:hover {
+    background: #1e3d8f;
+  }
+
+  .nav-item--inactive {
+    background: var(--figma-nav-inactive-bg);
+    color: var(--figma-nav-inactive-text);
+  }
+
+  .nav-item--inactive:hover {
+    background: #dbeafe;
+  }
+
+  .nav-icon {
+    @apply flex items-center justify-center;
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-text {
+    font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Responsive Layout */
+  @media (max-width: 1024px) {
+    .layout-content {
+      @apply max-w-full;
+    }
+
+    .nav-container {
+      width: auto;
+      gap: 4px;
+    }
+
+    .date-header-container {
+      width: auto;
+      height: auto;
+    }
+
+    .date-header-inner {
+      width: auto;
+      height: auto;
+    }
+  }
+
   .appointments-card {
     @apply relative overflow-hidden flex flex-col;
     width: var(--figma-card-width);

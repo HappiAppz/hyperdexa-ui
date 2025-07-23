@@ -300,15 +300,22 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
     return (
       <div className="sticky top-[4rem] sm:top-[5rem] lg:top-[6rem] z-40 bg-[#fffcf4] py-3 sm:py-4 flex items-center justify-between mb-4 sm:mb-8">
         <div className="flex items-center gap-2 sm:gap-6 min-w-0 flex-1">
-          <div className="bg-white rounded-xl shadow-sm px-3 sm:px-6 py-2 text-center flex-shrink-0">
-            <div className="text-xl sm:text-4xl font-bold text-[#1e3a8a] leading-none">
-              25
+          {/* Frame 1171276106 - Date Header Container */}
+          <div className="date-header-container">
+            {/* Frame 1171276104 - Date Header Inner */}
+            <div className="date-header-inner">
+              {/* Frame 1171276105 - Date Card */}
+              <div className="date-card">
+                <div className="date-number">25</div>
+              </div>
+              {/* Frame 1171276103 - Date Text Container */}
+              <div className="date-text-container">
+                <div className="date-text">Wed,</div>
+                <div className="date-text">June</div>
+              </div>
             </div>
-            <div className="text-xs text-gray-500 mt-1">
-              Wed,
-              <br />
-              June
-            </div>
+            {/* Line 16 - Separator */}
+            <div className="date-separator"></div>
           </div>
           <h1 className="text-sm sm:text-2xl md:text-3xl font-semibold text-[#1e3a8a] ml-1 sm:ml-2 min-w-0 flex-1">
             {title}
@@ -321,13 +328,11 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
     );
   };
 
-  const containerClass = "max-w-custom w-full mx-auto px-3 sm:px-4";
-
   return (
-    <div className="min-h-screen bg-[#fffcf4] flex flex-col">
+    <div className="layout-container">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#fffcf4] pt-3 sm:pt-8 pb-3 sm:pb-4 flex-shrink-0">
-        <div className={containerClass}>
+        <div className="layout-content">
           <div className="flex items-center justify-between w-full">
             {/* Logo */}
             <div className="flex-shrink-0">
@@ -339,25 +344,28 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
             </div>
 
             {/* Desktop Navigation - Hidden on mobile */}
-            <nav className="hidden md:flex gap-2 lg:gap-3 mx-auto">
+            <nav className="nav-container">
               {navItems.map((item) => (
                 <Link key={item.name} to={item.path}>
-                  <Button
-                    className={`rounded-full px-4 lg:px-6 py-2 font-medium text-sm lg:text-base ${
+                  <button
+                    className={`nav-item ${
                       isActive(item.path)
-                        ? "bg-[#1e3a8a] text-white shadow-md hover:bg-[#1e3d8f]"
-                        : "bg-[#e8eaf6] text-[#5a67d8] hover:bg-[#dbeafe]"
+                        ? "nav-item--active"
+                        : "nav-item--inactive"
                     }`}
-                    variant={isActive(item.path) ? "default" : "ghost"}
                   >
-                    <span className="mr-2">
+                    <span className="nav-icon">
                       {getIcon(item.name, isActive(item.path))}
                     </span>
-                    <span className="hidden lg:inline">{item.name}</span>
-                    <span className="lg:hidden">
-                      {item.name === "Agent Requests" ? "Requests" : item.name}
+                    <span className="nav-text">
+                      <span className="hidden lg:inline">{item.name}</span>
+                      <span className="lg:hidden">
+                        {item.name === "Agent Requests"
+                          ? "Requests"
+                          : item.name}
+                      </span>
                     </span>
-                  </Button>
+                  </button>
                 </Link>
               ))}
             </nav>
@@ -451,7 +459,7 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
       </header>
 
       {/* Main Container */}
-      <main className={`${containerClass} flex-1 flex flex-col`}>
+      <main className="layout-content flex-1 flex flex-col">
         {/* Main Content Header */}
         {renderMainContentHeader()}
 
