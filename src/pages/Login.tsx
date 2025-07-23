@@ -29,19 +29,19 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#e8eaf6] to-[#f9f7f3]">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-[#1e3a8a] mb-6 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#e8eaf6] to-[#f9f7f3] p-4">
+      <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-md">
+        <h2 className="text-xl sm:text-2xl font-bold text-[#1e3a8a] mb-6 text-center">
           Sign in to HyperDexa
         </h2>
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-4 sm:space-y-5">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Username
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2 border border-[#e8eaf6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+              className="w-full px-3 sm:px-4 py-2 border border-[#e8eaf6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1e3a8a] text-sm sm:text-base"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
@@ -53,7 +53,7 @@ const Login = () => {
             </label>
             <input
               type="password"
-              className="w-full px-4 py-2 border border-[#e8eaf6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]"
+              className="w-full px-3 sm:px-4 py-2 border border-[#e8eaf6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1e3a8a] text-sm sm:text-base"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
@@ -64,7 +64,7 @@ const Login = () => {
           )}
           <Button
             type="submit"
-            className="w-full bg-[#1e3a8a] text-white rounded-lg py-2 font-semibold text-base shadow-md hover:bg-[#1e3d8f]"
+            className="w-full bg-[#1e3a8a] text-white rounded-lg py-2 font-semibold text-sm sm:text-base shadow-md hover:bg-[#1e3d8f]"
           >
             Login
           </Button>

@@ -115,27 +115,23 @@ const AgentRequests = () => {
     },
   ];
 
-  // Remove all code that references the old request properties and their related logic
-  // Filter requests based on status and search
-  // Count requests by status
-  // getStatusIcon, getStatusColor, getPriorityColor, getTypeIcon functions
-
   return (
     <Layout>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {requests.map((request) => (
           <div
             key={request.id}
-            className="bg-[#fffcf4] rounded-2xl border border-slate-300 hover:shadow-lg transition-shadow flex flex-col justify-between p-6 h-[320px]"
+            className="bg-[#fffcf4] rounded-2xl border border-slate-300 hover:shadow-lg transition-shadow flex flex-col justify-between p-4 sm:p-6 h-auto sm:h-[320px] touch-manipulation"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:gap-4">
               <div className="flex items-center gap-3">
                 <img
-                  className="w-10 h-10 rounded-full object-cover"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover flex-shrink-0"
                   src={request.avatar}
+                  alt={request.name}
                 />
-                <div className="flex flex-col">
-                  <div className="text-blue-950 text-xl font-semibold tracking-tight">
+                <div className="flex flex-col min-w-0 flex-1">
+                  <div className="text-blue-950 text-base sm:text-xl font-semibold tracking-tight truncate">
                     {request.name}
                   </div>
                   <div className="text-neutral-500 text-xs font-normal">
@@ -148,24 +144,24 @@ const AgentRequests = () => {
               </div>
             </div>
 
-            <div className="w-full flex flex-row justify-between items-center">
-              <div className="flex flex-col items-center gap-1.5">
+            <div className="w-full flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-3 sm:gap-0 mt-4">
+              <div className="flex flex-row sm:flex-col items-center sm:items-center gap-1.5 flex-1">
                 <div className="text-neutral-500 text-xs font-normal">
                   Location
                 </div>
-                <div className="text-blue-950 text-sm font-bold">
+                <div className="text-blue-950 text-sm font-bold truncate">
                   {request.location}
                 </div>
               </div>
-              <div className="flex flex-col items-center gap-1.5">
+              <div className="flex flex-row sm:flex-col items-center sm:items-center gap-1.5 flex-1">
                 <div className="text-neutral-500 text-xs font-normal">
                   Requirement
                 </div>
-                <div className="text-blue-950 text-sm font-bold">
+                <div className="text-blue-950 text-sm font-bold truncate">
                   {request.requirement}
                 </div>
               </div>
-              <div className="flex flex-col items-center gap-1.5">
+              <div className="flex flex-row sm:flex-col items-center sm:items-center gap-1.5 flex-1">
                 <div className="text-neutral-500 text-xs font-normal">
                   Price
                 </div>
@@ -175,11 +171,8 @@ const AgentRequests = () => {
               </div>
             </div>
 
-            <div
-              data-property-1="Component 32"
-              className="w-full h-10 px-4 py-2 bg-blue-950/20 rounded-md backdrop-blur-sm flex justify-center items-center gap-2.5"
-            >
-              <div className="text-center text-blue-950 text-lg font-medium leading-snug tracking-tight">
+            <div className="w-full h-10 px-4 py-2 bg-blue-950/20 rounded-md backdrop-blur-sm flex justify-center items-center gap-2.5 mt-4 cursor-pointer hover:bg-blue-950/30 transition-colors touch-manipulation">
+              <div className="text-center text-blue-950 text-base sm:text-lg font-medium leading-snug tracking-tight">
                 Attach Listing
               </div>
             </div>

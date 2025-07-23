@@ -172,30 +172,30 @@ const Leads = () => {
 
       {/* Add Lead Modal */}
       {showFormModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-4">
           <form
-            className="w-[695px] p-6 bg-stone-50/90 rounded-xl backdrop-blur-lg flex flex-col justify-center items-end gap-3.5 relative animate-fade-in"
+            className="w-full max-w-[695px] mx-4 p-4 sm:p-6 bg-stone-50/90 rounded-xl backdrop-blur-lg flex flex-col justify-center items-end gap-3.5 relative animate-fade-in max-h-[90vh] overflow-y-auto"
             onSubmit={handleSubmit}
             style={{ boxShadow: "0 0 41.7px 0 rgba(2,34,104,0.10)" }}
           >
             {/* Header */}
-            <div className="self-stretch flex justify-between items-center">
-              <div className="w-56 flex items-center gap-2">
-                <UserPlus className="w-6 h-6 text-blue-950" />
-                <div className="text-blue-950 text-xl font-medium leading-loose tracking-tight">
+            <div className="self-stretch flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex items-center gap-2">
+                <UserPlus className="w-5 h-5 sm:w-6 sm:h-6 text-blue-950" />
+                <div className="text-blue-950 text-lg sm:text-xl font-medium leading-loose tracking-tight">
                   Add a new lead
                 </div>
               </div>
-              <div className="w-64 flex justify-between items-center gap-2">
+              <div className="w-full sm:w-auto flex flex-col sm:flex-row justify-between items-center gap-2">
                 <button
                   type="submit"
-                  className="w-32 px-6 py-2.5 bg-blue-950 rounded-[51px] shadow outline outline-1 outline-offset-[-1px] outline-blue-950 flex justify-center items-center gap-2 text-stone-50 text-lg font-medium leading-snug tracking-tight hover:bg-blue-900 transition-all"
+                  className="w-full sm:w-32 px-6 py-2.5 bg-blue-950 rounded-[51px] shadow outline outline-1 outline-offset-[-1px] outline-blue-950 flex justify-center items-center gap-2 text-stone-50 text-base sm:text-lg font-medium leading-snug tracking-tight hover:bg-blue-900 transition-all"
                 >
                   Save
                 </button>
                 <button
                   type="button"
-                  className="w-32 px-6 py-2 rounded-[51px] flex justify-center items-center gap-2 text-neutral-700 text-xl font-semibold leading-snug tracking-tight hover:bg-neutral-200 transition-all"
+                  className="w-full sm:w-32 px-6 py-2 rounded-[51px] flex justify-center items-center gap-2 text-neutral-700 text-lg sm:text-xl font-semibold leading-snug tracking-tight hover:bg-neutral-200 transition-all"
                   onClick={handleCloseForm}
                 >
                   Cancel
@@ -203,10 +203,10 @@ const Leads = () => {
               </div>
             </div>
             {/* Lead Name */}
-            <div className="self-stretch pr-52 py-2 border-b border-blue-950 flex items-center gap-2">
-              <UserPlus className="w-5 h-5 text-blue-950/40" />
+            <div className="self-stretch sm:pr-52 py-2 border-b border-blue-950 flex items-center gap-2">
+              <UserPlus className="w-4 h-4 sm:w-5 sm:h-5 text-blue-950/40" />
               <input
-                className="w-full bg-transparent outline-none text-blue-950/80 text-base font-normal placeholder:text-blue-950/40"
+                className="w-full bg-transparent outline-none text-blue-950/80 text-sm sm:text-base font-normal placeholder:text-blue-950/40"
                 placeholder="Lead Name"
                 name="name"
                 value={form.name}
@@ -215,11 +215,11 @@ const Leads = () => {
               />
             </div>
             {/* Email & Mobile */}
-            <div className="self-stretch flex justify-start items-center gap-12">
-              <div className="flex-1 py-2 border-b border-blue-950 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-blue-950/40" />
+            <div className="self-stretch flex flex-col sm:flex-row justify-start items-center gap-4 sm:gap-12">
+              <div className="w-full flex-1 py-2 border-b border-blue-950 flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-blue-950/40" />
                 <input
-                  className="w-full bg-transparent outline-none text-blue-950/80 text-base font-normal placeholder:text-blue-950/40"
+                  className="w-full bg-transparent outline-none text-blue-950/80 text-sm sm:text-base font-normal placeholder:text-blue-950/40"
                   placeholder="E-mail"
                   name="email"
                   type="email"
@@ -228,10 +228,10 @@ const Leads = () => {
                   required
                 />
               </div>
-              <div className="flex-1 py-2 border-b border-blue-950 flex items-center gap-2">
-                <PhoneIcon className="w-5 h-5 text-blue-950/40" />
+              <div className="w-full flex-1 py-2 border-b border-blue-950 flex items-center gap-2">
+                <PhoneIcon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-950/40" />
                 <input
-                  className="w-full bg-transparent outline-none text-blue-950/80 text-base font-normal placeholder:text-blue-950/40"
+                  className="w-full bg-transparent outline-none text-blue-950/80 text-sm sm:text-base font-normal placeholder:text-blue-950/40"
                   placeholder="Mobile Number"
                   name="mobile"
                   value={form.mobile}
@@ -241,9 +241,9 @@ const Leads = () => {
               </div>
             </div>
             {/* Requirement */}
-            <div className="self-stretch pr-52 py-3 border-b border-blue-950 flex items-center gap-2">
+            <div className="self-stretch sm:pr-52 py-3 border-b border-blue-950 flex items-center gap-2">
               <input
-                className="w-full bg-transparent outline-none text-blue-950/80 text-base font-normal placeholder:text-blue-950/40"
+                className="w-full bg-transparent outline-none text-blue-950/80 text-sm sm:text-base font-normal placeholder:text-blue-950/40"
                 placeholder="Requirement"
                 name="requirement"
                 value={form.requirement}
@@ -252,14 +252,14 @@ const Leads = () => {
               />
             </div>
             {/* Property Type */}
-            <div className="self-stretch py-2 flex flex-col items-start gap-6">
-              <div className="text-blue-950 text-lg font-normal leading-loose tracking-tight">
+            <div className="self-stretch py-2 flex flex-col items-start gap-4 sm:gap-6">
+              <div className="text-blue-950 text-base sm:text-lg font-normal leading-loose tracking-tight">
                 Select Property Type
               </div>
-              <div className="flex gap-8">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-full">
                 <button
                   type="button"
-                  className={`w-44 px-6 py-2.5 rounded-xl flex justify-center items-center gap-2 text-xl font-medium leading-snug tracking-tight transition-all ${
+                  className={`w-full sm:w-44 px-6 py-2.5 rounded-xl flex justify-center items-center gap-2 text-lg sm:text-xl font-medium leading-snug tracking-tight transition-all ${
                     form.propertyType === "Apartment"
                       ? "bg-blue-950 text-stone-50"
                       : "bg-blue-950/40 text-stone-50/80"
@@ -270,7 +270,7 @@ const Leads = () => {
                 </button>
                 <button
                   type="button"
-                  className={`w-44 px-6 py-2.5 rounded-xl flex justify-center items-center gap-2 text-xl font-medium leading-snug tracking-tight transition-all ${
+                  className={`w-full sm:w-44 px-6 py-2.5 rounded-xl flex justify-center items-center gap-2 text-lg sm:text-xl font-medium leading-snug tracking-tight transition-all ${
                     form.propertyType === "Villa"
                       ? "bg-blue-950 text-stone-50"
                       : "bg-blue-950/40 text-stone-50/80"
@@ -287,18 +287,18 @@ const Leads = () => {
 
       {/* Confirmation Modal */}
       {showConfirmation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-          <div className="w-64 h-36 pt-3.5 bg-stone-50/60 rounded-2xl backdrop-blur-xl flex flex-col justify-between items-center animate-fade-in">
-            <div className="w-10 h-10 flex items-center justify-center">
-              <CheckCircleIcon className="w-8 h-8 text-blue-950" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-4">
+          <div className="w-full max-w-64 mx-4 h-auto min-h-36 pt-3.5 bg-stone-50/60 rounded-2xl backdrop-blur-xl flex flex-col justify-between items-center animate-fade-in">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
+              <CheckCircleIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-950" />
             </div>
             <div className="py-4 flex flex-col items-center">
-              <div className="text-center text-blue-950 text-base font-bold leading-snug">
+              <div className="text-center text-blue-950 text-sm sm:text-base font-bold leading-snug">
                 New Lead Added
               </div>
             </div>
             <button
-              className="self-stretch p-2.5 border-t border-slate-300 flex justify-center items-center text-blue-950 text-lg font-medium leading-snug tracking-tight hover:bg-blue-100 transition-all rounded-b-2xl"
+              className="self-stretch p-2.5 border-t border-slate-300 flex justify-center items-center text-blue-950 text-base sm:text-lg font-medium leading-snug tracking-tight hover:bg-blue-100 transition-all rounded-b-2xl"
               onClick={handleDone}
             >
               Done
