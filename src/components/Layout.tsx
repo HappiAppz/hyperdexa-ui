@@ -455,7 +455,7 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
         {/* Main Content Header */}
         {renderMainContentHeader()}
 
-        {/* Main Content */}
+        Main Content
         {isDashboard ? (
           <div className="flex-1 pb-6 sm:pb-10">{children}</div>
         ) : (
@@ -466,14 +466,6 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
               style={{ width: "calc(100% + 20px)" }}
             >
               <div className="pr-[20px] pb-6 sm:pb-10">{children}</div>
-            </div>
-            {/* Custom Scrollbar Overlay - Hidden on mobile */}
-            <div className="pointer-events-none absolute top-0 right-0 h-full w-2.5 hidden lg:block">
-              <div className="w-full h-full bg-slate-300 rounded-[60px]" />
-              <div
-                ref={thumbRef}
-                className="w-full h-11 bg-blue-950 rounded-[60px] absolute top-0"
-              />
             </div>
           </div>
         )}

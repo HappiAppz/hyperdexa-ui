@@ -107,7 +107,7 @@ const Profile = () => {
                   {/* Email */}
                   <a
                     href={`mailto:${profileData.email}`}
-                    className="flex items-center gap-2 text-sm"
+                    className="flex items-center gap-2"
                   >
                     <span className="bg-white p-1 rounded-full"><Mail className="w-3 h-3 text-[#012267] " /></span>
                     <span className="break-all">{profileData.email}</span>
