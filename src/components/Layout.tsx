@@ -35,9 +35,10 @@ import savedInactiveUrl from "@/assets/icons/saved_inactive.svg?url";
 interface LayoutProps {
   children: ReactNode;
   onAddLeadClick?: () => void;
+  onAddPropertyClick?: () => void;
 }
 
-const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
+const Layout = ({ children, onAddLeadClick, onAddPropertyClick }: LayoutProps) => {
   const location = useLocation();
   const isDashboard = location.pathname === "/dashboard";
   const isMobile = useIsMobile();
@@ -238,7 +239,11 @@ const Layout = ({ children, onAddLeadClick }: LayoutProps) => {
               className="pl-8 sm:pl-11 pr-3 sm:pr-4 py-2 sm:py-3 rounded-full bg-white border-2 border-[#e8eaf6] w-full focus:border-[#1e3a8a] text-sm"
             />
           </div>
-          <button className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a] transition-transform hover:scale-110">
+          <button 
+            className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-[#e8eaf6] flex items-center justify-center hover:border-[#1e3a8a] transition-transform hover:scale-110"
+            onClick={onAddPropertyClick}
+            type="button"
+          >
             <Plus className="w-4 h-4 sm:w-6 sm:h-6 text-[#1e3a8a]" />
           </button>
         </div>
