@@ -1,9 +1,62 @@
+import { useState, useEffect } from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { Plus, ArrowUpRight } from "lucide-react";
+import { Plus, ArrowUpRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import Layout from "@/components/Layout";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
+  const [totalLeads, setTotalLeads] = useState<number | null>(null);
+  const [totalProperties, setTotalProperties] = useState<number | null>(null);
+  const [loadingLeads, setLoadingLeads] = useState(true);
+  const [loadingProperties, setLoadingProperties] = useState(true);
+
+  useEffect(() => {
+    const fetchLeads = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/api/leads", {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        const result = await response.json();
+
+        if (result.success && result.data) {
+          setTotalLeads(result.data.length);
+        } else {
+          setTotalLeads(0);
+        }
+      } catch (error) {
+        console.error("Error fetching leads:", error);
+        setTotalLeads(0);
+      } finally {
+        setLoadingLeads(false);
+      }
+    };
+
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/api/properties");
+        const result = await response.json();
+
+        if (result.success && result.data) {
+          setTotalProperties(result.data.length);
+        } else {
+          setTotalProperties(0);
+        }
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+        setTotalProperties(0);
+      } finally {
+        setLoadingProperties(false);
+      }
+    };
+
+    fetchLeads();
+    fetchProperties();
+  }, []);
+
   const appointments = [
     {
       title: "Call Zack regarding Highland Park property",
@@ -158,55 +211,89 @@ const Dashboard = () => {
           </div>
           {/* Action Buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 sm:mt-8">
-            <div className="rounded-xl border-2 border-[#e8eaf6] text-center py-4 sm:py-6 cursor-pointer hover:border-[#1e3a8a] hover:shadow-lg transition-all flex flex-col items-center">
-              <div className="text-2xl sm:text-3xl mb-2 text-[#012267]">
-                465+
+            <Link to="/leads">
+              <div className="rounded-xl border-2 border-[#e8eaf6] text-center py-4 sm:py-6 cursor-pointer hover:border-[#1e3a8a] hover:shadow-lg transition-all flex flex-col items-center">
+                {loadingLeads ? (
+                  <Skeleton className="h-8 w-16 mb-2" />
+                ) : (
+                  <div className="text-2xl sm:text-3xl mb-2 text-[#012267]">
+                    {totalLeads}+
+                  </div>
+                )}
+                <div className="text-sm sm:text-base font-medium text-[#012267]">
+                  Add new lead
+                </div>
               </div>
-              <div className="text-sm sm:text-base font-medium text-[#012267]">
-                Add new lead
+            </Link>
+            <Link to="/properties">
+              <div className="rounded-xl border-2 border-[#e8eaf6] text-center py-4 sm:py-6 cursor-pointer hover:border-[#012267] hover:shadow-lg transition-all flex flex-col items-center">
+                {loadingProperties ? (
+                  <Skeleton className="h-8 w-16 mb-2" />
+                ) : (
+                  <div className="text-2xl sm:text-3xl mb-2 text-[#012267]">
+                    {totalProperties}+
+                  </div>
+                )}
+                <div className="text-sm sm:text-base font-medium text-[#012267]">
+                  Add new property
+                </div>
               </div>
-            </div>
-            <div className="rounded-xl border-2 border-[#e8eaf6] text-center py-4 sm:py-6 cursor-pointer hover:border-[#012267] hover:shadow-lg transition-all flex flex-col items-center">
-              <div className="text-2xl sm:text-3xl mb-2 text-[#012267]">
-                360+
-              </div>
-              <div className="text-sm sm:text-base font-medium text-[#012267]">
-                Add new property
-              </div>
-            </div>
+            </Link>
           </div>
         </div>
 
         {/* Stats Section */}
         <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8">
-          <div className="rounded-2xl bg-white shadow-xl p-5 sm:p-7 flex flex-col justify-between h-full">
-            <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <span className="text-[#012267] text-base sm:text-lg font-semibold">
-                Total Leads
-              </span>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#012267] rounded-full flex items-center justify-center text-xl">
-                <ArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+          <Link to="/leads" className="h-full">
+            <div className="rounded-2xl bg-white shadow-xl p-5 sm:p-7 flex flex-col justify-between h-full hover:shadow-2xl transition-shadow">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <span className="text-[#012267] text-base sm:text-lg font-semibold">
+                  Total Leads
+                </span>
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#012267] rounded-full flex items-center justify-center text-xl">
+                  <ArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                </div>
+              </div>
+              {loadingLeads ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-6 h-6 animate-spin text-[#1e3a8a]" />
+                  <Skeleton className="h-12 w-24" />
+                </div>
+              ) : (
+                <div className="text-3xl sm:text-[48px] font-bold text-[#1e3a8a] leading-none mb-2 animate-fade-in">
+                  {totalLeads}
+                </div>
+              )}
+              <div className="text-xs text-gray-400 font-medium">
+                {loadingLeads ? "Loading..." : "Click to view all leads"}
               </div>
             </div>
-            <div className="text-3xl sm:text-[48px] font-bold text-[#1e3a8a] leading-none mb-2">
-              125
-            </div>
-            <div className="text-xs text-gray-400 font-medium">2 new added</div>
-          </div>
-          <div className="rounded-2xl bg-white shadow-xl p-5 sm:p-7 flex flex-col justify-between h-full">
-            <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <span className="text-[#012267] text-base sm:text-lg font-semibold">
-                Total Properties
-              </span>
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#012267] rounded-full flex items-center justify-center text-xl">
-                <ArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+          </Link>
+          <Link to="/properties" className="h-full">
+            <div className="rounded-2xl bg-white shadow-xl p-5 sm:p-7 flex flex-col justify-between h-full hover:shadow-2xl transition-shadow">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <span className="text-[#012267] text-base sm:text-lg font-semibold">
+                  Total Properties
+                </span>
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#012267] rounded-full flex items-center justify-center text-xl">
+                  <ArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                </div>
+              </div>
+              {loadingProperties ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-6 h-6 animate-spin text-[#1e3a8a]" />
+                  <Skeleton className="h-12 w-24" />
+                </div>
+              ) : (
+                <div className="text-3xl sm:text-[48px] font-bold text-[#1e3a8a] leading-none mb-2 animate-fade-in">
+                  {totalProperties}
+                </div>
+              )}
+              <div className="text-xs text-gray-400 font-medium">
+                {loadingProperties ? "Loading..." : "Click to view all properties"}
               </div>
             </div>
-            <div className="text-3xl sm:text-[48px] font-bold text-[#1e3a8a] leading-none mb-2">
-              40
-            </div>
-            <div className="text-xs text-gray-400 font-medium">2 new added</div>
-          </div>
+          </Link>
         </div>
       </div>
     </Layout>
