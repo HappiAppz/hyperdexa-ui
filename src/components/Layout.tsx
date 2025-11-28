@@ -197,9 +197,6 @@ const Layout = ({ children, onAddLeadClick, onAddPropertyClick }: LayoutProps) =
         </div>
       );
     } else if (leadMatch) {
-      const leadName = decodeURIComponent(leadMatch[1])
-        .replace(/-/g, " ")
-        .replace(/\b\w/g, (l) => l.toUpperCase());
       title = (
         <span className="flex items-center gap-1 sm:gap-2 text-base sm:text-2xl md:text-3xl">
           <Link
@@ -213,7 +210,7 @@ const Layout = ({ children, onAddLeadClick, onAddPropertyClick }: LayoutProps) =
             →
           </span>
           <span className="font-semibold text-[#1e3a8a] truncate text-sm sm:text-xl">
-            {leadName}
+            Lead Details
           </span>
         </span>
       );
@@ -249,9 +246,6 @@ const Layout = ({ children, onAddLeadClick, onAddPropertyClick }: LayoutProps) =
         </div>
       );
     } else if (propertyMatch) {
-      const propertyName = decodeURIComponent(propertyMatch[1])
-        .replace(/-/g, " ")
-        .replace(/\b\w/g, (l) => l.toUpperCase());
       title = (
         <span className="flex items-center gap-1 sm:gap-2 text-base sm:text-2xl md:text-3xl">
           <Link
@@ -265,7 +259,7 @@ const Layout = ({ children, onAddLeadClick, onAddPropertyClick }: LayoutProps) =
             →
           </span>
           <span className="font-semibold text-[#1e3a8a] truncate text-sm sm:text-xl">
-            {propertyName}
+            Property Details
           </span>
         </span>
       );
