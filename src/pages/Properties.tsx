@@ -16,7 +16,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -47,6 +47,7 @@ interface Property {
 }
 
 const Properties = () => {
+  const location = useLocation();
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [showFormModal, setShowFormModal] = useState(false);
@@ -73,6 +74,16 @@ const Properties = () => {
   useEffect(() => {
     fetchProperties();
   }, []);
+
+  // Auto-open modal when navigating with openAddModal state
+  useEffect(() => {
+    const state = location.state as { openAddModal?: boolean } | null;
+    if (state?.openAddModal) {
+      setShowFormModal(true);
+      // Clear the state to prevent re-opening on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const handleOpenForm = () => setShowFormModal(true);
   const handleCloseForm = () => {

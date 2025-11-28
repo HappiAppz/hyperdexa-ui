@@ -6,6 +6,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
 
+// Import icons
+import addLeadIcon from "@/assets/icons/add_lead.png";
+import addPropertyIcon from "@/assets/icons/add_property.png";
+
 const Dashboard = () => {
   const [totalLeads, setTotalLeads] = useState<number | null>(null);
   const [totalProperties, setTotalProperties] = useState<number | null>(null);
@@ -211,29 +215,25 @@ const Dashboard = () => {
           </div>
           {/* Action Buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 sm:mt-8">
-            <Link to="/leads">
+            <Link to="/leads" state={{ openAddModal: true }}>
               <div className="rounded-xl border-2 border-[#e8eaf6] text-center py-4 sm:py-6 cursor-pointer hover:border-[#1e3a8a] hover:shadow-lg transition-all flex flex-col items-center">
-                {loadingLeads ? (
-                  <Skeleton className="h-8 w-16 mb-2" />
-                ) : (
-                  <div className="text-2xl sm:text-3xl mb-2 text-[#012267]">
-                    {totalLeads}+
-                  </div>
-                )}
+                <img 
+                  src={addLeadIcon} 
+                  alt="Add Lead" 
+                  className="w-8 h-8 sm:w-10 sm:h-10 mb-2"
+                />
                 <div className="text-sm sm:text-base font-medium text-[#012267]">
                   Add new lead
                 </div>
               </div>
             </Link>
-            <Link to="/properties">
+            <Link to="/properties" state={{ openAddModal: true }}>
               <div className="rounded-xl border-2 border-[#e8eaf6] text-center py-4 sm:py-6 cursor-pointer hover:border-[#012267] hover:shadow-lg transition-all flex flex-col items-center">
-                {loadingProperties ? (
-                  <Skeleton className="h-8 w-16 mb-2" />
-                ) : (
-                  <div className="text-2xl sm:text-3xl mb-2 text-[#012267]">
-                    {totalProperties}+
-                  </div>
-                )}
+                <img 
+                  src={addPropertyIcon} 
+                  alt="Add Property" 
+                  className="w-8 h-8 sm:w-10 sm:h-10 mb-2"
+                />
                 <div className="text-sm sm:text-base font-medium text-[#012267]">
                   Add new property
                 </div>
