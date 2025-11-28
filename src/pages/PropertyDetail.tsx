@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Calendar,
   MessageSquare,
@@ -18,13 +18,21 @@ import {
   Dumbbell,
   Waves,
   Loader2,
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+  DollarSign,
+  Building,
+  TrendingUp,
+  Mail,
+  Phone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -89,10 +97,46 @@ interface PropertyData {
   updatedAt: string;
 }
 
+interface MatchedLead {
+  id: number;
+  leadName: string;
+  requirement: string;
+  description: string;
+  location: string;
+  price: {
+    min: number;
+    max: number;
+  };
+  propertyType: string;
+  email: string;
+  mobileNo: string;
+  source: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface MatchMetrics {
+  overallScore: number;
+  priceScore: number;
+  propertyTypeScore: number;
+  locationScore: number;
+  matchReason: string;
+  matchQuality: "EXCELLENT" | "GOOD" | "FAIR" | "POOR";
+}
+
+interface LeadMatch {
+  lead: MatchedLead;
+  matchMetrics: MatchMetrics;
+}
+
 const PropertyDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [property, setProperty] = useState<PropertyData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [matchedLeads, setMatchedLeads] = useState<LeadMatch[]>([]);
+  const [matchedLoading, setMatchedLoading] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -118,6 +162,80 @@ const PropertyDetail = () => {
       fetchProperty();
     }
   }, [id]);
+
+  // Fetch matched leads using internal property ID
+  useEffect(() => {
+    const fetchMatchedLeads = async () => {
+      if (!property?.id) return;
+      
+      try {
+        setMatchedLoading(true);
+        const response = await fetch(
+          `http://localhost:8081/api/match/matchForProperty/${property.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        );
+        const result = await response.json();
+
+        if (result.success && result.data) {
+          setMatchedLeads(result.data);
+        }
+      } catch (error) {
+        console.error("Error fetching matched leads:", error);
+      } finally {
+        setMatchedLoading(false);
+      }
+    };
+
+    fetchMatchedLeads();
+  }, [property?.id]);
+
+  const scrollCarousel = (direction: "left" | "right") => {
+    if (carouselRef.current) {
+      const scrollAmount = 320;
+      carouselRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const getMatchQualityColor = (quality: string) => {
+    switch (quality) {
+      case "EXCELLENT":
+        return "bg-emerald-500 text-white";
+      case "GOOD":
+        return "bg-blue-500 text-white";
+      case "FAIR":
+        return "bg-amber-500 text-white";
+      case "POOR":
+        return "bg-red-400 text-white";
+      default:
+        return "bg-gray-500 text-white";
+    }
+  };
+
+  const formatLeadPrice = (price: { min: number; max: number }) => {
+    const formatNum = (num: number) => {
+      if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
+      if (num >= 1000) return `${(num / 1000).toFixed(0)}K`;
+      return num.toString();
+    };
+    return `AED ${formatNum(price.min)} - ${formatNum(price.max)}`;
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
 
   if (loading) {
     return (
@@ -401,45 +519,165 @@ const PropertyDetail = () => {
         </div>
       </div>
 
-      {/* Matched For Section */}
+      {/* Matched For Section - Scrollable Carousel */}
       <div className="mt-8 sm:mt-12">
-        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
-          Matched for
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map((_, idx) => (
-            <Card
-              key={idx}
-              className="rounded-2xl border border-gray-200 shadow-md p-4 flex flex-col gap-3"
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <Avatar className="w-8 h-8 sm:w-10 sm:h-10">
-                  <AvatarImage src="/placeholder.svg" />
-                  <AvatarFallback>JG</AvatarFallback>
-                </Avatar>
-                <div className="font-semibold text-gray-900 text-sm sm:text-base">
-                  Josephine Gordon
-                </div>
-              </div>
-              <div className="text-sm text-gray-700 mb-2">
-                2 Bedroom apartment with a balcony and attached bathrooms
-              </div>
-              <div className="flex flex-wrap gap-2 text-xs text-gray-500">
-                <div>
-                  <span className="font-medium text-gray-900">Location</span>{" "}
-                  Reem Island
-                </div>
-                <div>
-                  <span className="font-medium text-gray-900">Requirement</span>{" "}
-                  2 bedroom
-                </div>
-                <div>
-                  <span className="font-medium text-gray-900">Price</span> 1M-2M
-                </div>
-              </div>
-            </Card>
-          ))}
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+            Matched Leads
+            {matchedLeads.length > 0 && (
+              <span className="ml-2 text-sm font-normal text-gray-500">
+                ({matchedLeads.length} found)
+              </span>
+            )}
+          </h2>
+          {matchedLeads.length > 4 && (
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 rounded-full border-blue-900"
+                onClick={() => scrollCarousel("left")}
+              >
+                <ChevronLeft className="h-4 w-4 text-blue-900" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 rounded-full border-blue-900"
+                onClick={() => scrollCarousel("right")}
+              >
+                <ChevronRight className="h-4 w-4 text-blue-900" />
+              </Button>
+            </div>
+          )}
         </div>
+
+        {matchedLoading ? (
+          <div className="flex gap-4 overflow-hidden">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="min-w-[280px]">
+                <Skeleton className="h-48 w-full rounded-xl" />
+              </div>
+            ))}
+          </div>
+        ) : matchedLeads.length === 0 ? (
+          <div className="text-center py-8 text-gray-500 bg-gray-50 rounded-xl">
+            <UserPlus className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+            <p>No matching leads found for this property</p>
+          </div>
+        ) : (
+          <div
+            ref={carouselRef}
+            className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent snap-x snap-mandatory"
+            style={{ scrollbarWidth: "thin" }}
+          >
+            {matchedLeads.map((match) => (
+              <div
+                key={match.lead.id}
+                onClick={() => navigate(`/lead/${match.lead.id}`)}
+                className="min-w-[300px] max-w-[300px] cursor-pointer snap-start"
+              >
+                <Card className="rounded-2xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02] h-full">
+                  <CardContent className="p-4 flex flex-col gap-3">
+                    {/* Header with Avatar and Match Score */}
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="w-10 h-10 bg-gradient-to-br from-[#667eea] to-[#764ba2]">
+                          <AvatarFallback className="text-white font-semibold text-sm">
+                            {getInitials(match.lead.leadName)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-semibold text-gray-900 text-sm">
+                            {match.lead.leadName}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {match.lead.source}
+                          </div>
+                        </div>
+                      </div>
+                      <Badge
+                        className={`${getMatchQualityColor(
+                          match.matchMetrics.matchQuality
+                        )} text-xs font-medium`}
+                      >
+                        {match.matchMetrics.overallScore}%
+                      </Badge>
+                    </div>
+
+                    {/* Requirement */}
+                    <div className="text-sm text-gray-700 line-clamp-2">
+                      {match.lead.description || match.lead.requirement}
+                    </div>
+
+                    {/* Lead Details */}
+                    <div className="grid grid-cols-1 gap-2">
+                      <div className="flex items-center gap-2 text-xs text-gray-600">
+                        <MapPin className="w-3.5 h-3.5 text-blue-900 flex-shrink-0" />
+                        <span className="truncate">{match.lead.location}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-gray-600">
+                        <Building className="w-3.5 h-3.5 text-blue-900 flex-shrink-0" />
+                        <span>{match.lead.propertyType}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-gray-600">
+                        <DollarSign className="w-3.5 h-3.5 text-blue-900 flex-shrink-0" />
+                        <span>{formatLeadPrice(match.lead.price)}</span>
+                      </div>
+                    </div>
+
+                    {/* Match Reason */}
+                    <div className="bg-blue-50 rounded-lg p-2">
+                      <div className="flex items-start gap-1.5">
+                        <TrendingUp className="w-3 h-3 text-blue-600 mt-0.5 flex-shrink-0" />
+                        <p className="text-xs text-blue-700 line-clamp-2">
+                          {match.matchMetrics.matchReason}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Contact Actions */}
+                    <div className="flex gap-2 mt-auto">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 text-blue-900 border-blue-900 hover:bg-blue-50"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.location.href = `mailto:${match.lead.email}`;
+                        }}
+                      >
+                        <Mail className="w-3.5 h-3.5 mr-1" />
+                        Email
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 text-blue-900 border-blue-900 hover:bg-blue-50"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.location.href = `tel:${match.lead.mobileNo}`;
+                        }}
+                      >
+                        <Phone className="w-3.5 h-3.5 mr-1" />
+                        Call
+                      </Button>
+                    </div>
+
+                    {/* View Profile Button */}
+                    <Button
+                      className="w-full bg-blue-900 text-white hover:bg-blue-800"
+                      size="sm"
+                    >
+                      <ArrowRight className="w-3.5 h-3.5 mr-1" />
+                      View Profile
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </Layout>
   );
