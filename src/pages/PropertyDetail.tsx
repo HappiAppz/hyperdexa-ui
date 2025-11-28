@@ -57,7 +57,7 @@ interface PropertyData {
   amenities: Array<{
     type: string;
     items: string[];
-  }>;
+  }> | null;
   hasBalcony: boolean;
   hasParkingSpace: boolean;
   hasGym: boolean;
@@ -166,7 +166,7 @@ const PropertyDetail = () => {
     return iconMap[name] || Grid;
   };
 
-  const topAmenities = property.amenities
+  const topAmenities = (property.amenities || [])
     .flatMap((category) => category.items)
     .slice(0, 3)
     .map((name) => ({
@@ -174,7 +174,7 @@ const PropertyDetail = () => {
       icon: getAmenityIcon(name),
     }));
 
-  const totalAmenities = property.amenities.reduce(
+  const totalAmenities = (property.amenities || []).reduce(
     (total, category) => total + category.items.length,
     0
   );
